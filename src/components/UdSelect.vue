@@ -11,7 +11,7 @@
         {{ combine ? option.value : option.label }}
       </option>
     </select>
-    <img src="@/assets/images/icon_02.png">
+    <!-- <img src="@/assets/images/icon_02.png"> -->
   </div>
 </template>
 

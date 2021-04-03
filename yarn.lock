@@ -8315,7 +8315,7 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-vue-cli-plugin-pug@^2.0.0:
+vue-cli-plugin-pug@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/vue-cli-plugin-pug/-/vue-cli-plugin-pug-2.0.0.tgz#07e0747aaa0288e6de1e95fce2c98897934871cd"
   integrity sha512-Nnl5pkHqNDMkPTvOX4iidFSUs0sn2A5JGsQBVZ70Wm2aXqbK/B3jvEFOWok5/y9U/aWeZLU05PwYVYc7nTUK2Q==

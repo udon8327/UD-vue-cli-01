@@ -1,83 +1,117 @@
-import axios from "axios";
+/**
+ * udAxios 額外config值
+ * @param {Boolean} noAlert 關閉alert效果
+ * @param {Boolean} noLoading 關閉loading效果
+ * @param {Boolean} fullRes 成功時回傳完整res
+ * @param {Object} alert 客製化alert效果
+ * @param {Object} loading 客製化loading效果
+ */
 
-const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = baseURL + request url
-  timeout: 5000,
-  // Content-Type值: application/x-www-form-urlencoded, multipart/form-data, application/json, text/xml
-  headers: { "Content-Type": "application/x-www-form-urlencoded" }
-  // withCredentials: true, // 表示跨域請求時是否需要使用憑證 send cookies when cross-domain requests
-});
+import axios from 'Axios'
+import { udLoading, udAlert } from '@/utils/ud-components.js'
 
-service.interceptors.request.use(
+// 自定義axios實例預設值
+const udAxios = axios.create({
+  baseURL: "https://udon8327.synology.me/ajax",
+  timeout: 10000, // 請求超時時間
+  // headers: {},
+  // auth: {}, // 設置Authorization頭
+  // withCredentials: true, // 允許攜帶cookie
+  // responseType: "json", // 指定回傳格式
+})
+
+// 計算ajax數量
+let ajaxCount = 0;
+
+// 請求攔截器
+udAxios.interceptors.request.use(
   config => {
-    //發請求前做的一些處理，數據轉化，配置請求頭，設置token，設置loading等
-    config.data = JSON.stringify(config.data);
+    if(udLoading && !config.noLoading){
+      if(ajaxCount === 0) udLoading.open(config.loading);
+      ajaxCount++;
+    }
+    // config.data = JSON.stringify(config.data);
     return config;
   },
   error => {
-    console.log(error);
-    Promise.reject(error);
+    udAlert ? udAlert({title: error.message, msg: "請求發送失敗，請稍候再試"}) : alert("請求發送失敗，請稍候再試");
   }
-);
+)
 
 // 回應攔截器
-service.interceptors.response.use(
+udAxios.interceptors.response.use(
+  // 狀態碼 2xx: 回應成功
   response => {
-    console.log(response.data);
-    return response.data;
+    if(udLoading && !response.config.noLoading){
+      ajaxCount--;
+      if(ajaxCount === 0) udLoading.close();
+    }
+    return Promise.resolve(response.config.fullRes ? response : response.data);
   },
+  // 狀態碼 3xx: 重新導向, 4xx: 用戶端錯誤, 5xx: 伺服器錯誤
   error => {
-    if (error && error.response) {
+    if(udLoading && !error.config.noLoading) {
+      ajaxCount--;
+      if(ajaxCount === 0) udLoading.close();
+    }
+
+    let errorMsg = "";
+    // 請求已發出，有收到錯誤回應
+    if(error.response) {
       switch (error.response.status) {
         case 400:
-          error.message = "錯誤請求";
+          errorMsg = "錯誤的請求，請稍候再試";
           break;
         case 401:
-          error.message = "未授權，請重新登錄";
+          errorMsg = "拒絕存取，請稍候再試";
           break;
         case 403:
-          error.message = "拒絕訪問";
+          errorMsg = "禁止使用，請稍候再試";
           break;
         case 404:
-          error.message = "請求錯誤，未找到該資源";
-          window.location.href = "/NotFound";
-          break;
-        case 405:
-          error.message = "請求方法未允許";
-          break;
-        case 408:
-          error.message = "請求超時";
+          errorMsg = "找不到該頁面，請稍候再試";
           break;
         case 500:
-          error.message = "伺服器端出錯";
-          break;
-        case 501:
-          error.message = "網路未實現";
-          break;
-        case 502:
-          error.message = "網路錯誤";
+          errorMsg = "伺服器出錯，請稍候再試";
           break;
         case 503:
-          error.message = "服務不可用";
+          errorMsg = "服務失效，請稍候再試";
           break;
-        case 504:
-          error.message = "網路超時";
-          break;
-        case 505:
-          error.message = "http版本不支持該請求";
-          break;
-        default:
-          error.message = `連接錯誤${error.response.status}`;
-      }
-    } else {
-      if (JSON.stringify(error).includes("timeout")) {
-        error.message = "伺服器回應超時，請刷新當前面頁";
-      }
-      error.message = "連接伺服器失敗";
+          default:
+            errorMsg = "發生錯誤，請稍候再試";
+        }
+        // 自定義錯誤訊息
+        if(error.response.data) errorMsg = error.response.data.message || "發生錯誤，請稍候再試";
+
+    // 請求已發出，但没有收到回應
+    }else if(error.request) {
+      errorMsg = "伺服器沒有回應，請稍候再試";
+
+    // 請求被取消或發送請求時異常
+    }else {
+      errorMsg = "請求被取消或發送請求時異常，請稍候再試";
     }
-    alert(error.message);
-    return Promise.resolve(error.response);
+
+    return new Promise((resolve, reject) => {
+      if(error.config.noAlert){
+        reject(error);
+        return;
+      }
+      if(udAlert) {
+        let alertConfig = {
+          title: error.message,
+          msg: errorMsg,
+          confirm: () => reject(error)
+        }
+        Object.assign(alertConfig, error.config.alert);
+        udAlert(alertConfig);
+      }else {
+        alert(errorMsg);
+        reject(error);
+      }
+    })
+
   }
 );
 
-export default service;
+export { udAxios }
