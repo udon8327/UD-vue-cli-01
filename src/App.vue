@@ -1,24 +1,18 @@
 <template lang="pug">
 #app
   .container
+    header
+      block header
+      img(src="@/assets/images/logo.png")
     .wrapper
       #nav
         router-link(to='/') Home
         |  | 
         router-link(to='/about') About
-      router-view
+      #view
+        router-view
+      #footer footer
 </template>
 
 <style lang="sass">
-#app
-  text-align: center
-  color: #2c3e50
-
-#nav
-  padding: 30px
-  a
-    font-weight: bold
-    color: #2c3e50
-    &.router-link-exact-active
-      color: #42b983
 </style>

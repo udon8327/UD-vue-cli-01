@@ -1,43 +1,34 @@
 import axios from 'axios'
 
-function test(val){
-  console.log('this: ', this);
-  this.UdAlert(val);
-}
-
 // 插件匯出
-function plugins(Vue){
+const install = (Vue, options) => {
   Vue.prototype.getRandom = getRandom;
   Vue.prototype.isEmpty = isEmpty;
   Vue.prototype.formatNumber = formatNumber;
   Vue.prototype.queryString = queryString;
-  Vue.prototype.test = test;
 }
 
-export default plugins;
+export { getRandom };
+export default install;
 
 /*
 ==================== 工具函數目錄 ====================
 String
   將字串內換行符\n轉為<br> -----> nl2br
-  取得隨機十六進制顏色 -----> randomHexColorCode
   取得隨機字串 -----> randomString
   金錢加入千分位逗號 -----> formatNumber
   複製文字至剪貼簿 -----> copyTextToClipboard
-  轉義HTML(防XSS攻擊) -----> escapeHTML
-  駝峰式轉換 -----> convertCamelCase
-  將字串內URL轉為超連結 -----> replaceURLToLink
 
 Number
-  取得範圍內隨機數 -----> getRandom
+  取得範圍內隨機整數 -----> getRandom
   四捨五入到指定位數 -----> round
 
 Image
-  預載圖片 -----> imagePreload
-  圖片戴入回調 -----> onImageLoaded
+  預載單張圖片 -----> imageLoaded
+  預載多張圖片 -----> imageAllLoaded
 
 Array
-  陣列是否有重複值 -----> isRepeat
+  陣列是否有重複值(不分型別) -----> isRepeat
   移除陣列中的重複元素 -----> uniqArray
   二維陣列扁平化(第二參數可指定深度) -----> flatArray
   返回陣列中某值的所有索引 -----> indexOfAll
@@ -59,10 +50,7 @@ Time
   檢查是否在某日期後 -----> isAfterDate
   檢查是否在某日期前 -----> isBeforeDate
   返回幾天前後的日期 -----> getDiffDate
-  時間個性化輸出功能 -----> timeFormat
   隨機數時間戳 -----> uniqueId
-  解析時間 -----> parseTime
-  時間人性化 -----> formatTime
   時間格式化 -----> Date.prototype.format
 
 DOM
@@ -75,33 +63,26 @@ Verify
   各式驗證函式 -----> isRegex
   精準數字驗證 -----> isNumber
   未填入驗證 -----> isEmpty
+  身分證驗證 -----> isIdCard
 
 Browser
-  動態加載css文件 -----> loadStyle
   取得LocalStorage的值 -----> getLocalStorage
   設定LocalStorage的值 -----> setLocalStorage
   取得Cookie的值 -----> getCookie
   設置cookie值 -----> setCookie
-  動態載入插件 -----> insertPlugin
   函式防抖 -----> debounce
   函式節流 -----> throttle
 
 Web
   查詢網址所帶參數 -----> queryString
-  HTTP跳轉HTTPS -----> httpsRedirect
-  檢驗URL連接是否有效 -----> getUrlState
+  解析網址 -----> parseUrl
   網址跳轉 -----> toUrl
   跳頁重整 -----> jumpReload
-  Axios封裝 -----> axiosPackage
-  CDN備援 -----> cdnBackup
 
 Device
   判斷是否移動裝置 -----> isMobileUserAgent
   判斷是否蘋果移動裝置 -----> isAppleMobileDevice
   判斷是否安卓移動裝置 -----> isAndroidMobileDevice
-
-Animation
-  RAF通用動畫函式 -----> animate
 */
 
 //-----------------------String-----------------------
@@ -110,7 +91,7 @@ Animation
  * @param  {String} val 傳入值
  * @param  {Boolean} is_xhtml 是否為xhtml
  */
-function nl2br(val, is_xhtml) {
+function nl2br(val, is_xhtml = false) {
   if (typeof val === 'undefined' || val === null) {
       return '';
   }
@@ -119,18 +100,10 @@ function nl2br(val, is_xhtml) {
 }
 
 /**
- * 取得隨機十六進制顏色碼
- */
-function randomHexColorCode(){
-  let temp = (Math.random() * 0xfffff * 1000000).toString(16);
-  return '#' + temp.slice(0, 6);
-};
-
-/**
  * 取得隨機字串
  * @param  {Number} length 指定字串長度
  */
-function randomString(length) {
+function randomString(length = 10) {
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
   let temp = "";
   for (let i = 0; i < length; i++) {
@@ -144,7 +117,7 @@ function randomString(length) {
  * 例：formatNumber(99999) -> 99,999
  * @param  {Number} val 傳入值
  */
-function formatNumber(val){
+function formatNumber(val = 0){
   let temp = val.toString();
   let pattern = /(-?\d+)(\d{3})/;
   while(pattern.test(temp)){
@@ -164,50 +137,12 @@ function copyTextToClipboard(id) {
   sel.removeAllRanges();
   sel.addRange(textRange);
   document.execCommand("copy");
-  vm.$alert({msg: '文字已複製到剪貼簿'});
+  vm.udAlert({msg: '文字已複製到剪貼簿'});
 }
-
-/**
- * 轉義HTML(防XSS攻擊)
- * @param  {String} str 代入值
- * escapeHTML('<a href="#">Me & you</a>'); -> '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'
- */
-function escapeHTML(str){
-  return str.replace(/[&<>'"]/g,tag =>({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;'
-    }[tag] || tag)
-  );
-}
-
-/**
- * 駝峰式轉換
- * @param  {String} str 代入值
- * convertCamelCase("camelCase"); -> camel-case
- */
-function convertCamelCase(str){
-  return str.replace(/([A-Z])/g, '-$1').toLowerCase();
-}
-
-/**
- * 將字串內URL轉為超連結
- * @param  {String} text 代入值
- */
-function replaceURLToLink(text) {
-  text = text.replace(URL, function (url) {
-    let urlText = url;
-    if (!url.match('^https?://')) url = 'http://' + url;
-    return '' + urlText + '';
-  });
-  return text;
-};
 
 //-----------------------Number-----------------------
 /**
- * 取得範圍內隨機數
+ * 取得範圍內隨機整數
  * @param {Number} min 隨機數最小值 預設為0
  * @param {Number} max 隨機數最小值 預設為100
  */
@@ -217,53 +152,61 @@ function getRandom(min = 0, max = 100) {
 
 /**
  * 四捨五入到指定位數
- * @param  {String} n 代入值
+ * @param  {String} n 代入值 預設為0
  * @param  {Number} decimals 指定位數 預設為0
  * round(1.235, 2); -> 1.24
  */
-function round(n, decimals = 0){
+function round(n = 0, decimals = 0){
   return Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
 }
 
 //-----------------------Image-----------------------
 /**
- * 預載圖片
- * @param  {String} src 圖片路徑
+ * 預載單張圖片
+ * @param  {String} url 圖片路徑
+ * imageLoaded('imgUrl').then(...);
  */
-function imagePreload(src) {
+function imageLoaded(url) {
   let img = new Image();
-  img.src = src;
+  img.src = url;
+  return new Promise((resolve, reject) => {
+    if(img.complete) {
+      resolve(img);
+    }else {
+      img.onload = () => resolve(img);
+      img.onerror = (e) => reject(e);
+    }
+  })
 }
 
 /**
- * 圖片戴入回調
- * @param  {String} url 圖片路徑
- * @param  {Function} callback 回調函式
+ * 預載多張圖片
+ * @param  {Array} arr 多張圖片路徑陣列
+ * imageAllLoaded(['imgUrl1','imgUrl2']).then(...);
  */
-function onImageLoaded(url, callback) {
-  let image = new Image()
-  image.src = url
-  if (image.complete) {
-    callback(image)
-  } else {
-    image.onload = function () {
-      callback(image)
-    }
-  }
+function imageAllLoaded(arr) {
+  let result = [];
+  arr.forEach(item => {
+    result.push(imageLoaded(item));
+  });
+  return new Promise((resolve, reject) => {
+    Promise.all(result)
+      .then(res => resolve(res))
+      .catch(err => reject(err));
+  })
 }
 
 //-----------------------Array-----------------------
 /**
- * 陣列是否有重複值
+ * 陣列是否有重複值(不分型別)
  * @param  {Array} arr 代入值
  */
 function isRepeat(arr){
-  let arrStr = JSON.stringify(arr);
-  for (let i = 0; i < arr.length; i++) {
-    if ((arrStr.match(new RegExp(arr[i],"g")).length)>1){
-      return true;
-    }
-  };
+  let obj = {};
+  for(let i in arr) {
+    if(obj[arr[i]]) return true;
+    obj[arr[i]] = true;
+  }
   return false;
 }
 
@@ -481,42 +424,6 @@ function getDiffDate(days){
 };
 
 /**
- * 時間個性化輸出功能
- * @param  {Any} time 時間物件
- */
-function timeFormat(time) {
-  let date = new Date(time),
-    curDate = new Date(),
-    year = date.getFullYear(),
-    month = date.getMonth() + 10,
-    day = date.getDate(),
-    hour = date.getHours(),
-    minute = date.getMinutes(),
-    curYear = curDate.getFullYear(),
-    curHour = curDate.getHours(),
-    timeStr;
-  if (year < curYear) {
-    timeStr = year + "年" + month + "月" + day + "日 " + hour + ":" + minute;
-  } else {
-    let pastTime = curDate - date,
-      pastH = pastTime / 3600000;
-    if (pastH > curHour) {
-      timeStr = month + "月" + day + "日 " + hour + ":" + minute;
-    } else if (pastH >= 1) {
-      timeStr = "今天 " + hour + ":" + minute + "分";
-    } else {
-      let pastM = curDate.getMinutes() - minute;
-      if (pastM > 1) {
-        timeStr = pastM + "分鐘前";
-      } else {
-        timeStr = "剛剛";
-      }
-    }
-  }
-  return timeStr;
-}
-
-/**
  * 隨機數時間戳
  */
 function uniqueId() {
@@ -526,107 +433,14 @@ function uniqueId() {
 }
 
 /**
- * 解析時間
- * @param  {Any} time 時間物件
- * @param  {Any} cFormat 轉換格式
- */
-function parseTime(time, cFormat) {
-  if (arguments.length === 0 || !time) {
-    return null
-  }
-  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
-  let date
-  if (typeof time === 'object') {
-    date = time
-  } else {
-    if ((typeof time === 'string')) {
-      if ((/^[0-9]+$/.test(time))) {
-        // support "1548221490638"
-        time = parseInt(time)
-      } else {
-        // support safari
-        // https://stackoverflow.com/questions/4310953/invalid-date-in-safari
-        time = time.replace(new RegExp(/-/gm), '/')
-      }
-    }
-
-    if ((typeof time === 'number') && (time.toString().length === 10)) {
-      time = time * 1000
-    }
-    date = new Date(time)
-  }
-  const formatObj = {
-    y: date.getFullYear(),
-    m: date.getMonth() + 1,
-    d: date.getDate(),
-    h: date.getHours(),
-    i: date.getMinutes(),
-    s: date.getSeconds(),
-    a: date.getDay()
-  }
-  const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
-    const value = formatObj[key]
-    // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value ] }
-    return value.toString().padStart(2, '0')
-  })
-  return time_str
-}
-
-/**
- * 時間人性化
- * @param  {Any} time 時間物件
- * @param  {Any} option 轉換格式
- */
-function formatTime(time, option) {
-  if (('' + time).length === 10) {
-    time = parseInt(time) * 1000
-  } else {
-    time = +time
-  }
-  const d = new Date(time)
-  const now = Date.now()
-
-  const diff = (now - d) / 1000
-
-  if (diff < 30) {
-    return '剛剛'
-  } else if (diff < 3600) {
-    // less 1 hour
-    return Math.ceil(diff / 60) + '分鐘前'
-  } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小時前'
-  } else if (diff < 3600 * 24 * 2) {
-    return '1天前'
-  }
-  if (option) {
-    return parseTime(time, option)
-  } else {
-    return (
-      d.getMonth() +
-      1 +
-      '月' +
-      d.getDate() +
-      '日' +
-      d.getHours() +
-      '時' +
-      d.getMinutes() +
-      '分'
-    )
-  }
-}
-
-/**
  * 時間格式化
  * @param  {Any} format 轉換格式
  * new Date().format('yyyyMMdd') -> "20200921"
  * new Date().format('yyyy-MM-dd') -> "2020-09-21"
  * new Date().format('yyyy-MM-dd hh:mm:ss') -> "2020-09-21 16:07:59"
  */
-Date.prototype.format = function (format) {
-  if(!format){
-    format = "yyyy-MM-dd hh:mm:ss";
-  }
+// function parseTime(date = new Date(), format = "yyyy-MM-dd hh:mm:ss"){
+Date.prototype.format = function(format = "yyyy-MM-dd hh:mm:ss") {
   let o = {
     "M+": this.getMonth() + 1, // 月份
     "d+": this.getDate(), // 日
@@ -879,23 +693,6 @@ function isIdCard(idStr){
 
 //-----------------------Browser-----------------------
 /**
- * 動態加載css文件
- * @param  {String} url 文件路徑
- */
-function loadStyle(url) {
-  try {
-    document.createStyleSheet(url);
-  } catch (e) {
-    let cssLink = document.createElement("link");
-    cssLink.rel = "stylesheet";
-    cssLink.type = "text/css";
-    cssLink.href = url;
-    let head = document.getElementsByTagName("head")[0];
-    head.appendChild(cssLink);
-  }
-}
-
-/**
  * 取得LocalStorage的值
  * @param  {String} key 鍵值
  */
@@ -945,16 +742,6 @@ function setCookie(name, value, Hours) {
 }
 
 /**
- * 動態載入插件
- * @param  {String} src 路徑
- */
-function insertPlugin(src){
-  let script = document.createElement('script');
-  script.setAttribute('src', src);
-  document.head.appendChild(script);
-}
-
-/**
  * 函式防抖
  * @description 將幾次操作合併為一次操作進行
  * @param  {Function} fn 處理函式
@@ -963,7 +750,7 @@ function insertPlugin(src){
  */
 function debounce(fn, wait = 200) {
   let timeout = null;
-  return function() {
+  return () => {
     if(timeout !== null)
       clearTimeout(timeout);
     timeout = setTimeout(fn, wait);
@@ -979,7 +766,7 @@ function debounce(fn, wait = 200) {
  */
 function throttle(fn, delay = 1000) {
   let prev = Date.now();
-  return function() {
+  return () => {
     let context = this;
     let args = arguments;
     let now = Date.now();
@@ -993,7 +780,7 @@ function throttle(fn, delay = 1000) {
 function throttle2(fn, delay){
   let timer; 
   let prevTime;
-  return function(...args){
+  return (...args) => {
     let currTime = Date.now();
     let context = this;
     if(!prevTime) prevTime = currTime;
@@ -1006,7 +793,7 @@ function throttle2(fn, delay){
         return;
     }
 
-    timer = setTimeout(function(){
+    timer = setTimeout(() => {
         prevTime = Date.now();
         timer = null;
         fn.apply(context,args);
@@ -1018,46 +805,20 @@ function throttle2(fn, delay){
 /**
  * 查詢網址所帶參數
  * @param  {String} key 鍵值
+ * @param  {String} url 網址
  */
-function queryString(key) {
-  let url = location.href;
-  if (url.indexOf("?") != -1) {
-    let arr = url.split("?")[1].split("&");
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].split("=")[0] == key) return arr[i].split("=")[1];
-    }
-  }
+function queryString(key = "", url = location.href) {
+  let parseUrl = new URL(url);
+  return parseUrl.searchParams.get(key);
 }
 
 /**
- * HTTP跳轉HTTPS
+ * 解析網址
+ * @param  {String} url 網址
  */
-function httpsRedirect(){
-  if (location.protocol !== 'https:') location.replace('https://' + location.href.split('//')[1]);
-};
-
-/**
- * 檢驗URL連接是否有效
- * @param  {String} URL 網址
- */
-function getUrlState(URL) {
-  var xmlhttp = new ActiveXObject("microsoft.xmlhttp");
-  xmlhttp.Open("GET", URL, false);
-  try {
-    xmlhttp.Send();
-  } catch (e) {
-  } finally {
-    var result = xmlhttp.responseText;
-    if (result) {
-      if (xmlhttp.Status == 200) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
+function parseUrl(url = location.href) {
+  let parseUrl = new URL(url);
+  return parseUrl;
 }
 
 /**
@@ -1075,179 +836,6 @@ function jumpReload(){
   window.onpageshow = event => {
     if(event.persisted) window.location.reload();
   };
-}
-
-/**
- * Axios封装
- * axiosPackage
- */
-const service = axios.create({
-  // baseURL: baseURL, // url = base url + request url
-  timeout: 5000, // 請求超時時間
-  // withCredentials: true, // 充許攜帶cookie
-  // headers: {"Content-Type": "application/x-www-form-urlencoded"}, //改用formdata格式發送
-})
-
-// service.defaults.xsrfCookieName = "CSRF-TOKEN";
-// service.defaults.xsrfHeaderName = "X-CSRF-Token";
-
-// if (process.env.NODE_ENV == 'development') {
-//   axios.defaults.baseURL = '/api';
-// } else {
-//   axios.defaults.baseURL = 'http://api.123dailu.com/';
-// }
-
-// 請求攔截器
-service.interceptors.request.use(
-  config => {
-    vm.$loading.open();
-    config.data = JSON.stringify(config.data);
-
-    // 每次發送請求之前判斷是否存在token，如果存在，則統一在http請求的header都加上token，不用每次請求都手動添加了
-    // 即使本地存在token，也有可能token是過期的，所以在響應攔截器中要對返回狀態進行判斷
-    // if(token) config.headers.Authorization = "This is token";
-  
-    // 讓每個請求攜帶token--['X-Token']為自定義key 請根據實際情況自行修改
-    // if (store.getters.token) config.headers['X-Token'] = getToken();
-
-    return config;
-  },
-  error => {
-    console.log(error);
-    return Promise.reject(error);
-  }
-)
-
-// 響應攔截器
-service.interceptors.response.use(
-  response => {
-    vm.$loading.close();
-    if (response.status === 200) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  },
-  error => {
-    vm.$loading.close();
-    if (error && error.response) {
-      switch (error.response.status) {
-        case 404:
-          vm.$alert({title: error.message, msg: "找不到該頁面，請稍候再試"});
-          break;
-        case 500:
-          vm.$alert({title: error.message, msg: "伺服器出錯，請稍候再試"});
-          break;
-        case 503:
-          vm.$alert({title: error.message, msg: "服務失效，請稍候再試"});
-          break;
-        default:
-          vm.$alert({title: error.message, msg: `連接錯誤：${error.response.status}，請稍候再試`});
-      }
-    } else {
-      vm.$alert({title: error.message, msg: "連接到伺服器失敗，請稍候再試"});
-    }
-    return Promise.reject(error)
-  }
-);
-
-/** 
- * getApi方法，對應GET請求
- * @param  {String} url 請求的url地址
- * @param  {Object} params 請求時攜帶的參數
- */
-function getApi(url, params = {}){
-  return new Promise((resolve, reject) =>{
-    service.get(url, {
-      params: params
-    })
-    .then(res => {
-      resolve(res.data);
-    })
-    .catch(err => {
-      reject(err.data);
-    })
-  });
-}
-
-/** 
- * postApi方法，對應POST請求
- * @param  {String} url 請求的url地址
- * @param  {Object} data 請求時攜帶的資料
- * @param  {Object} params 請求時攜帶的參數
- */
-function postApi(url, data = {}, params = {}) {
-  return new Promise((resolve, reject) => {
-    service.post(url, data, {
-      params: params
-    })
-    .then(res => {
-      resolve(res.data);
-    })
-    .catch(err => {
-      reject(err.data);
-    })
-  });
-}
-
-/** 
- * putApi方法，對應PUT請求
- * @param  {String} url 請求的url地址
- * @param  {Object} data 請求時攜帶的資料
- * @param  {Object} params 請求時攜帶的參數
- */
-function putApi(url, data = {}, params = {}) {
-  return new Promise((resolve, reject) => {
-    service.put(url, data, {
-      params: params
-    })
-    .then(res => {
-      resolve(res.data);
-    })
-    .catch(err => {
-      reject(err.data);
-    })
-  });
-}
-
-/** 
- * deleteApi方法，對應DELETE請求
- * @param  {String} url 請求的url地址
- * @param  {Object} data 請求時攜帶的資料
- * @param  {Object} params 請求時攜帶的參數
- */
-function deleteApi(url, data = {}, params = {}) {
-  return new Promise((resolve, reject) => {
-    service.delete(url, data, {
-      params: params
-    })
-    .then(res => {
-      resolve(res.data);
-    })
-    .catch(err => {
-      reject(err.data);
-    })
-  });
-}
-
-/**
- * CDN備援
- */
-function cdnBackup(){
-  if(!window.Vue){
-    document.write(`
-      <link href="https://pro.fontawesome.com/releases/v5.13.1/css/fontawesome.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/theme-chalk/index.css" rel="stylesheet">
-      <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"><\/script>
-      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"><\/script>
-      <script src="https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"><\/script>
-      <script src="https://cdn.jsdelivr.net/npm/@braid/vue-formulate@2.4.3/dist/formulate.min.js"><\/script>
-      <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/index.js"><\/script>
-      <script src="js/ud-modules.js"><\/script>
-    `);
-    console.log("CDN Error!!");
-  }
 }
 
 //-----------------------Device-----------------------
@@ -1273,44 +861,3 @@ function isAppleMobileDevice() {
 function isAndroidMobileDevice() {
   return /android/i.test(navigator.userAgent.toLowerCase());
 }
-
-//-----------------------Animation-----------------------
-/** 
- * RAF通用動畫函式
- * @param  {String} timing 指定時間
- * @param  {Object} draw 繪製
- * @param  {Object} duration 持續時間
- * animate({
- *   duration: 1000,
- *   timing(timeFraction) {
- *     return timeFraction;
- *   },
- *   draw(progress) {
- *     elem.style.width = progress * 100 + '%';
- *   }
- * });
- * progress = 0 表示開始動畫狀態，progress = 1 表示結束狀態。
- */
-function animate({timing, draw, duration}) {
-
-  let start = performance.now();
-
-  requestAnimationFrame(function animate(time) {
-    // timeFraction 從 0 增加到 1
-    let timeFraction = (time - start) / duration;
-    if (timeFraction > 1) timeFraction = 1;
-
-    // 計算當前動畫狀態
-    let progress = timing(timeFraction);
-
-    draw(progress); // 繪製
-
-    if (timeFraction < 1) {
-      requestAnimationFrame(animate);
-    }
-
-  });
-}
-
-
-

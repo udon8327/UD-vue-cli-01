@@ -1,7 +1,14 @@
 <template lang="pug">
-.home
+.view-home
+  h1 Home
   img(src='@/assets/images/logo.png' alt='')
   .test
+  //- .test
+  //- .test
+  //- .test
+  //- .test
+  //- .test
+  //- .test
   p {{ test }}
   img(v-for="img in imgList" :src="require(`@/assets/images/0${img}.jpg`)")
 </template>
@@ -18,11 +25,11 @@ export default {
   data() {
     return {
       test: process.env.VUE_APP_TEST,
-      imgList: [1, 2, 3, 4, 5]
+      imgList: [1, 2, 3]
     }
   },
   mounted() {
-    this.axios.get('https://udon8327.synology.me/ajax/success.php')
+    axios.get('https://udon8327.synology.me/ajax/success.php')
       .then(res => console.log(res.data))
   },
   methods: {
@@ -32,13 +39,4 @@ export default {
 </script>
 
 <style lang="sass">
-img
-  width: 30px
-.test
-  height: 200px
-  background: url('~@/assets/images/01.jpg') no-repeat top center
-  background-size: cover
-  display: flex
-  justify-content: center
-  backdrop-filter: blur(5px)
 </style>

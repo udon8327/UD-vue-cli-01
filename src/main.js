@@ -5,19 +5,19 @@ import store from './store'
 
 // Axios
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
+// import VueAxios from 'vue-axios'
+// Vue.use(VueAxios, axios)
 
 // // 全域組件
-// import UdComponents from "./utils/ud-components"
-// Vue.use(UdComponents)
+import UdComponents from "./utils/ud-components"
+Vue.use(UdComponents)
 
 // // 全域函式
-// import UdFunctions from "./utils/ud-functions"
-// Vue.use(UdFunctions)
+import UdFunctions from "./utils/ud-functions"
+Vue.use(UdFunctions)
 
 // 全域樣式
-import '@/assets/style/all.sass'
+import '@/style/app.sass'
 
 // 跳轉後回到頂端(Hash模式時)
 router.afterEach((to, from, next) => {
@@ -26,7 +26,7 @@ router.afterEach((to, from, next) => {
 
 Vue.config.productionTip = false
 
-new Vue({
+window.vm = new Vue({
   router,
   store,
   render: h => h(App)

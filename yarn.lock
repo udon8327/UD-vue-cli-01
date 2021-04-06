@@ -8315,11 +8315,6 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-vue-axios@^3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.2.4.tgz#2334158db8ac2a0f603aa431c2626fbf6d766724"
-  integrity sha512-8Dgws6dwt+1LoKEU4HDzIPfaRgWHl0xLDLW6kxrAk/z3GAJ2thkajcXC4qZgmqj0cZRx/Z/dzooKi5HWtUQwxA==
-
 vue-cli-plugin-pug@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/vue-cli-plugin-pug/-/vue-cli-plugin-pug-2.0.0.tgz#07e0747aaa0288e6de1e95fce2c98897934871cd"
