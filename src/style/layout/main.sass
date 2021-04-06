@@ -9,9 +9,9 @@
 
 html,#app
   height: 100%
-  font-size: 62.5%
-  @media (min-width: 540px)
-    font-size: 72%
+  // font-size: 62.5%
+  // @media (min-width: 540px)
+  //   font-size: 72%
 
 body
   font-family: "Noto Sans TC", "Helvetica Neue", Helvetica, "PingFang TC", "LiHei Pro", "Hiragino Sans GB", "Microsoft JhengHei", "微軟正黑體", Arial ,sans-serif
@@ -39,24 +39,23 @@ img
 .container
   max-width: 540px
   margin: 0 auto
-  min-height: 100vh
+  min-height: 100%
   padding: 0 0 0px 0
   background-color: #fff
+  display: flex
+  flex-direction: column
   header
+    flex: 0 0 65px
     background-color: $main
     display: flex
     justify-content: center
     align-items: center
-    height: 65px
     @media (min-width: 540px)
       height: 86px
     img
       height: 56%
       width: auto
   .wrapper
-    padding: 18px 8.5% 20px 8.5%
-    min-height: 100vh
-    // background-image: url('~@/assets/images/bg.jpg'), url('~@/assets/images/bg_pattern.jpg')
-    // background-repeat: no-repeat,repeat
-    // background-position: top center,top center
-    // background-size: 100%, 100%
+    flex: 1 1 0
+    padding: 15px 15px 60px 15px
+    background-color: aqua

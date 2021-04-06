@@ -17,7 +17,7 @@ Vue.use(VueAxios, axios)
 // Vue.use(UdFunctions)
 
 // 全域樣式
-import '@/assets/style/app.sass'
+import '@/assets/style/all.sass'
 
 // 跳轉後回到頂端(Hash模式時)
 router.afterEach((to, from, next) => {
