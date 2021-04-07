@@ -1,19 +1,18 @@
 <template>
-<div class="ud-form-item" :class="{'is-error': errorMessage, 'is-flex': flex}">
-  <div class="ud-form-item-left" :style="{ 'flex-basis': labelWidth, 'text-align': labelAlign }">  
-    <label v-if="label">{{ label }}</label>
+  <div class="ud-form-item" :class="{'is-error': errorMessage, 'is-flex': flex}">
+    <div class="ud-form-item-left" :style="{ 'flex-basis': labelWidth, 'text-align': labelAlign }">  
+      <label v-if="label">{{ label }}</label>
+    </div>
+    <div class="ud-form-item-right">  
+      <slot></slot>
+      <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
+    </div>
   </div>
-  <div class="ud-form-item-right">  
-    <slot></slot>
-    <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
-  </div>
-</div>
 </template>
 
 <script>
 export default {
   name: 'UdFormItem',
-  inheritAttrs: false,
   data() {
     return {
       errorMessage: '',
@@ -89,11 +88,11 @@ export default {
           case "hex": // Hex色碼驗證
             if(value && !new RegExp('^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$').test(value)) this.errorMessage = rule.message || "Hex色碼格式有誤，例: #ff0000";
             break;
-          case "equl": // 相等驗證
+          case "equal": // 相等驗證
             if(rule.caseIgnore){ // 不區分大小寫
-              if(value && value.toLowerCase() !== this.form.model[rule.equlTo].toLowerCase()) this.errorMessage = rule.message || "驗證碼錯誤";
+              if(value && value.toLowerCase() !== this.form.model[rule.equalTo].toLowerCase()) this.errorMessage = rule.message || "驗證碼錯誤";
             }else{ // 區分大小寫
-              if(value && value !== this.form.model[rule.equlTo]) this.errorMessage = rule.message || "驗證碼錯誤";
+              if(value && value !== this.form.model[rule.equalTo]) this.errorMessage = rule.message || "驗證碼錯誤";
             }
             break;
           default:
@@ -112,5 +111,31 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+.ud-form-item
+  margin-bottom: 1.8rem
+  &.is-flex
+    display: flex
+    .ud-form-item-left
+      flex: 0 0 30%
+      padding: 0 10px
+      text-align: right
+      label
+        line-height: 40px
+    .ud-form-item-right
+      flex: 1 1 0
+  &.is-error
+    .ud-form-item-right
+      position: relative
+      >div
+        input,textarea,select
+          border: 1px solid $red
+          &:focus
+            border: 1px solid $red
+      >p.error-message
+        color: $red
+        font-size: 1.2rem
+        position: absolute
+        left: 5px
+        white-space: nowrap
 </style>

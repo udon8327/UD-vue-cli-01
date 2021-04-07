@@ -1,6 +1,8 @@
 <template>
   <div class="ud-form" :class="{'is-no-error-msg': noErrorMsg}">
-    <slot></slot>
+    <form v-bind="$attrs">
+      <slot></slot>
+    </form>
   </div>
 </template>
 
@@ -43,5 +45,17 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+.ud-form
+  &.is-no-error-msg
+    .ud-form-item
+      &.is-error
+        .ud-form-item-right
+          .ud-input,.ud-textarea,.ud-select
+            input,textarea,select
+              border: 1px solid #cecece
+              &:focus
+                border: 1px solid #cecece
+          >p.error-message
+            display: none
 </style>

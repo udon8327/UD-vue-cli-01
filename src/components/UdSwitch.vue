@@ -30,5 +30,35 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+.ud-switch
+  label
+    cursor: pointer
+    display: flex
+    align-items: center
+    input
+      position: absolute
+      left: -999px
+      opacity: 0
+      pointer-events: none
+      &:checked + .switch-decorator
+        background: $main
+        .circle
+          margin-left: 20px
+    .switch-decorator
+      width: 40px
+      height: 20px
+      border-radius: 20px
+      background: #ccc
+      transition: all .2s ease
+      padding-left: 2px
+      margin-right: 6px
+      display: flex
+      align-items: center
+      .circle
+        width: 16px
+        height: 16px
+        border-radius: 50%
+        background: #f7f7f7
+        transition: all .2s ease
 </style>

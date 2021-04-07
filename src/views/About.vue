@@ -5,11 +5,12 @@
     h2 這是modal
     ud-button(@click="isModalShow = 0") OK
   h1 About
+  ud-input(placeholder="好喔" v-model="value" center)
   img(src="@/assets/images/logo.png")
   img(src="@/assets/images/small.png")
   ud-button.mb-1(@click="click") 好喔
-  ud-button(@click="add") 增加
-  h1 This is an about page
+  ud-button.mb-1(@click="add") 增加
+  ud-button.mb-1(@click="test" throttle) 隨機數
   p {{ user.name }}
   p {{ user.phone }}
   p {{ user.gender }}
@@ -18,13 +19,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getRandom } from '@/utils/ud-utils'
 
 export default {
   name: 'About',
   data() {
     return {
-      isModalShow: 0
+      isModalShow: 0,
+      value: "",
     }
   },
   components: {
@@ -39,7 +40,6 @@ export default {
     })
   }),
   mounted() {
-    console.log(getRandom());
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
   },
   methods: {
@@ -48,10 +48,16 @@ export default {
     },
     add() {
       this.$store.commit('addData');
+    },
+    test() {
+      console.log(this.getRandom());
     }
   },
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
+.ud-button
+  span
+    font-size: 20px !important
 </style>

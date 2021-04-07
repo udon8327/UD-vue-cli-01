@@ -1,32 +1,32 @@
 <template>
-<transition name="fade">
-  <div class="ud-alert" v-if="isShow">
-    <div class="modal-wrapper" @click.self="maskHandler">
-      <div class="modal-content">
-        <div class="modal-close" v-if="btnClose" @click="destroy">
-          <i class="fas fa-times"></i>
-        </div>
-        <div class="modal-header" v-if="title || titleHtml">
-          <ud-html :text="titleHtml" v-if="titleHtml"></ud-html>
-          <p v-else>{{ title }}</p>
-        </div>
-        <div class="modal-body">
-          <ud-html :text="msgHtml" v-if="msgHtml"></ud-html>
-          <p v-else>{{ msg }}</p>
-        </div>
-        <div class="modal-footer">
-          <ud-flex>
-            <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelTxt }}</ud-button>
-            <ud-button @click="confirmHandler">{{ confirmTxtAfter }}</ud-button>
-          </ud-flex>
+  <transition name="fade">
+    <div class="ud-alert" v-if="isShow">
+      <div class="modal-wrapper" @click.self="maskHandler">
+        <div class="modal-content">
+          <div class="modal-close" v-if="btnClose" @click="destroy">
+            <i class="fas fa-times"></i>
+          </div>
+          <div class="modal-header" v-if="title">
+            <p v-html="nl2br(title)"></p>
+          </div>
+          <div class="modal-body">
+            <p v-html="nl2br(msg)"></p>
+          </div>
+          <div class="modal-footer">
+            <ud-flex>
+              <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelText }}</ud-button>
+              <ud-button @click="confirmHandler">{{ confirmTextAfter }}</ud-button>
+            </ud-flex>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script>
+import { nl2br } from '@/utils/ud-utils'
+
 export default {
   name: 'UdAlertCall',
   data() {
@@ -36,37 +36,38 @@ export default {
       maskClose: false, // 遮罩關閉
       btnClose: false, // 按鈕關閉
       title: "", // 警告標題
-      titleHtml: "", // 警告標題HTML
       msg: "網路通信錯誤，請稍候再試", // 警告訊息
-      msgHtml: "", // 警告訊息HTML
-      cancelTxt: "取消", // 取消鈕文字
+      cancelText: "取消", // 取消鈕文字
       cancel: () => {}, // 取消鈕動作
-      confirmTxt: "", // 確認鈕文字
+      confirmText: "", // 確認鈕文字
       confirm: () => {}, // 確認鈕動作
     }
   },
   computed: {
-    confirmTxtAfter: function(){
-      if(this.confirmTxt) return this.confirmTxt;
-      return this.isConfirm ? "OK" : "確定";
+    confirmTextAfter() {
+      if(this.confirmText) return this.confirmText;
+      return this.isConfirm ? "確定" : "OK";
     }
   },
   mounted() {
     this.isShow = true;
   },
   methods: {
-    confirmHandler: function() {
+    nl2br(val) {
+      return nl2br(val);
+    },
+    confirmHandler() {
       if(typeof this.confirm === 'function') this.confirm();
       this.destroy();
     },
-    cancelHandler: function() {
+    cancelHandler() {
       if(typeof this.cancel === 'function') this.cancel();
       this.destroy();
     },
-    maskHandler: function() {
+    maskHandler() {
       if(this.maskClose) this.destroy();
     },
-    destroy: function() {
+    destroy() {
       this.isShow = false;
       setTimeout(() => {
         this.$destroy(true);
@@ -77,5 +78,53 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+.ud-alert
+  position: fixed
+  z-index: 120
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  overflow: auto
+  background-color: rgba(0,0,0,0.7)
+  .modal-wrapper
+    width: 100%
+    height: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    .modal-header
+      p
+        font-size: 18px
+        margin-bottom: 15px
+        font-weight: bold
+    .modal-content
+      width: 90%
+      max-width: 420px
+      position: relative
+      background-color: #fff
+      max-height: 90%
+      overflow-y: auto
+      text-align: center
+      padding: 15px
+      box-shadow: 0px 3px 20px 0px rgba(0,0,0,0.3)
+      p
+        text-align: center
+        font-size: 16px
+        margin-bottom: 20px
+        color: $text2
+      .modal-close
+        position: absolute
+        padding: 10px 15px
+        right: 0px
+        top: 0px
+        cursor: pointer
+        &:hover
+          i
+            color: #333
+        i
+          transition: all 0.2s ease
+          font-size: 18px
+          color: #777
 </style>

@@ -12,7 +12,6 @@
 <script>
 export default {
   name: 'UdSelectLink',
-  inheritAttrs: false,
   props: {
     value: null, // value值
     options: null, // 選項 [Array]
@@ -30,27 +29,27 @@ export default {
       get(){ return this.value },
       set(val){ this.$emit('input', val) }
     },
-    firstValue: function(){
+    firstValue() {
       return this.modelValue[0];
     },
-    secondValue: function(){
+    secondValue() {
       return this.modelValue[1];
     },
-    thirdValue: function(){
+    thirdValue() {
       return this.modelValue[2];
     },
-    firstArr: function(){
+    firstArr() {
       let temp = this.options;
       return temp;
     },
-    secondArr: function(){
+    secondArr() {
       let temp = [];
       if(this.modelValue[0]){
         temp = this.options.find(option => option.value === this.modelValue[0]).children;
       }
       return temp;
     },
-    thirdArr: function(){
+    thirdArr() {
       let temp = [];
       if(this.modelValue[1]){
         temp = this.secondArr.find(option => option.value === this.modelValue[1]).children;
@@ -59,10 +58,10 @@ export default {
     },
   },
   watch: {
-    firstValue: function(){
+    firstValue() {
       this.modelValue.splice(1, 1, "");
     },
-    secondValue: function(){
+    secondValue() {
       if(this.third) this.modelValue.splice(2, 1, "");
     },
   },
@@ -76,5 +75,22 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+.ud-select-link
+  margin-bottom: 0
+  &.is-flex
+    display: flex
+    justify-content: center
+    align-items: center
+    .ud-select
+      flex: 1 1 0
+      margin: 0 5px 0 0
+      &:last-of-type
+        margin: 0
+        + span,+ p
+          margin: 0 5px
+      + span,+ p
+        margin: 0 5px 0 0
+  .ud-select
+    margin-bottom: 5px
 </style>

@@ -41,10 +41,14 @@ Tools
 
 import UdAlert from "@/components/UdAlert"
 import UdAlertCall from '@/components/UdAlertCall'
+import UdArrow from '@/components/UdArrow'
+import UdBacktop from '@/components/UdBacktop'
 import UdButton from "@/components/UdButton"
+import UdCaptcha from "@/components/UdCaptcha"
 import UdCheckbox from "@/components/UdCheckbox"
 import UdCollapse from "@/components/UdCollapse"
 import UdConfirm from "@/components/UdConfirm"
+import UdCountdown from "@/components/UdCountdown"
 import UdEllipsis from "@/components/UdEllipsis"
 import UdFlex from "@/components/UdFlex"
 import UdForm from "@/components/UdForm"
@@ -54,10 +58,14 @@ import UdInput from "@/components/UdInput"
 import UdLoading from "@/components/UdLoading"
 import UdLoadingCall from "@/components/UdLoadingCall"
 import UdModal from "@/components/UdModal"
+import UdPhone from "@/components/UdPhone"
+import UdQrcode from "@/components/UdQrcode"
 import UdRadio from "@/components/UdRadio"
+import UdRatio from "@/components/UdRatio"
 import UdSelect from "@/components/UdSelect"
 import UdSelectDate from "@/components/UdSelectDate"
 import UdSelectLink from "@/components/UdSelectLink"
+import UdSelectTwzip from "@/components/UdSelectTwzip"
 import UdSwitch from "@/components/UdSwitch"
 import UdTextarea from "@/components/UdTextarea"
 
@@ -67,10 +75,14 @@ let udLoading;
 // 插件匯出
 const install = (Vue, options) => {
   Vue.component("UdAlert", UdAlert)
+  Vue.component("UdArrow", UdArrow)
+  Vue.component("UdBacktop", UdBacktop)
   Vue.component("UdButton", UdButton)
+  Vue.component("UdCaptcha", UdCaptcha)
   Vue.component("UdCheckbox", UdCheckbox)
   Vue.component("UdCollapse", UdCollapse)
   Vue.component("UdConfirm", UdConfirm)
+  Vue.component("UdCountdown", UdCountdown)
   Vue.component("UdEllipsis", UdEllipsis)
   Vue.component("UdFlex", UdFlex)
   Vue.component("UdForm", UdForm)
@@ -79,10 +91,14 @@ const install = (Vue, options) => {
   Vue.component("UdInput", UdInput)
   Vue.component("UdLoading", UdLoading)
   Vue.component("UdModal", UdModal)
+  Vue.component("UdPhone", UdPhone)
+  Vue.component("UdQrcode", UdQrcode)
   Vue.component("UdRadio", UdRadio)
+  Vue.component("UdRatio", UdRatio)
   Vue.component("UdSelect", UdSelect)
   Vue.component("UdSelectDate", UdSelectDate)
   Vue.component("UdSelectLink", UdSelectLink)
+  Vue.component("UdSelectTwzip", UdSelectTwzip)
   Vue.component("UdSwitch", UdSwitch)
   Vue.component("UdTextarea", UdTextarea)
 
