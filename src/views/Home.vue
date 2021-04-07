@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { udAlert } from '@/utils/ud-components.js'
+
 export default {
   name: 'About',
   components: {
@@ -38,8 +40,10 @@ export default {
     }
   },
   mounted() {
-    this.udAxios.get('https://udon8327.synology.me/ajax/1success.php')
-      .then(res => console.log(res))
+    udAlert();
+    // this.udAlert();
+    // this.udAxios.get('https://udon8327.synology.me/ajax/1success.php')
+    //   .then(res => console.log(res))
   },
   methods: {
     
