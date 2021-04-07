@@ -61,8 +61,8 @@ import UdSelectLink from "@/components/UdSelectLink"
 import UdSwitch from "@/components/UdSwitch"
 import UdTextarea from "@/components/UdTextarea"
 
-let UdAlertExtend;
-let UdLoadingExtend;
+let udAlert;
+let udLoading;
 
 // 插件匯出
 const install = (Vue, options) => {
@@ -86,25 +86,19 @@ const install = (Vue, options) => {
   Vue.component("UdSwitch", UdSwitch)
   Vue.component("UdTextarea", UdTextarea)
 
-  UdAlertExtend = Vue.extend(UdAlertCall);
-  Vue.prototype.udAlert = (options = {}) => {
-    document.body.appendChild(new UdAlertExtend({ data: options }).$mount().$el);
+  let UdAlertCallExtend = Vue.extend(UdAlertCall);
+  udAlert = (options = {}) => {
+    document.body.appendChild(new UdAlertCallExtend({ data: options }).$mount().$el);
   };
+  Vue.prototype.udAlert = udAlert;
 
-  UdLoadingExtend = Vue.extend(UdLoadingCall);
-  Vue.prototype.udLoading = (options = {}) => {
-    document.body.appendChild(new UdLoadingExtend({ data: options }).$mount().$el);
+  let UdLoadingCallExtend = Vue.extend(UdLoadingCall);
+  udLoading = (options = {}) => {
+    document.body.appendChild(new UdLoadingCallExtend({ data: options }).$mount().$el);
   };
+  Vue.prototype.udLoading = udLoading;
 
 }
-
-let udAlert = (options = {}) => {
-  document.body.appendChild(new UdAlertExtend({ data: options }).$mount().$el);
-};
-
-let udLoading = (options = {}) => {
-  document.body.appendChild(new UdLoadingExtend({ data: options }).$mount().$el);
-};
 
 export { udAlert, udLoading }
 export default install;

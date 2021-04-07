@@ -40,8 +40,9 @@ export default {
     }
   },
   mounted() {
-    udAlert();
-    // this.udAlert();
+    udAlert({confirm: () => {
+      this.udAlert({msg: "好喔"});
+    }});
     // this.udAxios.get('https://udon8327.synology.me/ajax/1success.php')
     //   .then(res => console.log(res))
   },
