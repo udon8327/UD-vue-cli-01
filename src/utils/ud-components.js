@@ -93,8 +93,19 @@ const install = (Vue, options) => {
   Vue.prototype.udAlert = udAlert;
 
   let UdLoadingCallExtend = Vue.extend(UdLoadingCall);
-  udLoading = (options = {}) => {
-    document.body.appendChild(new UdLoadingCallExtend({ data: options }).$mount().$el);
+  let UdLoading;
+  udLoading = { // 加至vue原型方法
+    open: (options = {}) => {
+      UdLoading = new UdLoadingCallExtend({
+        el: document.createElement("div"), 
+        data() {
+          return options;
+        }
+      })
+      if(UdLoading.fixed) document.body.style.overflowY = 'hidden';
+      document.body.appendChild(UdLoading.$el);
+    },
+    close: () => UdLoading.destroy()
   };
   Vue.prototype.udLoading = udLoading;
 

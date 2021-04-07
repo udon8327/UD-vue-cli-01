@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { nl2br } from '@/utils/ud-utils'
+
 export default {
   name: 'UdLoading',
   data() {

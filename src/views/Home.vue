@@ -19,6 +19,7 @@
 
 <script>
 import { udAlert } from '@/utils/ud-components.js'
+import { udLoading } from '@/utils/ud-components.js'
 
 export default {
   name: 'About',
@@ -40,11 +41,15 @@ export default {
     }
   },
   mounted() {
-    udAlert({confirm: () => {
-      this.udAlert({msg: "好喔"});
-    }});
-    // this.udAxios.get('https://udon8327.synology.me/ajax/1success.php')
-    //   .then(res => console.log(res))
+    // this.udLoading.open();
+    // setTimeout(() => {
+    //   udLoading.close();
+    // }, 1000);
+    // udAlert({confirm: () => {
+    //   this.udAlert({msg: "好喔"});
+    // }});
+    this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
+      .then(res => console.log(res))
   },
   methods: {
     
