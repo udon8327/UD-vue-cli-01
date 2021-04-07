@@ -7,8 +7,9 @@
  * @param {Object} loading 客製化loading效果
  */
 
-import axios from 'Axios'
+import axios from 'axios'
 import { udLoading, udAlert } from '@/utils/ud-components.js'
+import { test } from '@/utils/ud-components.js'
 
 // 自定義axios實例預設值
 const udAxios = axios.create({
@@ -26,6 +27,7 @@ let ajaxCount = 0;
 // 請求攔截器
 udAxios.interceptors.request.use(
   config => {
+    test('好喔')
     if(udLoading && !config.noLoading){
       if(ajaxCount === 0) udLoading.open(config.loading);
       ajaxCount++;
@@ -114,4 +116,9 @@ udAxios.interceptors.response.use(
   }
 );
 
+const install = (Vue, options) => {
+  Vue.prototype.udAxios = udAxios;
+}
+
 export { udAxios }
+export default install

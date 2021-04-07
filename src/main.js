@@ -3,20 +3,18 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// Axios
-import axios from 'axios'
-// import VueAxios from 'vue-axios'
-// Vue.use(VueAxios, axios)
+// 自定義Axios
+import udAxios from './utils/ud-axios'
+Vue.use(udAxios)
 
-// // 全域組件
-import UdComponents from "./utils/ud-components"
-Vue.use(UdComponents)
+// 組件註冊
+import udComponents from './utils/ud-components'
+Vue.use(udComponents)
 
-// // 全域函式
-import UdFunctions from "./utils/ud-functions"
-Vue.use(UdFunctions)
+// 工具函式
+import udUtils from './utils/ud-utils'
+Vue.use(udUtils)
 
-// 全域樣式
 import '@/style/app.sass'
 
 // 跳轉後回到頂端(Hash模式時)

@@ -52,6 +52,7 @@ import UdFormItem from "@/components/UdFormItem"
 import UdHtml from "@/components/UdHtml"
 import UdInput from "@/components/UdInput"
 import UdLoading from "@/components/UdLoading"
+import UdLoadingCall from "@/components/UdLoadingCall"
 import UdModal from "@/components/UdModal"
 import UdRadio from "@/components/UdRadio"
 import UdSelect from "@/components/UdSelect"
@@ -59,6 +60,9 @@ import UdSelectDate from "@/components/UdSelectDate"
 import UdSelectLink from "@/components/UdSelectLink"
 import UdSwitch from "@/components/UdSwitch"
 import UdTextarea from "@/components/UdTextarea"
+
+let udAlert;
+let udLoading;
 
 // 插件匯出
 const install = (Vue, options) => {
@@ -83,18 +87,25 @@ const install = (Vue, options) => {
   Vue.component("UdTextarea", UdTextarea)
 
   const UdAlertExtend = Vue.extend(UdAlertCall);
-  const UdAlertFn = (options = {}) => {
+  udAlert = (options = {}) => {
     const UdAlertInstance = new UdAlertExtend({ data: options }).$mount();
     document.body.appendChild(UdAlertInstance.$el);
   };
-  Vue.prototype.UdAlert = UdAlertFn;
+  Vue.prototype.udAlert = udAlert;
 
-  // const UdLoadingExtend = Vue.extend(UdLoadingCall);
-  // const UdLoadingFn = (options = {}) => {
-  //   const UdLoadingInstance = new UdLoadingExtend({ data: options }).$mount();
-  //   document.body.appendChild(UdLoadingInstance.$el);
-  // };
-  // Vue.prototype.UdLoading = UdLoadingFn;
+  const UdLoadingExtend = Vue.extend(UdLoadingCall);
+  udLoading = (options = {}) => {
+    const UdLoadingInstance = new UdLoadingExtend({ data: options }).$mount();
+    document.body.appendChild(UdLoadingInstance.$el);
+  };
+  Vue.prototype.udLoading = udLoading;
+
 }
 
+const test = (txt) => {
+  console.log(txt);
+}
+
+export { test }
+export { udAlert, udLoading }
 export default install;

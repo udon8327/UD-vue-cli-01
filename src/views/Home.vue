@@ -11,12 +11,13 @@
   //- .test
   p {{ test }}
   img(v-for="img in imgList" :src="require(`@/assets/images/0${img}.jpg`)")
+  p {{ user.name }}
+  p {{ user.phone }}
+  p {{ user.gender }}
+  p {{ clicked }}
 </template>
 
 <script>
-import axios from 'axios'
-// import udAlert from '@/utils/ud-axios'
-
 export default {
   name: 'About',
   components: {
@@ -28,9 +29,17 @@ export default {
       imgList: [1, 2, 3]
     }
   },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    clicked() {
+      return this.$store.state.clicked;
+    }
+  },
   mounted() {
-    axios.get('https://udon8327.synology.me/ajax/success.php')
-      .then(res => console.log(res.data))
+    this.udAxios.get('https://udon8327.synology.me/ajax/1success.php')
+      .then(res => console.log(res))
   },
   methods: {
     
