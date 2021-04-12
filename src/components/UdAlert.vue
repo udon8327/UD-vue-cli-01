@@ -1,22 +1,22 @@
 <template>
   <transition name="fade">
-    <div class="ud-alert" v-if="value" v-cloak>
-      <div class="modal-wrapper" @click.self="maskCancel && $emit('input', 0)">
+    <div class="ud-alert" v-if="isShow">
+      <div class="modal-wrapper" @click.self="maskHandler">
         <div class="modal-content">
-          <div class="modal-close" v-if="hasCancel" @click="$emit('input', 0)">
-            <i class="fas fa-times"></i>
+          <div class="modal-close" v-if="btnClose" @click="destroy">
+            <i class="icon-close"></i>
           </div>
-          <div class="modal-header">
-            <p>{{ title }}</p>
+          <div class="modal-header" v-if="title">
+            <p v-html="nl2br(title)"></p>
           </div>
           <div class="modal-body">
-            <p>{{ message }}</p>
-            <slot></slot>
+            <p v-html="nl2br(msg)"></p>
           </div>
           <div class="modal-footer">
-            <div class="button-area">
-              <ud-button @click="$emit('input', 0)">OK</ud-button>
-            </div>
+            <ud-flex>
+              <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelText }}</ud-button>
+              <ud-button @click="confirmHandler">{{ confirmTextAfter }}</ud-button>
+            </ud-flex>
           </div>
         </div>
       </div>
@@ -25,14 +25,55 @@
 </template>
 
 <script>
+import { nl2br } from '@/utils/ud-utils'
+
 export default {
-  name: 'UdAlert',
-  props: {
-    title: { default: "警告標題" }, // 警告標題
-    message: { default: "警告訊息" }, // 警告訊息
-    value: { default: false }, // 開關值
-    maskCancel: Boolean, // 遮罩關閉
-    hasCancel: Boolean, // 按鈕關閉
+  name: 'UdAlertCall',
+  data() {
+    return {
+      isShow: false,
+      isConfirm: false,
+      maskClose: false, // 遮罩關閉
+      btnClose: false, // 按鈕關閉
+      title: "", // 警告標題
+      msg: "網路通信錯誤，請稍候再試", // 警告訊息
+      cancelText: "取消", // 取消鈕文字
+      cancel: () => {}, // 取消鈕動作
+      confirmText: "", // 確認鈕文字
+      confirm: () => {}, // 確認鈕動作
+    }
+  },
+  computed: {
+    confirmTextAfter() {
+      if(this.confirmText) return this.confirmText;
+      return this.isConfirm ? "確定" : "OK";
+    }
+  },
+  mounted() {
+    this.isShow = true;
+  },
+  methods: {
+    nl2br(val) {
+      return nl2br(val);
+    },
+    confirmHandler() {
+      if(typeof this.confirm === 'function') this.confirm();
+      this.destroy();
+    },
+    cancelHandler() {
+      if(typeof this.cancel === 'function') this.cancel();
+      this.destroy();
+    },
+    maskHandler() {
+      if(this.maskClose) this.destroy();
+    },
+    destroy() {
+      this.isShow = false;
+      setTimeout(() => {
+        this.$destroy(true);
+        this.$el.parentNode.removeChild(this.$el);
+      }, 200);
+    },
   },
 }
 </script>
@@ -86,4 +127,25 @@ export default {
           transition: all 0.2s ease
           font-size: 18px
           color: #777
+        .icon-close
+          position: absolute
+          right: 32px
+          top: 32px
+          width: 32px
+          height: 32px
+          opacity: 0.3
+        .icon-close:hover
+          opacity: 1
+        .icon-close:before, .icon-close:after
+          position: absolute
+          left: 15px
+          content: ' '
+          height: 33px
+          width: 2px
+          background-color: #333
+        .icon-close:before
+          transform: rotate(45deg)
+        .icon-close:after
+          transform: rotate(-45deg)
+
 </style>

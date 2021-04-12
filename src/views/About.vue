@@ -40,6 +40,7 @@ export default {
     })
   }),
   mounted() {
+    this.udAlert({msg: "好喔", btnClose: true})
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
   },
   methods: {

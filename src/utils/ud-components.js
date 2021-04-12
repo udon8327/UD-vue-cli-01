@@ -39,8 +39,7 @@ Tools
   QrCode 取得QRcode圖片 -----> ud-qrcode
 */
 
-import UdAlert from "@/components/UdAlert"
-import UdAlertCall from '@/components/UdAlertCall'
+import UdAlert from '@/components/UdAlert'
 import UdArrow from '@/components/UdArrow'
 import UdBacktop from '@/components/UdBacktop'
 import UdButton from "@/components/UdButton"
@@ -56,7 +55,6 @@ import UdFormItem from "@/components/UdFormItem"
 import UdHtml from "@/components/UdHtml"
 import UdInput from "@/components/UdInput"
 import UdLoading from "@/components/UdLoading"
-import UdLoadingCall from "@/components/UdLoadingCall"
 import UdModal from "@/components/UdModal"
 import UdPhone from "@/components/UdPhone"
 import UdQrcode from "@/components/UdQrcode"
@@ -102,26 +100,26 @@ const install = (Vue, options) => {
   Vue.component("UdSwitch", UdSwitch)
   Vue.component("UdTextarea", UdTextarea)
 
-  let UdAlertCallExtend = Vue.extend(UdAlertCall);
+  let UdAlertExtend = Vue.extend(UdAlert);
   udAlert = (options = {}) => {
-    document.body.appendChild(new UdAlertCallExtend({ data: options }).$mount().$el);
+    document.body.appendChild(new UdAlertExtend({ data: options }).$mount().$el);
   };
   Vue.prototype.udAlert = udAlert;
 
-  let UdLoadingCallExtend = Vue.extend(UdLoadingCall);
-  let UdLoading;
+  let UdLoadingExtend = Vue.extend(UdLoading);
+  let UdLoadingFn;
   udLoading = { // 加至vue原型方法
     open: (options = {}) => {
-      UdLoading = new UdLoadingCallExtend({
+      UdLoadingFn = new UdLoadingExtend({
         el: document.createElement("div"), 
         data() {
           return options;
         }
       })
-      if(UdLoading.fixed) document.body.style.overflowY = 'hidden';
-      document.body.appendChild(UdLoading.$el);
+      if(UdLoadingFn.fixed) document.body.style.overflowY = 'hidden';
+      document.body.appendChild(UdLoadingFn.$el);
     },
-    close: () => UdLoading.destroy()
+    close: () => UdLoadingFn.destroy()
   };
   Vue.prototype.udLoading = udLoading;
 
