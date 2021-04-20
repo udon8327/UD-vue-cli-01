@@ -6,17 +6,19 @@
           <div class="modal-close" v-if="btnClose" @click="destroy">
             <i class="icon-close"></i>
           </div>
-          <div class="modal-header" v-if="title">
-            <p v-html="nl2br(title)"></p>
-          </div>
-          <div class="modal-body">
-            <p v-html="nl2br(msg)"></p>
-          </div>
-          <div class="modal-footer">
-            <ud-flex>
-              <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelText }}</ud-button>
-              <ud-button @click="confirmHandler">{{ confirmTextAfter }}</ud-button>
-            </ud-flex>
+          <div class="modal-content-wrapper">
+            <div class="modal-header" v-if="title">
+              <p v-html="nl2br(title)"></p>
+            </div>
+            <div class="modal-body">
+              <p v-html="nl2br(msg)"></p>
+            </div>
+            <div class="modal-footer">
+              <ud-flex>
+                <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelText }}</ud-button>
+                <ud-button @click="confirmHandler">{{ confirmTextAfter }}</ud-button>
+              </ud-flex>
+            </div>
           </div>
         </div>
       </div>
@@ -94,58 +96,52 @@ export default {
     display: flex
     justify-content: center
     align-items: center
-    .modal-header
-      p
-        font-size: 18px
-        margin-bottom: 15px
-        font-weight: bold
+    overflow: auto
     .modal-content
       width: 90%
       max-width: 420px
       position: relative
       background-color: #fff
-      max-height: 90%
-      overflow-y: auto
+      // max-height: 90%
       text-align: center
       padding: 15px
       box-shadow: 0px 3px 20px 0px rgba(0,0,0,0.3)
-      p
-        text-align: center
-        font-size: 16px
-        margin-bottom: 20px
-        color: $text2
       .modal-close
         position: absolute
-        padding: 10px 15px
-        right: 0px
-        top: 0px
+        width: 26px
+        height: 26px
+        right: 4px
+        top: -32px
         cursor: pointer
         &:hover
-          i
-            color: #333
-        i
-          transition: all 0.2s ease
-          font-size: 18px
-          color: #777
+          .icon-close
+            opacity: 1
         .icon-close
-          position: absolute
-          right: 32px
-          top: 32px
-          width: 32px
-          height: 32px
-          opacity: 0.3
-        .icon-close:hover
-          opacity: 1
-        .icon-close:before, .icon-close:after
-          position: absolute
-          left: 15px
-          content: ' '
-          height: 33px
-          width: 2px
-          background-color: #333
-        .icon-close:before
-          transform: rotate(45deg)
-        .icon-close:after
-          transform: rotate(-45deg)
+          opacity: 0.75
+          transition: all 0.2s ease
+          &:before,&:after
+            position: absolute
+            left: 13px
+            content: ''
+            height: 26px
+            width: 2px
+            background-color: #fff
+          &:before
+            transform: rotate(45deg)
+          &:after
+            transform: rotate(-45deg)
+      .modal-content-wrapper
+        overflow: hidden
+        overflow-y: auto
+        p
+          text-align: center
+          font-size: 16px
+          margin-bottom: 20px
+          color: #333
+        .modal-header
+          p
+            font-size: 18px
+            margin-bottom: 15px
+            font-weight: bold
 
 </style>

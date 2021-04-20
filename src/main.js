@@ -8,8 +8,13 @@ import udAxios from './utils/ud-axios'
 Vue.use(udAxios)
 
 // 組件註冊
-import udComponents from './utils/ud-components'
-Vue.use(udComponents)
+import './utils/ud-components'
+
+import MessageBox from './components/MessageBox';
+Vue.use(MessageBox);
+
+import Toast from './components/Toast';
+Vue.use(Toast);
 
 // 工具函式
 import udUtils from './utils/ud-utils'

@@ -15,6 +15,26 @@
   p {{ user.phone }}
   p {{ user.gender }}
   p {{ isModal }}
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
+  h1 好喔
 </template>
 
 <script>
@@ -40,8 +60,21 @@ export default {
     })
   }),
   mounted() {
-    this.udAlert({msg: "好喔", btnClose: true})
+    this.udAlert({msg: "好喔<br>好喔", btnClose: true, title: "標題"})
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
+    this.$msgBox.showMsgBox({
+      title: '提示',
+      content: '确定要删除吗',
+    }).then(async (val) => {
+      console.log('确认')
+      this.$toast.show({
+        text: '复制成功',
+        time: '2000',
+        position: 'right'
+      })
+    }).catch(() => {
+      console.log('取消')
+    });
   },
   methods: {
     click() {

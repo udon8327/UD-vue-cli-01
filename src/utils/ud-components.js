@@ -38,6 +38,7 @@ Tools
   Countdown 倒數計時 -----> ud-countdown
   QrCode 取得QRcode圖片 -----> ud-qrcode
 */
+import Vue from 'vue'
 
 import UdAlert from '@/components/UdAlert'
 import UdArrow from '@/components/UdArrow'
@@ -67,63 +68,59 @@ import UdSelectTwzip from "@/components/UdSelectTwzip"
 import UdSwitch from "@/components/UdSwitch"
 import UdTextarea from "@/components/UdTextarea"
 
+// 組件註冊
+Vue.component("UdAlert", UdAlert)
+Vue.component("UdArrow", UdArrow)
+Vue.component("UdBacktop", UdBacktop)
+Vue.component("UdButton", UdButton)
+Vue.component("UdCaptcha", UdCaptcha)
+Vue.component("UdCheckbox", UdCheckbox)
+Vue.component("UdCollapse", UdCollapse)
+Vue.component("UdConfirm", UdConfirm)
+Vue.component("UdCountdown", UdCountdown)
+Vue.component("UdEllipsis", UdEllipsis)
+Vue.component("UdFlex", UdFlex)
+Vue.component("UdForm", UdForm)
+Vue.component("UdFormItem", UdFormItem)
+Vue.component("UdHtml", UdHtml)
+Vue.component("UdInput", UdInput)
+Vue.component("UdLoading", UdLoading)
+Vue.component("UdModal", UdModal)
+Vue.component("UdPhone", UdPhone)
+Vue.component("UdQrcode", UdQrcode)
+Vue.component("UdRadio", UdRadio)
+Vue.component("UdRatio", UdRatio)
+Vue.component("UdSelect", UdSelect)
+Vue.component("UdSelectDate", UdSelectDate)
+Vue.component("UdSelectLink", UdSelectLink)
+Vue.component("UdSelectTwzip", UdSelectTwzip)
+Vue.component("UdSwitch", UdSwitch)
+Vue.component("UdTextarea", UdTextarea)
+
+// udAlert 呼叫方法
 let udAlert;
+let udAlertExtend = Vue.extend(UdAlert);
+udAlert = (options = {}) => {
+  document.body.appendChild(new udAlertExtend({ data: options }).$mount().$el);
+};
+Vue.prototype.udAlert = udAlert;
+export { udAlert }
+
+// udLoading 呼叫方法
 let udLoading;
+let udLoadingExtend = Vue.extend(UdLoading);
+let udLoadingFn;
+udLoading = {
+  open: (options = {}) => {
+    udLoadingFn = new udLoadingExtend({
+      el: document.createElement("div"),
+      data() { return options }
+    })
+    if(udLoadingFn.fixed) document.body.style.overflowY = 'hidden';
+    document.body.appendChild(udLoadingFn.$el);
+  },
+  close: () => udLoadingFn.destroy()
+};
+Vue.prototype.udLoading = udLoading;
 
-// 插件匯出
-const install = (Vue, options) => {
-  Vue.component("UdAlert", UdAlert)
-  Vue.component("UdArrow", UdArrow)
-  Vue.component("UdBacktop", UdBacktop)
-  Vue.component("UdButton", UdButton)
-  Vue.component("UdCaptcha", UdCaptcha)
-  Vue.component("UdCheckbox", UdCheckbox)
-  Vue.component("UdCollapse", UdCollapse)
-  Vue.component("UdConfirm", UdConfirm)
-  Vue.component("UdCountdown", UdCountdown)
-  Vue.component("UdEllipsis", UdEllipsis)
-  Vue.component("UdFlex", UdFlex)
-  Vue.component("UdForm", UdForm)
-  Vue.component("UdFormItem", UdFormItem)
-  Vue.component("UdHtml", UdHtml)
-  Vue.component("UdInput", UdInput)
-  Vue.component("UdLoading", UdLoading)
-  Vue.component("UdModal", UdModal)
-  Vue.component("UdPhone", UdPhone)
-  Vue.component("UdQrcode", UdQrcode)
-  Vue.component("UdRadio", UdRadio)
-  Vue.component("UdRatio", UdRatio)
-  Vue.component("UdSelect", UdSelect)
-  Vue.component("UdSelectDate", UdSelectDate)
-  Vue.component("UdSelectLink", UdSelectLink)
-  Vue.component("UdSelectTwzip", UdSelectTwzip)
-  Vue.component("UdSwitch", UdSwitch)
-  Vue.component("UdTextarea", UdTextarea)
-
-  let UdAlertExtend = Vue.extend(UdAlert);
-  udAlert = (options = {}) => {
-    document.body.appendChild(new UdAlertExtend({ data: options }).$mount().$el);
-  };
-  Vue.prototype.udAlert = udAlert;
-
-  let UdLoadingExtend = Vue.extend(UdLoading);
-  let UdLoadingFn;
-  udLoading = { // 加至vue原型方法
-    open: (options = {}) => {
-      UdLoadingFn = new UdLoadingExtend({
-        el: document.createElement("div"), 
-        data() {
-          return options;
-        }
-      })
-      if(UdLoadingFn.fixed) document.body.style.overflowY = 'hidden';
-      document.body.appendChild(UdLoadingFn.$el);
-    },
-    close: () => UdLoadingFn.destroy()
-  };
-  Vue.prototype.udLoading = udLoading;
-
-}
-
-export { udAlert, udLoading }
-export default install;
+export { udLoading }

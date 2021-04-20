@@ -77,7 +77,7 @@ export default {
     font-size: 16px
     line-height: 20px
   &:hover,&:focus
-    background-color: lighten($main, 10%)
+    opacity: 0.9
   &.is-plain
     background-color: #fff
     border: 1px solid $main

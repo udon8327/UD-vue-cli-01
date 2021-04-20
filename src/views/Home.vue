@@ -41,6 +41,19 @@ export default {
     }
   },
   mounted() {
+    this.$msgBox.showMsgBox({
+        title: '提示',
+        content: '确定要删除吗',
+      }).then(async (val) => {
+        console.log('确认')
+        this.$toast.show({
+          text: '复制成功',
+          time: '2000',
+          position: 'right'
+        })
+      }).catch(() => {
+        console.log('取消')
+      });
     // this.udLoading.open();
     // setTimeout(() => {
     //   udLoading.close();

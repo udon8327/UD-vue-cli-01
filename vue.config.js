@@ -2,6 +2,9 @@ module.exports = {
   publicPath: '', // 公用路徑
   productionSourceMap: false, // 打包時不生成.map文件
   // outputDir: '../public', // 建置前端靜態檔案時要擺放的目錄
+  devServer: {
+    port: 8090
+  },
   css: {
     loaderOptions: {
       sass: { // 給sass-loader傳遞選項
