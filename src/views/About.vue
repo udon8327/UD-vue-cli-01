@@ -40,23 +40,22 @@ export default {
     })
   }),
   mounted() {
-    // this.udAlert({msg: "好喔<br>好喔", btnClose: true, title: "標題"})
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
     this.udAlert({
+      title: "錯誤!!",
       msg: "好喔",
-      title: "錯誤",
+      btnClose: 1,
       confirm: () => console.log('sdf'),
       isConfirm: 1
     })
       .then(val => {
-        console.log(val + '!')
+        this.udAlert("嗚哇啊啊\n啊啊啊<br>" + val);
+      }).catch(err => {
         this.$toast.show({
-          text: '复制成功',
+          text: err,
           time: '2000',
           position: 'right'
         })
-      }).catch(err => {
-        console.log(err + '...')
       });
   },
   methods: {

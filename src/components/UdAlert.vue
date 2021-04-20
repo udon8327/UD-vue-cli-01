@@ -16,7 +16,7 @@
             <div class="modal-footer">
               <ud-flex>
                 <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelText }}</ud-button>
-                <ud-button @click="confirmHandler">{{ confirmTextAfter }}</ud-button>
+                <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
               </ud-flex>
             </div>
           </div>
@@ -30,31 +30,23 @@
 import { nl2br } from '@/utils/ud-utils'
 
 export default {
-  name: 'UdAlertCall',
+  name: 'UdAlert',
   data() {
     return {
-      isShow: false,
-      isConfirm: false,
+      isShow: false, // 是否顯示
+      isConfirm: false, // 是否有取消鈕
       maskClose: false, // 遮罩關閉
       btnClose: false, // 按鈕關閉
-      title: "", // 警告標題
+      title: '', // 警告標題
       msg: "網路通信錯誤，請稍候再試", // 警告訊息
       cancelText: "取消", // 取消鈕文字
       cancel: () => {}, // 取消鈕動作
-      confirmText: "", // 確認鈕文字
+      confirmText: "確定", // 確認鈕文字
       confirm: () => {}, // 確認鈕動作
-      resolve: '',
-      reject: '',
+      resolve: '', // 保存resolve
+      reject: '', // 保存reject
       promise: '', // 保存promise
     }
-  },
-  computed: {
-    confirmTextAfter() {
-      if(this.confirmText) return this.confirmText;
-      return this.isConfirm ? "確定" : "OK";
-    }
-  },
-  mounted() {
   },
   methods: {
     show() {
@@ -69,12 +61,12 @@ export default {
       return nl2br(val);
     },
     confirmHandler() {
-      if(typeof this.confirm === 'function') this.confirm();
+      this.confirm();
       this.resolve('confirm');
       this.destroy();
     },
     cancelHandler() {
-      if(typeof this.cancel === 'function') this.cancel();
+      this.cancel();
       this.reject('cancel');
       this.destroy();
     },
@@ -157,5 +149,4 @@ export default {
             font-size: 18px
             margin-bottom: 15px
             font-weight: bold
-
 </style>
