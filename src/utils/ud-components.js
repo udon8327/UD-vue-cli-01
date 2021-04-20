@@ -98,19 +98,31 @@ Vue.component("UdSwitch", UdSwitch)
 Vue.component("UdTextarea", UdTextarea)
 
 // udAlert 呼叫方法
-let udAlert;
 let udAlertExtend = Vue.extend(UdAlert);
-udAlert = (options = {}) => {
-  document.body.appendChild(new udAlertExtend({ data: options }).$mount().$el);
+let udAlert = (options = {}) => {
+  let udAlertInstance = new udAlertExtend();
+  if (typeof options === 'string') {
+    udAlertInstance.msg = options;
+  } else if (typeof options === 'object') {
+    Object.assign(udAlertInstance, options);
+  }
+  document.body.appendChild(udAlertInstance.$mount().$el);
+  
+  return udAlertInstance.show()
+    .then(val => {
+      return Promise.resolve(val);
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
 };
 Vue.prototype.udAlert = udAlert;
 export { udAlert }
 
 // udLoading 呼叫方法
-let udLoading;
 let udLoadingExtend = Vue.extend(UdLoading);
 let udLoadingFn;
-udLoading = {
+let udLoading = {
   open: (options = {}) => {
     udLoadingFn = new udLoadingExtend({
       el: document.createElement("div"),

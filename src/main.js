@@ -3,11 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// 自定義Axios
-import udAxios from './utils/ud-axios'
-Vue.use(udAxios)
-
-// 組件註冊
+import './utils/ud-axios'
 import './utils/ud-components'
 
 import MessageBox from './components/MessageBox';

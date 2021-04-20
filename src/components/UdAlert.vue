@@ -43,6 +43,9 @@ export default {
       cancel: () => {}, // 取消鈕動作
       confirmText: "", // 確認鈕文字
       confirm: () => {}, // 確認鈕動作
+      resolve: '',
+      reject: '',
+      promise: '', // 保存promise
     }
   },
   computed: {
@@ -52,18 +55,27 @@ export default {
     }
   },
   mounted() {
-    this.isShow = true;
   },
   methods: {
+    show() {
+      this.isShow = true;
+      this.promise = new Promise((resolve, reject) => {
+        this.resolve = resolve;
+        this.reject = reject;
+      })
+      return this.promise;
+    },
     nl2br(val) {
       return nl2br(val);
     },
     confirmHandler() {
       if(typeof this.confirm === 'function') this.confirm();
+      this.resolve('confirm');
       this.destroy();
     },
     cancelHandler() {
       if(typeof this.cancel === 'function') this.cancel();
+      this.reject('cancel');
       this.destroy();
     },
     maskHandler() {
@@ -86,10 +98,12 @@ export default {
   z-index: 120
   left: 0
   top: 0
+  right: 0
+  bottom: 0
   width: 100%
   height: 100%
   overflow: auto
-  background-color: rgba(0,0,0,0.7)
+  background-color: rgba(0, 0, 0, 0.7)
   .modal-wrapper
     width: 100%
     height: 100%

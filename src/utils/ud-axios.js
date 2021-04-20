@@ -7,6 +7,7 @@
  * @param {Object} loading 客製化loading效果
  */
 
+import Vue from 'vue'
 import axios from 'axios'
 import { udAlert, udLoading } from '@/utils/ud-components.js'
 
@@ -114,9 +115,6 @@ udAxios.interceptors.response.use(
   }
 );
 
-const install = (Vue, options) => {
-  Vue.prototype.udAxios = udAxios;
-}
+Vue.prototype.udAxios = udAxios;
 
 export { udAxios }
-export default install

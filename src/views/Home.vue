@@ -45,14 +45,14 @@ export default {
         title: '提示',
         content: '确定要删除吗',
       }).then(async (val) => {
-        console.log('确认')
+        console.log(val)
         this.$toast.show({
           text: '复制成功',
           time: '2000',
           position: 'right'
         })
-      }).catch(() => {
-        console.log('取消')
+      }).catch(err => {
+        console.log(err + '!')
       });
     // this.udLoading.open();
     // setTimeout(() => {
