@@ -15,6 +15,31 @@
   p {{ user.phone }}
   p {{ user.gender }}
   p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
+  p {{ isModal }}
 </template>
 
 <script>
@@ -43,10 +68,10 @@ export default {
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
     this.udAlert({
       title: "錯誤!!",
-      msg: "好喔",
-      btnClose: 1,
-      confirm: () => console.log('sdf'),
-      isConfirm: 1
+      msg: "好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n",
+      onConfirm: () => console.log('確認'),
+      onCancel: () => console.log('取消'),
+      confirm: true,
     })
       .then(val => {
         this.udAlert("嗚哇啊啊\n啊啊啊<br>" + val);
@@ -73,7 +98,6 @@ export default {
 </script>
 
 <style lang="sass">
-.ud-button
-  span
-    font-size: 20px !important
+body
+  // overflow: hidden
 </style>

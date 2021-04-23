@@ -5,6 +5,7 @@ import store from './store'
 
 import './utils/ud-axios'
 import './utils/ud-components'
+import './utils/ud-utils'
 
 import MessageBox from './components/MessageBox';
 Vue.use(MessageBox);
@@ -12,9 +13,6 @@ Vue.use(MessageBox);
 import Toast from './components/Toast';
 Vue.use(Toast);
 
-// 工具函式
-import udUtils from './utils/ud-utils'
-Vue.use(udUtils)
 
 import '@/style/app.sass'
 

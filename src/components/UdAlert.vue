@@ -1,25 +1,21 @@
 <template>
   <transition name="fade">
-    <div class="ud-alert" v-if="isShow">
-      <div class="modal-wrapper" @click.self="maskHandler">
-        <div class="modal-content">
-          <div class="modal-close" v-if="btnClose" @click="destroy">
-            <i class="icon-close"></i>
-          </div>
-          <div class="modal-content-wrapper">
-            <div class="modal-header" v-if="title">
-              <p v-html="nl2br(title)"></p>
-            </div>
-            <div class="modal-body">
-              <p v-html="nl2br(msg)"></p>
-            </div>
-            <div class="modal-footer">
-              <ud-flex>
-                <ud-button @click="cancelHandler" plain v-if="isConfirm">{{ cancelText }}</ud-button>
-                <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
-              </ud-flex>
-            </div>
-          </div>
+    <div class="ud-alert" v-if="isShow" @click.self="maskHandler">
+      <div class="modal-wrapper">
+        <div class="modal-close" v-if="btnClose" @click="destroy">
+          <i class="icon-close"></i>
+        </div>
+        <div class="modal-header" v-if="title">
+          <p v-html="nl2br(title)"></p>
+        </div>
+        <div class="modal-body">
+          <p v-html="nl2br(msg)"></p>
+        </div>
+        <div class="modal-footer">
+          <ud-flex>
+            <ud-button @click="cancelHandler" plain v-if="confirm">{{ cancelText }}</ud-button>
+            <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
+          </ud-flex>
         </div>
       </div>
     </div>
@@ -34,39 +30,41 @@ export default {
   data() {
     return {
       isShow: false, // 是否顯示
-      isConfirm: false, // 是否有取消鈕
-      maskClose: false, // 遮罩關閉
-      btnClose: false, // 按鈕關閉
-      title: '', // 警告標題
-      msg: "網路通信錯誤，請稍候再試", // 警告訊息
+      confirm: false, // 是否有確認+取消鈕
+      maskClose: false, // 點擊遮罩關閉
+      btnClose: false, // 右上關閉按鈕
+      scrollLock: true, // 是否鎖定背景頁面捲動
+      title: '', // 標題文字
+      msg: "網路通信錯誤，請稍候再試", // 訊息文字
       cancelText: "取消", // 取消鈕文字
-      cancel: () => {}, // 取消鈕動作
+      onCancel: () => {}, // 取消鈕callback
       confirmText: "確定", // 確認鈕文字
-      confirm: () => {}, // 確認鈕動作
+      onConfirm: () => {}, // 確認鈕callback
       resolve: '', // 保存resolve
       reject: '', // 保存reject
-      promise: '', // 保存promise
     }
+  },
+  mounted() {
+    if(this.scrollLock) document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
   methods: {
     show() {
       this.isShow = true;
-      this.promise = new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         this.resolve = resolve;
         this.reject = reject;
       })
-      return this.promise;
     },
     nl2br(val) {
       return nl2br(val);
     },
     confirmHandler() {
-      this.confirm();
+      this.onConfirm();
       this.resolve('confirm');
       this.destroy();
     },
     cancelHandler() {
-      this.cancel();
+      this.onCancel();
       this.reject('cancel');
       this.destroy();
     },
@@ -75,6 +73,7 @@ export default {
     },
     destroy() {
       this.isShow = false;
+      if(this.scrollLock) document.getElementsByTagName('body')[0].style.overflow = 'auto'
       setTimeout(() => {
         this.$destroy(true);
         this.$el.parentNode.removeChild(this.$el);
@@ -94,59 +93,62 @@ export default {
   bottom: 0
   width: 100%
   height: 100%
-  overflow: auto
   background-color: rgba(0, 0, 0, 0.7)
+  display: flex
+  justify-content: center
+  align-items: center
+  overflow-x: hidden
   .modal-wrapper
-    width: 100%
-    height: 100%
+    position: relative
+    padding: 15px
+    width: 90%
+    max-width: 460px
+    max-height: 88%
+    background-color: #fff
+    box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.3)
+    text-align: center
     display: flex
-    justify-content: center
-    align-items: center
-    overflow: auto
-    .modal-content
-      width: 90%
-      max-width: 420px
-      position: relative
-      background-color: #fff
-      // max-height: 90%
-      text-align: center
-      padding: 15px
-      box-shadow: 0px 3px 20px 0px rgba(0,0,0,0.3)
-      .modal-close
-        position: absolute
-        width: 26px
-        height: 26px
-        right: 4px
-        top: -32px
-        cursor: pointer
-        &:hover
-          .icon-close
-            opacity: 1
+    flex-direction: column
+    p
+      font-size: 16px
+      margin-bottom: 0
+      color: #333
+    .modal-close
+      position: absolute
+      width: 26px
+      height: 26px
+      right: 4px
+      top: -32px
+      cursor: pointer
+      &:hover
         .icon-close
-          opacity: 0.75
-          transition: all 0.2s ease
-          &:before,&:after
-            position: absolute
-            left: 13px
-            content: ''
-            height: 26px
-            width: 2px
-            background-color: #fff
-          &:before
-            transform: rotate(45deg)
-          &:after
-            transform: rotate(-45deg)
-      .modal-content-wrapper
-        overflow: hidden
-        overflow-y: auto
-        p
-          text-align: center
-          font-size: 16px
-          margin-bottom: 20px
-          color: #333
-        .modal-header
-          p
-            font-size: 18px
-            margin-bottom: 15px
-            font-weight: bold
+          opacity: 1
+      .icon-close
+        opacity: 0.75
+        transition: all 0.2s ease
+        &:before, &:after
+          position: absolute
+          left: 13px
+          content: ''
+          height: 26px
+          width: 2px
+          background-color: #fff
+        &:before
+          transform: rotate(45deg)
+        &:after
+          transform: rotate(-45deg)
+    .modal-header
+      flex: 0 0 auto
+      padding: 0 0 15px 0
+      p
+        font-size: 18px
+        font-weight: bold
+    .modal-body
+      flex: 1 1 auto
+      padding: 5px 15px
+      margin: 0 -15px
+      overflow-y: auto
+    .modal-footer
+      flex: 0 0 auto
+      padding: 15px 0 0 0
 </style>

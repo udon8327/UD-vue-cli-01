@@ -41,28 +41,8 @@ export default {
     }
   },
   mounted() {
-    this.$msgBox.showMsgBox({
-        title: '提示',
-        content: '确定要删除吗',
-      }).then(async (val) => {
-        console.log(val)
-        this.$toast.show({
-          text: '复制成功',
-          time: '2000',
-          position: 'right'
-        })
-      }).catch(err => {
-        console.log(err + '!')
-      });
-    // this.udLoading.open();
-    // setTimeout(() => {
-    //   udLoading.close();
-    // }, 1000);
-    // udAlert({confirm: () => {
-    //   this.udAlert({msg: "好喔"});
-    // }});
-    this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
-      .then(res => console.log(res))
+    // this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
+    //   .then(res => console.log(res))
   },
   methods: {
     

@@ -2,7 +2,6 @@
 #app
   .container
     header
-      block header
       img(src="@/assets/images/logo.png")
     .wrapper
       #nav

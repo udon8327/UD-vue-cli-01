@@ -99,11 +99,11 @@ Vue.component("UdTextarea", UdTextarea)
 
 // udAlert 呼叫方法
 let udAlertExtend = Vue.extend(UdAlert);
-let udAlert = (options = {}) => {
+let udAlert = options => {
   let udAlertInstance = new udAlertExtend();
-  if (typeof options === 'string') {
+  if(typeof options === 'string') {
     udAlertInstance.msg = options;
-  } else if (typeof options === 'object') {
+  }else if(typeof options === 'object') {
     Object.assign(udAlertInstance, options);
   }
   document.body.appendChild(udAlertInstance.$mount().$el);
