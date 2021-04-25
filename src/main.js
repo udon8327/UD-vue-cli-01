@@ -3,9 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import './utils/ud-axios'
-import './utils/ud-components'
-import './utils/ud-utils'
+import './udon-ui'
 
 import MessageBox from './components/MessageBox';
 Vue.use(MessageBox);

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { throttle } from '@/utils/ud-utils'
+import { throttle } from '../ud-utils'
 
 export default {
   name: 'UdButton',

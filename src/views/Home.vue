@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { udAlert } from '@/utils/ud-components.js'
-import { udLoading } from '@/utils/ud-components.js'
+// import { udAlert } from '@/utils/ud-components.js'
+// import { udLoading } from '@/utils/ud-components.js'
 
 export default {
   name: 'About',

@@ -40,33 +40,33 @@ Tools
 */
 import Vue from 'vue'
 
-import UdAlert from '@/components/UdAlert'
-import UdArrow from '@/components/UdArrow'
-import UdBacktop from '@/components/UdBacktop'
-import UdButton from "@/components/UdButton"
-import UdCaptcha from "@/components/UdCaptcha"
-import UdCheckbox from "@/components/UdCheckbox"
-import UdCollapse from "@/components/UdCollapse"
-import UdConfirm from "@/components/UdConfirm"
-import UdCountdown from "@/components/UdCountdown"
-import UdEllipsis from "@/components/UdEllipsis"
-import UdFlex from "@/components/UdFlex"
-import UdForm from "@/components/UdForm"
-import UdFormItem from "@/components/UdFormItem"
-import UdHtml from "@/components/UdHtml"
-import UdInput from "@/components/UdInput"
-import UdLoading from "@/components/UdLoading"
-import UdModal from "@/components/UdModal"
-import UdPhone from "@/components/UdPhone"
-import UdQrcode from "@/components/UdQrcode"
-import UdRadio from "@/components/UdRadio"
-import UdRatio from "@/components/UdRatio"
-import UdSelect from "@/components/UdSelect"
-import UdSelectDate from "@/components/UdSelectDate"
-import UdSelectLink from "@/components/UdSelectLink"
-import UdSelectTwzip from "@/components/UdSelectTwzip"
-import UdSwitch from "@/components/UdSwitch"
-import UdTextarea from "@/components/UdTextarea"
+import UdAlert from './components/UdAlert'
+import UdArrow from './components/UdArrow'
+import UdBacktop from './components/UdBacktop'
+import UdButton from "./components/UdButton"
+import UdCaptcha from "./components/UdCaptcha"
+import UdCheckbox from "./components/UdCheckbox"
+import UdCollapse from "./components/UdCollapse"
+import UdConfirm from "./components/UdConfirm"
+import UdCountdown from "./components/UdCountdown"
+import UdEllipsis from "./components/UdEllipsis"
+import UdFlex from "./components/UdFlex"
+import UdForm from "./components/UdForm"
+import UdFormItem from "./components/UdFormItem"
+import UdHtml from "./components/UdHtml"
+import UdInput from "./components/UdInput"
+import UdLoading from "./components/UdLoading"
+import UdModal from "./components/UdModal"
+import UdPhone from "./components/UdPhone"
+import UdQrcode from "./components/UdQrcode"
+import UdRadio from "./components/UdRadio"
+import UdRatio from "./components/UdRatio"
+import UdSelect from "./components/UdSelect"
+import UdSelectDate from "./components/UdSelectDate"
+import UdSelectLink from "./components/UdSelectLink"
+import UdSelectTwzip from "./components/UdSelectTwzip"
+import UdSwitch from "./components/UdSwitch"
+import UdTextarea from "./components/UdTextarea"
 
 // 組件註冊
 Vue.component("UdAlert", UdAlert)

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { nl2br } from '@/utils/ud-utils'
+import { nl2br } from '../ud-utils'
 
 export default {
   name: 'UdAlert',

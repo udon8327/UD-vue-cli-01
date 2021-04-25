@@ -9,7 +9,7 @@
 
 import Vue from 'vue'
 import axios from 'axios'
-import { udAlert, udLoading } from '@/utils/ud-components.js'
+import { udAlert, udLoading } from './ud-components'
 
 // 自定義axios實例預設值
 const udAxios = axios.create({

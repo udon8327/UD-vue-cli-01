@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { scrollTo } from '@/utils/ud-utils'
+import { scrollTo } from '../ud-utils'
 
 export default {
   name: 'UdCaptcha',
