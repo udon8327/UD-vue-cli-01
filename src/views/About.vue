@@ -72,6 +72,8 @@ export default {
       onConfirm: () => console.log('確認'),
       onCancel: () => console.log('取消'),
       confirm: true,
+      maskClose: true,
+      btnClose: true
     })
       .then(val => {
         this.udAlert("嗚哇啊啊\n啊啊啊<br>" + val);

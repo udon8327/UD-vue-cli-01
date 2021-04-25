@@ -3,12 +3,6 @@
   h1 Home
   img(src='@/assets/images/logo.png' alt='')
   .test
-  //- .test
-  //- .test
-  //- .test
-  //- .test
-  //- .test
-  //- .test
   p {{ test }}
   img(v-for="img in imgList" :src="require(`@/assets/images/0${img}.jpg`)")
   p {{ user.name }}
@@ -41,8 +35,8 @@ export default {
     }
   },
   mounted() {
-    // this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
-    //   .then(res => console.log(res))
+    this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
+      .then(res => console.log(res))
   },
   methods: {
     
