@@ -107,14 +107,7 @@ let udAlert = options => {
     Object.assign(udAlertInstance, options);
   }
   document.body.appendChild(udAlertInstance.$mount().$el);
-  
-  return udAlertInstance.show()
-    .then(val => {
-      return Promise.resolve(val);
-    })
-    .catch(err => {
-      return Promise.reject(err);
-    });
+  return udAlertInstance.show();
 };
 Vue.prototype.udAlert = udAlert;
 export { udAlert }

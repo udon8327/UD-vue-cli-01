@@ -9,12 +9,18 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      title: "首頁"
+    }
   },
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: About,
+    meta: {
+      title: "關於我"
+    }
   },
   // {
   //   path: '/about',

@@ -17,6 +17,7 @@ import '@/style/app.sass'
 // 跳轉後回到頂端(Hash模式時)
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0);
+  if(to.meta.title) document.title = to.meta.title;
 })
 
 Vue.config.productionTip = false

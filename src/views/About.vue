@@ -65,6 +65,8 @@ export default {
     })
   }),
   mounted() {
+    console.log('this.$router', this.$router);
+    console.log('this.$route', this.$route.meta.title);
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
     this.udAlert({
       title: "錯誤!!",
@@ -75,7 +77,7 @@ export default {
       maskClose: true,
       btnClose: true
     })
-      .then(val => {
+      .then((val) => {
         this.udAlert("嗚哇啊啊\n啊啊啊<br>" + val);
       }).catch(err => {
         this.$toast.show({
