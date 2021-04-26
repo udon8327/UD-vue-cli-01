@@ -11,6 +11,7 @@
   ud-button.mb-1(@click="click") 好喔
   ud-button.mb-1(@click="add") 增加
   ud-button.mb-1(@click="test" throttle) 隨機數
+  ud-button.mb-1(@click="toHome") 去首頁
   p {{ user.name }}
   p {{ user.phone }}
   p {{ user.gender }}
@@ -96,6 +97,9 @@ export default {
     },
     test() {
       console.log(this.getRandom());
+    },
+    toHome() {
+      this.$router.push('/')
     }
   },
 }

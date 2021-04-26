@@ -5,16 +5,12 @@ import store from './store'
 
 import './udon-ui'
 
-import MessageBox from './components/MessageBox';
-Vue.use(MessageBox);
-
 import Toast from './components/Toast';
 Vue.use(Toast);
 
-
 import '@/style/app.sass'
 
-// 跳轉後回到頂端(Hash模式時)
+// 全局路由守衛
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0);
   if(to.meta.title) document.title = to.meta.title;

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -17,19 +16,27 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: About,
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
     meta: {
       title: "關於我"
-    }
+    },
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
-  // }
+  {
+    path: '/404',
+    name: '404',
+    component: () => import(/* webpackChunkName: "about" */ '@/views/404.vue'),
+    meta: {
+      title: "404"
+    },
+  },
+  {
+    path: '*',
+    redirect: '/404',
+  }
 ]
 
 const router = new VueRouter({
+  // mode: 'history',
   routes
 })
 
