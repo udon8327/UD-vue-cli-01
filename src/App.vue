@@ -2,6 +2,7 @@
 #app
   .container
     header
+      router-view(name='notFound')
       img(src="@/assets/images/logo.png")
     .wrapper
       #nav

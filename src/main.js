@@ -10,8 +10,8 @@ Vue.use(Toast);
 
 import '@/style/app.sass'
 
-// 全局路由守衛
-router.afterEach((to, from, next) => {
+// 路由導航守衛
+router.afterEach((to, from) => {
   window.scrollTo(0, 0);
   if(to.meta.title) document.title = to.meta.title;
 })

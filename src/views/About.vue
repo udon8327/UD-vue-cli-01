@@ -5,13 +5,16 @@
     h2 這是modal
     ud-button(@click="isModalShow = 0") OK
   h1 About
+  router-view
   ud-input(placeholder="好喔" v-model="value" center)
+  router-view(name='b')
   img(src="@/assets/images/logo.png")
   img(src="@/assets/images/small.png")
   ud-button.mb-1(@click="click") 好喔
   ud-button.mb-1(@click="add") 增加
   ud-button.mb-1(@click="test" throttle) 隨機數
   ud-button.mb-1(@click="toHome") 去首頁
+  h2 {{ $route.params.id }}, {{ $route.query.name }}
   p {{ user.name }}
   p {{ user.phone }}
   p {{ user.gender }}
@@ -63,11 +66,9 @@ export default {
     },
     ...mapState({
       user: state => state.user
-    })
+    }),
   }),
   mounted() {
-    console.log('this.$router', this.$router);
-    console.log('this.$route', this.$route.meta.title);
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
     this.udAlert({
       title: "錯誤!!",
@@ -88,6 +89,11 @@ export default {
         })
       });
   },
+  // computed: {
+  //   userId() {
+  //     return this.$route.params.id;
+  //   }
+  // },
   methods: {
     click() {
       this.isModalShow = 1;
