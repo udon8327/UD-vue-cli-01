@@ -1,15 +1,16 @@
 <template lang="pug">
 .view-about
   ud-modal(v-model="isModalShow")
-    img(src="@/assets/images/logo.png")
+    img(src="@/assets/img/logo.png")
     h2 這是modal
     ud-button(@click="isModalShow = 0") OK
   h1 About
+  ud-button(name="udon" type="submit") 送出
   router-view
   ud-input(placeholder="好喔" v-model="value" center)
   router-view(name='b')
-  img(src="@/assets/images/logo.png")
-  img(src="@/assets/images/small.png")
+  img(src="@/assets/img/logo.png")
+  img(src="@/assets/img/small.png")
   ud-button.mb-1(@click="click") 好喔
   ud-button.mb-1(@click="add") 增加
   ud-button.mb-1(@click="test" throttle) 隨機數
@@ -80,7 +81,7 @@ export default {
       btnClose: true
     })
       .then((val) => {
-        this.udAlert("嗚哇啊啊\n啊啊啊<br>" + val);
+        this.udAlert("嗚哇啊啊" + val);
       }).catch(err => {
         this.$toast.show({
           text: err,

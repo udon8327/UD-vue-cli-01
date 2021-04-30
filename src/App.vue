@@ -3,7 +3,7 @@
   .container
     header
       router-view(name='notFound')
-      img(src="@/assets/images/logo.png")
+      img(src="@/assets/img/logo.png")
     .wrapper
       #nav
         router-link(to='/') Home

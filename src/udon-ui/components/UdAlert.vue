@@ -12,10 +12,8 @@
           <p v-html="nl2br(msg)"></p>
         </div>
         <div class="modal-footer">
-          <ud-flex>
-            <ud-button @click="cancelHandler" plain v-if="confirm">{{ cancelText }}</ud-button>
-            <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
-          </ud-flex>
+          <ud-button @click="cancelHandler" plain v-if="confirm">{{ cancelText }}</ud-button>
+          <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
         </div>
       </div>
     </div>
@@ -33,7 +31,7 @@ export default {
       confirm: false, // 是否有確認+取消鈕
       maskClose: false, // 點擊遮罩關閉
       btnClose: false, // 右上關閉按鈕
-      scrollLock: true, // 是否鎖定背景頁面捲動
+      scrollLock: false, // 是否鎖定背景頁面捲動
       title: '', // 標題文字
       msg: "網路通信錯誤，請稍候再試", // 訊息文字
       cancelText: "取消", // 取消鈕文字
@@ -100,7 +98,6 @@ export default {
   overflow-x: hidden
   .modal-wrapper
     position: relative
-    padding: 15px
     width: 90%
     max-width: 460px
     max-height: 88%
@@ -139,16 +136,24 @@ export default {
           transform: rotate(-45deg)
     .modal-header
       flex: 0 0 auto
-      padding: 0 0 15px 0
+      padding: 15px
       p
         font-size: 18px
         font-weight: bold
     .modal-body
       flex: 1 1 auto
-      padding: 5px 15px
-      margin: 0 -15px
+      padding: 15px
       overflow-y: auto
     .modal-footer
       flex: 0 0 auto
-      padding: 15px 0 0 0
+      padding: 15px
+      display: flex
+      justify-content: center
+      > *
+        // flex: 0 1 50%
+        width: inherit !important 
+        min-width: 50% !important
+        display: inline !important
+      > * + *
+        margin-left: 10px
 </style>
