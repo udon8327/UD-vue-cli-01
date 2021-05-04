@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import './udon-ui'
+import UdonUi from './udon-ui'
+Vue.use(UdonUi);
 
 import Toast from './components/Toast';
 Vue.use(Toast);

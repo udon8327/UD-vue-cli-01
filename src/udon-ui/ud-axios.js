@@ -7,7 +7,6 @@
  * @param {Object} loading 客製化loading效果
  */
 
-import Vue from 'vue'
 import axios from 'axios'
 import { udAlert, udLoading } from './ud-components'
 
@@ -114,7 +113,5 @@ udAxios.interceptors.response.use(
 
   }
 );
-
-Vue.prototype.udAxios = udAxios;
 
 export { udAxios }

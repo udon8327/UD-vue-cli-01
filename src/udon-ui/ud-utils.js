@@ -72,110 +72,6 @@ Device
   判斷是否安卓移動裝置 -----> isAndroidMobileDevice
 */
 
-import Vue from 'vue'
-
-// 插件匯出
-Vue.prototype.nl2br = nl2br;
-Vue.prototype.randomString = randomString;
-Vue.prototype.formatNumber = formatNumber;
-Vue.prototype.copyTextToClipboard = copyTextToClipboard;
-Vue.prototype.getRandom = getRandom;
-Vue.prototype.round = round;
-Vue.prototype.imageLoaded = imageLoaded;
-Vue.prototype.imageAllLoaded = imageAllLoaded;
-Vue.prototype.isRepeat = isRepeat;
-Vue.prototype.uniqArray = uniqArray;
-Vue.prototype.flatArray = flatArray;
-Vue.prototype.indexOfAll = indexOfAll;
-Vue.prototype.intersection = intersection;
-Vue.prototype.shuffle = shuffle;
-Vue.prototype.typeOf = typeOf;
-Vue.prototype.filterObj = filterObj;
-Vue.prototype.deleteObj = deleteObj;
-Vue.prototype.deepCloneSimple = deepCloneSimple;
-Vue.prototype.deepClone = deepClone;
-Vue.prototype.isLeapYear = isLeapYear;
-Vue.prototype.isExistDate = isExistDate;
-Vue.prototype.getColonTimeFromDate = getColonTimeFromDate;
-Vue.prototype.getDaysDiffBetweenDates = getDaysDiffBetweenDates;
-Vue.prototype.isAfterDate = isAfterDate;
-Vue.prototype.isBeforeDate = isBeforeDate;
-Vue.prototype.getDiffDate = getDiffDate;
-Vue.prototype.uniqueId = uniqueId;
-Vue.prototype.scrollTo = scrollTo;
-Vue.prototype.getPageScroll = getPageScroll;
-Vue.prototype.getPage = getPage;
-Vue.prototype.getPageView = getPageView;
-Vue.prototype.isRegex = isRegex;
-Vue.prototype.isNumber = isNumber;
-Vue.prototype.isEmpty = isEmpty;
-Vue.prototype.isIdCard = isIdCard;
-Vue.prototype.getLocalStorage = getLocalStorage;
-Vue.prototype.setLocalStorage = setLocalStorage;
-Vue.prototype.getCookie = getCookie;
-Vue.prototype.setCookie = setCookie;
-Vue.prototype.debounce = debounce;
-Vue.prototype.throttle = throttle;
-Vue.prototype.queryString = queryString;
-Vue.prototype.parseUrl = parseUrl;
-Vue.prototype.toUrl = toUrl;
-Vue.prototype.jumpReload = jumpReload;
-Vue.prototype.isMobileUserAgent = isMobileUserAgent;
-Vue.prototype.isAppleMobileDevice = isAppleMobileDevice;
-Vue.prototype.isAndroidMobileDevice = isAndroidMobileDevice;
-
-// 單獨匯出
-export {
-  nl2br,
-  randomString,
-  formatNumber,
-  copyTextToClipboard,
-  getRandom,
-  round,
-  imageLoaded,
-  imageAllLoaded,
-  isRepeat,
-  uniqArray,
-  flatArray,
-  indexOfAll,
-  intersection,
-  shuffle,
-  typeOf,
-  filterObj,
-  deleteObj,
-  deepCloneSimple,
-  deepClone,
-  isLeapYear,
-  isExistDate,
-  getColonTimeFromDate,
-  getDaysDiffBetweenDates,
-  isAfterDate,
-  isBeforeDate,
-  getDiffDate,
-  uniqueId,
-  scrollTo,
-  getPageScroll,
-  getPage,
-  getPageView,
-  isRegex,
-  isNumber,
-  isEmpty,
-  isIdCard,
-  getLocalStorage,
-  setLocalStorage,
-  getCookie,
-  setCookie,
-  debounce,
-  throttle,
-  queryString,
-  parseUrl,
-  toUrl,
-  jumpReload,
-  isMobileUserAgent,
-  isAppleMobileDevice,
-  isAndroidMobileDevice,
-};
-
 //-----------------------String-----------------------
 /**
  * 將字串內換行符\n轉為<br>
@@ -954,3 +850,55 @@ function isAppleMobileDevice() {
 function isAndroidMobileDevice() {
   return /android/i.test(navigator.userAgent.toLowerCase());
 }
+
+
+export {
+  nl2br,
+  randomString,
+  formatNumber,
+  copyTextToClipboard,
+  getRandom,
+  round,
+  imageLoaded,
+  imageAllLoaded,
+  isRepeat,
+  uniqArray,
+  flatArray,
+  indexOfAll,
+  intersection,
+  shuffle,
+  typeOf,
+  filterObj,
+  deleteObj,
+  deepCloneSimple,
+  deepClone,
+  isLeapYear,
+  isExistDate,
+  getColonTimeFromDate,
+  getDaysDiffBetweenDates,
+  isAfterDate,
+  isBeforeDate,
+  getDiffDate,
+  uniqueId,
+  scrollTo,
+  getPageScroll,
+  getPage,
+  getPageView,
+  isRegex,
+  isNumber,
+  isEmpty,
+  isIdCard,
+  getLocalStorage,
+  setLocalStorage,
+  getCookie,
+  setCookie,
+  debounce,
+  throttle,
+  queryString,
+  parseUrl,
+  toUrl,
+  jumpReload,
+  isMobileUserAgent,
+  isAppleMobileDevice,
+  isAndroidMobileDevice,
+};
