@@ -5,6 +5,7 @@
     h2 這是modal
     ud-button(@click="isModalShow = 0") OK
   h1 About
+  p {{ total }}
   ud-button(name="udon" type="submit") 送出
   router-view
   ud-input(placeholder="好喔" v-model="value" center)
@@ -58,12 +59,12 @@ export default {
       value: "",
     }
   },
-  components: {
-
-  },
   computed: mapState({
     isModal() {
       return this.isModalShow + 2
+    },
+    total() {
+      return this.$root.$data.total;
     },
     ...mapState({
       user: state => state.user

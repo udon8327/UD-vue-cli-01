@@ -13,16 +13,15 @@
   p {{ clicked }}
   ud-button.mb-1(@click="isModalShow = 1" :loading="loading" icon="fas fa-arrow-circle-left") Modal
   ud-button.mb-1(@click="isModalShow = 1" :loading="loading" round :image="require('@/assets/img/small.png')") Modal
-  ud-button.mb-1(@click="random" throttle) Modal
+  ud-button.mb-1(@click="random($event)" :loading="loading") Modal
   ud-button(@click="onYes") Yes
   ud-button(@click="onNo") No
+  p {{ total }}
 </template>
 
 <script>
-import { udAlert } from '@/udon-ui/ud-components.js'
-
 export default {
-  name: 'About',
+  name: 'Home',
   components: {
 
   },
@@ -40,9 +39,13 @@ export default {
     },
     clicked() {
       return this.$store.state.clicked;
+    },
+    total() {
+      return this.$root.$data.total;
     }
   },
   mounted() {
+    this.$root.$data.total = "啊哈哈";
     this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
       .then(res => console.log(res))
   },
@@ -53,8 +56,8 @@ export default {
     onNo() {
       this.loading = false;
     },
-    random() {
-      console.log(Math.random());
+    random(evt) {
+      console.log(typeof evt, evt.target, Math.random());
     }
   },
 }
