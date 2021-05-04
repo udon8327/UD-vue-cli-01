@@ -6,16 +6,10 @@ import UdLoading from "./components/UdLoading"
 let udAlertExtend = Vue.extend(UdAlert);
 let udAlert = options => {
   let udAlertInstance = new udAlertExtend();
-  if(typeof options === 'string') {
-    udAlertInstance.msg = options;
-  }else if(typeof options === 'object') {
-    Object.assign(udAlertInstance, options);
-  }
+  typeof options === 'string' ? udAlertInstance.msg = options : Object.assign(udAlertInstance, options);
   document.body.appendChild(udAlertInstance.$mount().$el);
   return udAlertInstance.show();
 };
-Vue.prototype.udAlert = udAlert;
-export { udAlert }
 
 // udLoading 呼叫方法
 let udLoadingExtend = Vue.extend(UdLoading);
@@ -31,5 +25,8 @@ let udLoading = {
   },
   close: () => udLoadingFn.destroy()
 };
-Vue.prototype.udLoading = udLoading;
-export { udLoading }
+
+export { 
+  udLoading,
+  udAlert
+}
