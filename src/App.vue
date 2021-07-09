@@ -2,11 +2,10 @@
 #app
   .container
     header
-      router-view(name='notFound')
       img(src="@/assets/img/logo.png")
     .wrapper
       #nav
-        router-link(to='/') Home
+        router-link(to='/home') Home
         |  | 
         router-link(to='/about') About
       #view

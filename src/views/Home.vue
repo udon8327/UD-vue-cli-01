@@ -4,11 +4,9 @@
     h1(v-for="item in 30") 啊{{ item }}啊
     ud-button(@click="isModalShow = 0")
   h1 Home
-  img(:src="`${publicUrl}/01.jpg`")
-  h1 {{ baseUrl }}
+  ud-ratio(:src="`${baseUrl}01.jpg`")
   h1 {{ image }}
-  h1 {{ test }}
-  ud-ratio(:src="image")
+  ud-ratio(:src="image" bg-size="contain")
   el-select(v-model='test' placeholder='请选择')
     el-option(v-for='item in options' :key='item.value' :label='item.label' :value='item.value')
   img(src='@/assets/img/logo.png' alt='')
@@ -40,9 +38,9 @@ export default {
   },
   data() {
     return {
+      baseUrl: process.env.VUE_APP_BASE_URL,
       publicUrl: process.env.VUE_APP_PUBLIC_URL,
-      image: 'https://imgur.com/zoDLCHc.jpg',
-      test: process.env.VUE_APP_PROJECT_NAME,
+      image: require('@/assets/img/sato.jpg'),
       imgList: [1, 2, 3],
       isModalShow: 0,
       loading: false,
@@ -69,6 +67,8 @@ export default {
     }
   },
   mounted() {
+    this.udAxios.get('/test/select/4')
+      .then(res => console.log(res));
     // this.udAxios.post('http://localhost:3001/test', {
     //   name: "UDON",
     //   phone: "0929864747"

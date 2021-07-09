@@ -3,7 +3,7 @@
 
 let config = {
   // 公用路徑
-  publicPath: process.env.BASE_URL,
+  publicPath: process.env.VUE_APP_BASE_URL,
   // 建置前端靜態檔案時要擺放的目錄
   // outputDir: '../public',
   devServer: {
@@ -52,6 +52,7 @@ let config = {
   // }
 }
 
+if(process.env.VUE_APP_FILE_OPEN === 'true') config.publicPath = '';
 if(process.env.VUE_APP_DEV_HTTPS === "false") delete config.devServer.https;
 
 module.exports = config;
