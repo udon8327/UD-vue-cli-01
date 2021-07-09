@@ -1,7 +1,7 @@
-import * as udAxios from './ud-axios'
-import * as udUtils from './ud-utils'
-import * as udCalls from './ud-calls'
-import * as udComponents from './components'
+import * as udAxios from '@/services/ud-axios'
+import * as udUtils from '@/utils/ud-utils'
+import * as udCalls from '@/components/udon-ui/ud-calls'
+import * as udComponents from '@/components/udon-ui/ud-components'
 
 let install = Vue => {
   Object.keys(udAxios).forEach(item => Vue.prototype[item] = udAxios[item]);

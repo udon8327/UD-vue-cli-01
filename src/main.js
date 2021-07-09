@@ -7,7 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-import udonUi from './udon-ui'
+import udonUi from './components/udon-ui'
 Vue.use(udonUi);
 
 import Toast from './components/Toast';
