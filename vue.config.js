@@ -1,10 +1,26 @@
-module.exports = {
-  publicPath: '', // 公用路徑
-  productionSourceMap: false, // 打包時不生成.map文件
-  // outputDir: '../public', // 建置前端靜態檔案時要擺放的目錄
+// const path = require('path')
+// const fs = require('fs')
+
+let config = {
+  // 公用路徑
+  publicPath: process.env.BASE_URL,
+  // 建置前端靜態檔案時要擺放的目錄
+  // outputDir: '../public',
   devServer: {
-    port: 8090
+    // 在專案開發中如果呼叫 API 時會 pass 給這個 proxy 網址，即後台網址
+    proxy: process.env.VUE_APP_DEV_PROXY,
+    // 本地提供 https 憑證
+    https: {
+      key: process.env.VUE_APP_DEV_SSL_KEY,
+      cert: process.env.VUE_APP_DEV_SSL_CERT,
+      ca: process.env.VUE_APP_DEV_CA,
+    },
+    // 開發 server 的 domain 和 port
+    host: process.env.VUE_APP_DEV_HOST,
+    port: process.env.VUE_APP_DEV_PORT,
   },
+  // 打包時不生成.map文件
+  productionSourceMap: false,
   css: {
     loaderOptions: {
       sass: { // 給sass-loader傳遞選項
@@ -17,7 +33,8 @@ module.exports = {
     if (process.env.NODE_ENV === "development") {
       config.plugins.delete("preload");
     }
-    config.module  // url-loader轉圖上限改為10kb
+    // 將小於10kb的資源內聯
+    config.module
       .rule('images')
         .use('url-loader')
           .loader('url-loader')
@@ -34,3 +51,7 @@ module.exports = {
   //   subpage: 'src/subpage/main.js'
   // }
 }
+
+if(process.env.VUE_APP_DEV_HTTPS === "false") delete config.devServer.https;
+
+module.exports = config;

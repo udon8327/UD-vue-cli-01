@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import UdAlert from './components/UdAlert'
-import UdLoading from "./components/UdLoading"
+import { UdAlert, UdLoading } from './components'
 
 // udAlert 呼叫方法
 let udAlertExtend = Vue.extend(UdAlert);

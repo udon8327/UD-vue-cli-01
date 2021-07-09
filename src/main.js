@@ -3,8 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import UdonUi from './udon-ui'
-Vue.use(UdonUi);
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
+import udonUi from './udon-ui'
+Vue.use(udonUi);
 
 import Toast from './components/Toast';
 Vue.use(Toast);
