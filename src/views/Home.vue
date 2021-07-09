@@ -4,11 +4,14 @@
     h1(v-for="item in 30") 啊{{ item }}啊
     ud-button(@click="isModalShow = 0")
   h1 Home
+  ud-flex
+    ud-select(:options="options" v-model="store[0]" :group="store" :index="0")
+    ud-select(:options="options" v-model="store[1]" :group="store" :index="1")
+    ud-select(:options="options" v-model="store[2]" :group="store" :index="2")
+    ud-select(:options="options" v-model="store[3]" :group="store" :index="3")
   ud-ratio(:src="`${baseUrl}01.jpg`")
   h1 {{ image }}
   ud-ratio(:src="image" bg-size="contain")
-  el-select(v-model='test' placeholder='请选择')
-    el-option(v-for='item in options' :key='item.value' :label='item.label' :value='item.value')
   img(src='@/assets/img/logo.png' alt='')
   ud-ratio(:src="require('@/assets/img/11.jpg')" bg-size="cover" radius="50%" style="width: 100px; margin: 15px auto")
   ud-input(v-model.trim="username" placeholder="username")
@@ -29,8 +32,6 @@
 </template>
 
 <script>
-let CryptoJS = require("crypto-js");
-
 export default {
   name: 'Home',
   components: {
@@ -47,11 +48,8 @@ export default {
       datas: [],
       username: "",
       password: "",
-      options: [
-        { label: "AAA", value: "a" },
-        { label: "BBB", value: "b" },
-        { label: "CCC", value: "c" }
-      ],
+      options: [],
+      store: ["", "", "", ""],
       test: ""
     }
   },
@@ -67,8 +65,9 @@ export default {
     }
   },
   mounted() {
+    // this.udAlert({msg: this.getRandom(100, 200)});
     this.udAxios.get('/test/select/4')
-      .then(res => console.log(res));
+      .then(res => this.options = res.options);
     // this.udAxios.post('http://localhost:3001/test', {
     //   name: "UDON",
     //   phone: "0929864747"
@@ -100,5 +99,17 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
+.view-home
+  h1
+    color: $main
+  img
+    width: 30px
+  .test
+    height: 200px
+    background: url('~@/assets/img/01.jpg') no-repeat top center
+    background-size: cover
+    display: flex
+    justify-content: center
+    backdrop-filter: blur(5px)
 </style>

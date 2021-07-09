@@ -18,7 +18,6 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      title: "首頁",
       requiresAuth: true
     }
   },
@@ -27,7 +26,8 @@ const routes = [
     name: 'About',
     component: About,
     meta: {
-      title: "關於我"
+      title: "關於我",
+      requiresAuth: true
     },
   },
   {

@@ -72,24 +72,30 @@ export default {
   }),
   mounted() {
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
-    this.udAlert({
-      title: "錯誤!!",
-      msg: "好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n",
-      onConfirm: () => console.log('確認'),
-      onCancel: () => console.log('取消'),
-      confirm: true,
-      maskClose: true,
-      btnClose: true
-    })
-      .then((val) => {
-        this.udAlert("嗚哇啊啊" + val);
-      }).catch(err => {
-        this.$toast.show({
-          text: err,
-          time: '2000',
-          position: 'right'
-        })
-      });
+    this.$loading({
+      lock: true,
+      text: '載入中...',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    });
+    // this.udAlert({
+    //   title: "錯誤!!",
+    //   msg: "好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n",
+    //   onConfirm: () => console.log('確認'),
+    //   onCancel: () => console.log('取消'),
+    //   confirm: true,
+    //   maskClose: true,
+    //   btnClose: true
+    // })
+    //   .then((val) => {
+    //     this.udAlert("嗚哇啊啊" + val);
+    //   }).catch(err => {
+    //     this.$toast.show({
+    //       text: err,
+    //       time: '2000',
+    //       position: 'right'
+    //     })
+    //   });
   },
   // computed: {
   //   userId() {
@@ -113,7 +119,9 @@ export default {
 }
 </script>
 
-<style lang="sass">
-body
-  // overflow: hidden
+<style lang="sass" scoped>
+  h1
+    color: $sub1
+  img
+    width: 30px
 </style>

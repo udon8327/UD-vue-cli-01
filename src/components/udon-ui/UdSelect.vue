@@ -8,8 +8,8 @@
       ref="select"
     >
       <option value="" disabled selected>{{ placeholder }}</option>
-      <option v-for="option in options" :value="option.value" :key="option.value">
-        {{ combine ? option.value : option.label }}
+      <option v-for="option in optionsArr" :value="option[valueBy]" :key="option[valueBy]" :disabled="option.disabled">
+        {{ combine ? option[valueBy] : option[labelBy] }}
       </option>
     </select>
   </div>
@@ -20,24 +20,60 @@ export default {
   name: 'UdSelect',
   inheritAttrs: false,
   props: {
-    value: null, // value值
-    options: null, // 選項
+    value: { default: "" }, // value值
+    options: { // 選項
+      default: () => {
+        return [
+          { label: "", value: "", disabled: true }
+        ]
+      }
+    },
     placeholder: { default: "請選擇一項" }, // 取代文字
     combine: Boolean, // 使用value做為label
     center: Boolean, // 是否置中
+    group: { default: "" }, // 是否群組
+    index: { default: 0 }, // 群組索引
+    labelBy: { default: "label" }, // label替代值
+    valueBy: { default: "value" }, // value替代值
+  },
+  data() {
+    return {
+      groupWatch: []
+    }
   },
   computed: {
     modelValue: {
-      get(){ return this.value },
+      get(){ return this.value == null ? "" : this.value },
       set(val){ this.$emit('input', val) }
     },
+    optionsArr() {
+      this.groupWatch = [...this.group];
+      let temp = this.options;
+      if(this.index === 0) return temp;
+      if(this.group[this.index - 1]) {
+        for(let i = 0; i < this.index; i++) {
+          temp = temp.find(option => option.value === this.group[i]).children;
+        }
+        return temp;
+      }
+      return {};
+    }
+  },
+  watch: {
+    groupWatch(newVal, oldVal) {
+      let target;
+      for(let i = 0; i < this.group.length; i++) {
+        if(newVal[i] !== oldVal[i]) target = i;
+      }
+      if(this.index > target) this.$emit('input', "");
+    }
   },
   mounted() {
     if(this.center) this.centerSelect();
-    window.addEventListener("resize", this.centerSelect);
+    if(this.center) window.addEventListener("resize", this.centerSelect);
   },
   destroyed() {
-    window.removeEventListener("resize", this.centerSelect);
+    if(this.center) window.removeEventListener("resize", this.centerSelect);
   },
   methods: {
     onChange() {
@@ -88,7 +124,7 @@ export default {
     border-radius: 5px
     border: 1px solid #cecece
     background-color: #fff
-    font-size: 1.4rem
+    font-size: 14px
     padding: 5px 10px
     width: 100%
     margin: 0
