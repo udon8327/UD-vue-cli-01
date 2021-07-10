@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: process.env.VUE_APP_BASE_URL,
+      baseUrl: process.env.VUE_APP_PUBLIC_PATH,
       publicUrl: process.env.VUE_APP_PUBLIC_URL,
       image: require('@/assets/img/sato.jpg'),
       imgList: [1, 2, 3],
@@ -76,6 +76,12 @@ export default {
     }
   },
   mounted() {
+    this.udAxios.get('/test/select/4')
+      .then(res => this.options = res.options);
+    this.udAxios.get('/test/select/4')
+      .then(res => this.options = res.options);
+    this.udAxios.get('/test/select/4')
+      .then(res => this.options = res.options);
     this.udAxios.get('/test/select/4')
       .then(res => this.options = res.options);
     this.udAlert({msg: '好喔', confirm: true})
