@@ -8,7 +8,7 @@
  */
 
 import axios from 'axios'
-import { udAlert, udLoading } from '@/components/udon-ui/ud-calls'
+import { udAlert, udLoading } from '@/components/udon-ui/ud-components'
 
 // 自定義axios實例預設值
 const udAxios = axios.create({

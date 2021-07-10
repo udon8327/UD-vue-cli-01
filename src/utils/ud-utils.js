@@ -851,7 +851,6 @@ function isAndroidMobileDevice() {
   return /android/i.test(navigator.userAgent.toLowerCase());
 }
 
-
 export {
   nl2br,
   randomString,

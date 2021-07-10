@@ -76,19 +76,17 @@ export default {
     }
   },
   mounted() {
-    // this.udAlert({msg: this.getRandom(100, 200)});
-    this.udAxios.get('/test/select/4')
-      .then(res => this.options = res.options);
-    // this.udAxios.post('http://localhost:3001/test', {
-    //   name: "UDON",
-    //   phone: "0929864747"
-    // })
-    //   .then(res => console.log(res));
-    // this.udAxios.get('http://udon8327.synology.me:8327/api')
-    //   .then(res => this.datas = res);
-    // this.$root.$data.total = "啊哈哈";
-    // this.udAxios.get('https://udon8327.synology.me/ajax/success.php')
-    //   .then(res => console.log(res))
+    this.udAlert({msg: '好喔', confirm: true})
+      .then(() => {
+        this.udAxios.get('/test/select/4')
+          .then(res => this.options = res.options);
+      })
+      .catch(() => {
+        this.udLoading.open();
+        setTimeout(() => {
+          this.udLoading.close();
+        }, 1000);
+      })
   },
   methods: {
     login() {
