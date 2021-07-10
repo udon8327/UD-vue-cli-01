@@ -3,14 +3,11 @@
   .container
     header
       img(src="@/assets/img/logo.png")
-    .wrapper
-      #nav
-        router-link(to='/home') Home
-        |  | 
-        router-link(to='/about') About
-      #view
+    main
+      .wrapper
         router-view
-      #footer footer
+    footer
+      p Copyright © {{ new Date().getFullYear() }} Coolbe.
 </template>
 
 <style lang="sass">
@@ -26,9 +23,9 @@
 
 html,#app
   height: 100%
-  font-size: 14px
-  @media (min-width: 540px)
-    font-size: 16px
+  // font-size: 16px
+  // @media (min-width: 540px)
+  //   font-size: 18px
 
 body
   font-family: "Noto Sans TC", "Helvetica Neue", Helvetica, "PingFang TC", "LiHei Pro", "Hiragino Sans GB", "Microsoft JhengHei", "微軟正黑體", Arial ,sans-serif
@@ -63,39 +60,43 @@ a
   // flex-direction: column
   text-align: center
   header
-    flex: 0 0 72px
-    height: 72px
+    flex: 0 0 64px
+    height: 64px
     background-color: $main
     display: flex
     justify-content: center
     align-items: center
     img
-      height: 90%
+      height: 100%
       width: auto
-  .wrapper
-    // flex: 1 1 0
-    padding: 15px 15px 60px 15px
-    background-color: #fff
-    // display: flex
-    // flex-direction: column
-    #nav
-      text-align: center
-      padding: 10px 0
-      a
-        font-weight: bold
-        color: #2c3e50
-        &.router-link-exact-active
-          color: #42b983
-    #view
+  main
+    .wrapper
       // flex: 1 1 0
-      // overflow-y: auto
-    // #footer
-    //   flex: 0 0 50px
-    //   background-color: purple
-    //   color: #fff
-    //   display: flex
-    //   justify-content: center
-    //   align-items: center
+      padding: 15px 15px 60px 15px
+      background-color: #fff
+      // display: flex
+      // flex-direction: column
+      #nav
+        text-align: center
+        padding: 10px 0
+        a
+          font-weight: bold
+          color: #2c3e50
+          &.router-link-exact-active
+            color: #42b983
+      #view
+        // flex: 1 1 0
+        // overflow-y: auto
+      // #footer
+      //   flex: 0 0 50px
+      //   background-color: purple
+      //   color: #fff
+      //   display: flex
+      //   justify-content: center
+      //   align-items: center
+  footer
+    p
+      font-size: 14px
 
 // scrollbar
 ::-webkit-scrollbar-track-piece

@@ -15,8 +15,6 @@ Vue.use(Toast);
 
 // 路由導航守衛
 router.afterEach((to, from) => {
-  window.scrollTo(0, 0);
-  if(to.meta.title) document.title = to.meta.title;
   document.title = to.meta.title ? to.meta.title : process.env.VUE_APP_COMPANY_NAME;
 })
 

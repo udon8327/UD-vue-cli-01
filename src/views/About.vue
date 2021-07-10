@@ -72,12 +72,7 @@ export default {
   }),
   mounted() {
     console.log(this.formatNumber(this.getRandom(1000, 9999999)));
-    this.$loading({
-      lock: true,
-      text: '載入中...',
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.7)'
-    });
+    this.udLoading.open({msg: "載入中..."});
     // this.udAlert({
     //   title: "錯誤!!",
     //   msg: "好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n",
@@ -96,6 +91,9 @@ export default {
     //       position: 'right'
     //     })
     //   });
+  },
+  destroyed() {
+    this.udLoading.close();
   },
   // computed: {
   //   userId() {

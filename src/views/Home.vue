@@ -1,14 +1,18 @@
 <template lang="pug">
 .view-home
+  #nav
+    router-link(to='/home') Home
+    |  | 
+    router-link(to='/about') About
   ud-modal(v-model="isModalShow" mask-close btn-close layout)
     h1(v-for="item in 30") 啊{{ item }}啊
     ud-button(@click="isModalShow = 0")
   h1 Home
   ud-flex
-    ud-select(:options="options" v-model="store[0]" :group="store" :index="0")
-    ud-select(:options="options" v-model="store[1]" :group="store" :index="1")
-    ud-select(:options="options" v-model="store[2]" :group="store" :index="2")
-    ud-select(:options="options" v-model="store[3]" :group="store" :index="3")
+    ud-select(:options="options" v-model="store1" :group="storeGroup" :index="0")
+    ud-select(:options="options" v-model="store2" :group="storeGroup" :index="1")
+    ud-select(:options="options" v-model="store3" :group="storeGroup" :index="2")
+    ud-select(:options="options" v-model="store4" :group="storeGroup" :index="3")
   ud-ratio(:src="`${baseUrl}01.jpg`")
   h1 {{ image }}
   ud-ratio(:src="image" bg-size="contain")
@@ -50,10 +54,17 @@ export default {
       password: "",
       options: [],
       store: ["", "", "", ""],
+      store1: "",
+      store2: "",
+      store3: "",
+      store4: "",
       test: ""
     }
   },
   computed: {
+    storeGroup() {
+      return [this.store1, this.store2, this.store3, this.store4]
+    },
     user() {
       return this.$store.state.user;
     },
