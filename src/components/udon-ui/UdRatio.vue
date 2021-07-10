@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'UdInput',
+  name: 'UdRatio',
   props: {
     src: { default: "https://i.imgur.com/s3w1Sm3.jpg" }, // 背景圖片
     height: { default: 100 }, // 高度比例

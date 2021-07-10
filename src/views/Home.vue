@@ -76,6 +76,8 @@ export default {
     }
   },
   mounted() {
+    this.udAxios.get('/test/select/4')
+      .then(res => this.options = res.options);
     this.udAlert({msg: '好喔', confirm: true})
       .then(() => {
         this.udAxios.get('/test/select/4')

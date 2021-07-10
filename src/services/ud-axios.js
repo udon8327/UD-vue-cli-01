@@ -8,7 +8,7 @@
  */
 
 import axios from 'axios'
-import { udAlert, udLoading } from '@/components/udon-ui/ud-components'
+import { udAlert, udLoading } from '@/components/udon-ui'
 
 // 自定義axios實例預設值
 const udAxios = axios.create({
@@ -114,6 +114,4 @@ udAxios.interceptors.response.use(
   }
 );
 
-export {
-  udAxios
-}
+export default udAxios
