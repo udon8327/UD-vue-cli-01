@@ -24,7 +24,7 @@ let config = {
   css: {
     loaderOptions: {
       sass: { // 給sass-loader傳遞選項
-        prependData: `@import "~@/assets/style/variables.sass"`, // sass-loader v8
+        prependData: `@import "~@/assets/style/_variables.sass"`, // sass-loader v8
         // additionalData: `@import "~@/variables.sass"`,
       },
     }

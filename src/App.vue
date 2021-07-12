@@ -11,8 +11,8 @@
 </template>
 
 <style lang="sass">
-@import '@/assets/style/reset.sass'
-@import '@/assets/style/global.sass'
+@import '@/assets/style/_reset.sass'
+@import '@/assets/style/_global.sass'
 
 // @font-face
 //   font-family: 'OptimaEL-Text'
