@@ -92,7 +92,7 @@ export default {
       this.$refs.canvasArea.insertAdjacentHTML('afterbegin', '<canvas width="100" height="38" id="verify-canvas" style="display: none;"></canvas>')
       this.drawCode();
     }
-  },
+  }
 }
 </script>
 

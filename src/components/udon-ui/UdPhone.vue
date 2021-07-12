@@ -16,9 +16,10 @@ export default {
     phoneHref(){
       return `tel:${this.number}`
     }
-  },
+  }
 }
 </script>
 
 <style lang="sass">
+.ud-phone
 </style>

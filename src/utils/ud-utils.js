@@ -3,7 +3,7 @@
 String
   將字串內換行符\n轉為<br> -----> nl2br
   取得隨機字串 -----> randomString
-  數字加入千分位逗號 -----> formatNumber
+  金錢加入千分位逗號 -----> formatNumber
   複製文字至剪貼簿 -----> copyTextToClipboard
 
 Number
@@ -13,6 +13,8 @@ Number
 Image
   預載單張圖片 -----> imageLoaded
   預載多張圖片 -----> imageAllLoaded
+  下載Img圖片 -----> imageDownload
+  下載Canvas圖片 -----> canvasImageDownload
 
 Array
   陣列是否有重複值(不分型別) -----> isRepeat
@@ -53,8 +55,6 @@ Verify
   身分證驗證 -----> isIdCard
 
 Browser
-  取得LocalStorage的值 -----> getLocalStorage
-  設定LocalStorage的值 -----> setLocalStorage
   取得Cookie的值 -----> getCookie
   設置cookie值 -----> setCookie
   函式防抖 -----> debounce
@@ -70,7 +70,6 @@ Device
   判斷是否移動裝置 -----> isMobileUserAgent
   判斷是否蘋果移動裝置 -----> isAppleMobileDevice
   判斷是否安卓移動裝置 -----> isAndroidMobileDevice
-*/
 
 //-----------------------String-----------------------
 /**
@@ -78,7 +77,7 @@ Device
  * @param  {String} val 傳入值
  * @param  {Boolean} is_xhtml 是否為xhtml
  */
-function nl2br(val, is_xhtml = false) {
+ function nl2br(val, is_xhtml = false) {
   if (typeof val === 'undefined' || val === null) {
       return '';
   }
@@ -185,6 +184,47 @@ function imageAllLoaded(arr) {
   })
 }
 
+/**
+ * 下載Img圖片
+ * @param  {String} selector 選擇器，代表img標籤
+ * @param  {String} name 圖片名稱，可選 
+ * imageDownload('#image', '自訂下載圖片名稱')
+ */
+function imageDownload(selector, name = '下載圖片') { 
+  let image = new Image();
+  image.setAttribute('crossOrigin', 'anonymous'); // 解決跨域 Canvas 污染問題
+  image.src = document.querySelector(selector).src;
+  image.onload = function () {
+    let canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    let context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0, image.width, image.height);
+    let url = canvas.toDataURL('image/jpg');
+    let a = document.createElement('a'); // 生成一個a元素
+    let event = new MouseEvent('click'); // 創建一個單擊事件
+    a.download = name; // 將a的download屬性設置為我們想要下載的圖片名稱，若name不存在則使用『下載圖片』作為默認名稱
+    a.href = url; // 將生成的URL設置為a.href屬性
+    a.dispatchEvent(event); // 觸發a的單擊事件
+  }
+}
+
+/**
+ * 下載Canvas元素圖片
+ * @param  {String} selector 選擇器，代表canvas
+ * @param  {String} name 圖片名稱，可選 
+ * canvasImageDownload('canvas', '圖片名稱')
+ */
+function canvasImageDownload(selector, name) {
+  let canvas = document.querySelector(selector); // 通過選擇器獲取canvas元素
+  let url = canvas.toDataURL('image/png'); // 使用toDataURL方法將圖像轉換被base64編碼的URL字符串
+  let a = document.createElement('a'); // 生成一個a元素
+  let event = new MouseEvent('click'); // 創建一個單擊事件
+  a.download = name || '下載圖片名稱'; // 將a的download屬性設置為我們想要下載的圖片名稱，若name不存在則使用『下載圖片名稱』作為默認名稱
+  a.href = url; // 將生成的URL設置為a.href屬性
+  a.dispatchEvent(event); // 觸發a的單擊事件
+}
+
 //-----------------------Array-----------------------
 /**
  * 陣列是否有重複值(不分型別)
@@ -259,10 +299,10 @@ function shuffle([...arr]){
 //-----------------------Object-----------------------
 /**
  * 精準型別判斷
- * @param  {Any} v 代入值
+ * @param  {Any} val 代入值
  */
-function typeOf(v){
-  return v === undefined ? 'undefined' : v === null ? 'null' : v.constructor.name.toLowerCase();
+function typeOf(val){
+  return val === undefined ? 'undefined' : val === null ? 'null' : val.constructor.name.toLowerCase();
 }
 
 /**
@@ -682,23 +722,6 @@ function isIdCard(idStr){
 
 //-----------------------Browser-----------------------
 /**
- * 取得LocalStorage的值
- * @param  {String} key 鍵值
- */
-function getLocalStorage(key) {
-  return localStorage.getItem(key);
-}
-
-/**
- * 設定LocalStorage的值
- * @param  {String} key 鍵值
- * @param  {String} val 屬性值
- */
-function setLocalStorage(key, val) {
-  localStorage.setItem(key, val);
-}
-
-/**
  * 取得Cookie的值
  * @param  {String} name 名稱值
  */
@@ -860,6 +883,8 @@ export {
   round,
   imageLoaded,
   imageAllLoaded,
+  imageDownload,
+  canvasImageDownload,
   isRepeat,
   uniqArray,
   flatArray,
@@ -887,8 +912,6 @@ export {
   isNumber,
   isEmpty,
   isIdCard,
-  getLocalStorage,
-  setLocalStorage,
   getCookie,
   setCookie,
   debounce,

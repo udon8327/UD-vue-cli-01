@@ -31,7 +31,7 @@ export default {
       this.countTime = this.time;
       this.countdown();
     }
-  },
+  }
 }
 </script>
 

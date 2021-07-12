@@ -33,7 +33,7 @@ export default {
     focus() {
       this.$refs.input.focus();
     }
-  },
+  }
 }
 </script>
 
@@ -55,4 +55,7 @@ export default {
     &:focus
       outline: 0
       border: 1px solid $main
+    &:disabled
+      background-color: #eee
+      cursor: not-allowed
 </style>

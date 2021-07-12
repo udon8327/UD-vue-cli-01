@@ -41,7 +41,7 @@ export default {
         el.style.height = 0;
       }
     }
-  },
+  }
 }
 </script>
 

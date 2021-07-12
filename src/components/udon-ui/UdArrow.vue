@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'UdAlert',
+  name: 'UdArrow',
   props: {
     bdColor: { default: "#333" }, // 顏色
     bdWidth: { default: "3" }, // 寬度

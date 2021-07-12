@@ -12,8 +12,10 @@
           <p v-html="nl2br(msg)"></p>
         </div>
         <div class="modal-footer">
-          <ud-button @click="cancelHandler" plain v-if="confirm">{{ cancelText }}</ud-button>
-          <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
+          <ud-flex>
+            <ud-button @click="cancelHandler" plain v-if="confirm">{{ cancelText }}</ud-button>
+            <ud-button @click="confirmHandler">{{ confirmText }}</ud-button>
+          </ud-flex>
         </div>
       </div>
     </div>
@@ -31,7 +33,7 @@ export default {
       confirm: false, // 是否有確認+取消鈕
       maskClose: false, // 點擊遮罩關閉
       btnClose: false, // 右上關閉按鈕
-      scrollLock: false, // 是否鎖定背景頁面捲動
+      scrollLock: true, // 是否鎖定背景頁面捲動
       title: '', // 標題文字
       msg: "網路通信錯誤，請稍候再試", // 訊息文字
       cancelText: "取消", // 取消鈕文字
@@ -44,6 +46,7 @@ export default {
   },
   mounted() {
     if(this.scrollLock) document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    if(this.scrollLock) document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
   },
   methods: {
     show() {
@@ -76,7 +79,7 @@ export default {
         this.$destroy(true);
         this.$el.parentNode.removeChild(this.$el);
       }, 200);
-    },
+    }
   },
 }
 </script>
@@ -91,13 +94,14 @@ export default {
   bottom: 0
   width: 100%
   height: 100%
-  background-color: rgba(0, 0, 0, 0.7)
+  background-color: rgba(0, 0, 0, 0.5)
   display: flex
   justify-content: center
   align-items: center
   overflow-x: hidden
   .modal-wrapper
     position: relative
+    padding: 15px
     width: 90%
     max-width: 460px
     max-height: 88%
@@ -136,24 +140,16 @@ export default {
           transform: rotate(-45deg)
     .modal-header
       flex: 0 0 auto
-      padding: 15px
+      padding: 0 0 15px 0
       p
         font-size: 18px
         font-weight: bold
     .modal-body
       flex: 1 1 auto
-      padding: 15px
+      padding: 5px 15px
+      margin: 0 -15px
       overflow-y: auto
     .modal-footer
       flex: 0 0 auto
-      padding: 15px
-      display: flex
-      justify-content: center
-      > *
-        // flex: 0 1 50%
-        width: inherit !important 
-        min-width: 50% !important
-        display: inline !important
-      > * + *
-        margin-left: 10px
+      padding: 15px 0 0 0
 </style>

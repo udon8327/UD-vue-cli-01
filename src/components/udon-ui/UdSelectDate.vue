@@ -85,7 +85,7 @@ export default {
         this.$parent.$emit('validate'); // 通知FormItem校驗
       })
     })
-  },
+  }
 }
 </script>
 

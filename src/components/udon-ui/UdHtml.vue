@@ -23,7 +23,7 @@ export default {
 <style lang="sass">
 .ud-html
   text-align: left
-  font-size: 1.4rem
+  font-size: 14px
   h1
     font-size: 32px
   h2

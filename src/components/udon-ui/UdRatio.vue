@@ -19,7 +19,7 @@ export default {
     height: { default: 100 }, // 高度比例
     radius: { default: '0px' }, // 圓角
     bgSize: { default: "cover" } // 背景尺寸 (cover, contain, 100%...等)
-  },
+  }
 }
 </script>
 

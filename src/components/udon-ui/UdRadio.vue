@@ -1,5 +1,6 @@
 <template>
   <div class="ud-radio" :class="{'is-flex': flex}">
+
     <label v-if="option">
       <input
         type="radio"
@@ -29,6 +30,7 @@
       ></div>
       <p>{{ combine ? option.value : option.label }}</p>
     </label>
+
   </div>
 </template>
 
@@ -55,7 +57,7 @@ export default {
       this.$parent.$emit('validate'); // 通知FormItem校驗
       this.$emit('change', this.$refs.radio.value);
     }
-  },
+  }
 }
 </script>
 

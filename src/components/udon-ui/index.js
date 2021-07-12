@@ -25,8 +25,6 @@ Layout
 
 Notice
   Alert 警告彈窗 -----> ud-alert
-  Confirm 確認彈窗 -----> ud-confirm
-  AlertConfirm 警告確認彈窗(調用式) -----> ud-alertConfirm
   Modal 通用彈窗 -----> ud-modal
   Loading 載入中 -----> ud-loading
 
@@ -50,8 +48,8 @@ import UdButton from "./UdButton"
 import UdCaptcha from "./UdCaptcha"
 import UdCheckbox from "./UdCheckbox"
 import UdCollapse from "./UdCollapse"
-import UdConfirm from "./UdConfirm"
 import UdCountdown from "./UdCountdown"
+import UdDatePicker from "./UdDatePicker"
 import UdEllipsis from "./UdEllipsis"
 import UdFlex from "./UdFlex"
 import UdForm from "./UdForm"
@@ -65,6 +63,7 @@ import UdQrcode from "./UdQrcode"
 import UdRadio from "./UdRadio"
 import UdRatio from "./UdRatio"
 import UdSelect from "./UdSelect"
+import UdSelectMultiple from "./UdSelectMultiple"
 import UdSelectDate from "./UdSelectDate"
 import UdSelectLink from "./UdSelectLink"
 import UdSelectTwzip from "./UdSelectTwzip"
@@ -80,8 +79,8 @@ const udComponents = [
   UdCaptcha,
   UdCheckbox,
   UdCollapse,
-  UdConfirm,
   UdCountdown,
+  UdDatePicker,
   UdEllipsis,
   UdFlex,
   UdForm,
@@ -95,6 +94,7 @@ const udComponents = [
   UdRadio,
   UdRatio,
   UdSelect,
+  UdSelectMultiple,
   UdSelectDate,
   UdSelectLink,
   UdSelectTwzip,
@@ -105,7 +105,7 @@ const udComponents = [
 // 組件呼叫方法
 const udAlertExtend = Vue.extend(UdAlert);
 const udAlert = options => {
-  const instance = new udAlertExtend();
+  let instance = new udAlertExtend();
   typeof options === 'string' ? instance.msg = options : Object.assign(instance, options);
   document.body.appendChild(instance.$mount().$el);
   return instance.show();

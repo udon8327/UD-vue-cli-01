@@ -20,7 +20,6 @@
         </div>
       </div>
     </button>
-
   </div>
 </template>
 
@@ -52,7 +51,7 @@ export default {
         evt => this.$emit('click', evt)
       )
     );
-  },
+  }
 }
 </script>
 

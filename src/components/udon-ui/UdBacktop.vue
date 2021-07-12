@@ -6,14 +6,15 @@
 import { scrollTo } from '@/utils/ud-utils'
 
 export default {
-  name: 'UdCaptcha',
+  name: 'UdBacktop',
   methods: {
     scrollToTop(){
       scrollTo();
     }
-  },
+  }
 }
 </script>
 
 <style lang="sass">
+.ud-backtop
 </style>

@@ -48,7 +48,7 @@ export default {
         this.$el.parentNode.removeChild(this.$el);
       }, 200);
     },
-  },
+  }
 }
 </script>
 
@@ -61,9 +61,9 @@ export default {
   width: 100%
   height: 100%
   overflow: auto
-  background-color: rgba(0,0,0,0.7)
+  background-color: rgba(0,0,0,0.5)
   &.theme-white
-    background-color: rgba(255,255,255,0.7)
+    background-color: rgba(255,255,255,0.5)
     .modal-wrapper
       .modal-content
         .modal-header

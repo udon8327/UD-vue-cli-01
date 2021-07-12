@@ -27,7 +27,7 @@ export default {
     onInput() {
       this.$parent.$emit('validate'); // 通知FormItem校驗
     }
-  },
+  }
 }
 </script>
 
@@ -48,4 +48,7 @@ export default {
     &:focus
       outline: 0
       border: 1px solid $main
+    &:disabled
+      background-color: #eee
+      cursor: not-allowed
 </style>

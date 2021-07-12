@@ -42,7 +42,7 @@ export default {
     maskHandler() {
       if(this.maskClose) this.isShow = 0;
     },
-  },
+  }
 }
 </script>
 

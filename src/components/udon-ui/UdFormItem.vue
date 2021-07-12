@@ -40,6 +40,7 @@ export default {
   },
   mounted() {
     this.$on('validate', () => {
+      if(!this.prop) return;
       this.validate(false);
     })
   },
@@ -113,15 +114,17 @@ export default {
 
 <style lang="sass">
 .ud-form-item
-  margin-bottom: 1.8rem
+  margin-bottom: 18px
   &.is-flex
     display: flex
     .ud-form-item-left
       flex: 0 0 30%
-      padding: 0 10px
-      text-align: right
+      padding: 0 3px
+      text-align: left
+      display: flex
+      align-items: center
       label
-        line-height: 40px
+        line-height: 20px
     .ud-form-item-right
       flex: 1 1 0
   &.is-error
@@ -134,7 +137,7 @@ export default {
             border: 1px solid $red
       >p.error-message
         color: $red
-        font-size: 1.2rem
+        font-size: 12px
         position: absolute
         left: 5px
         white-space: nowrap

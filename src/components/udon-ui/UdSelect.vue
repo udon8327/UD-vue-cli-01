@@ -99,7 +99,7 @@ export default {
       let emptySpace = el.offsetWidth - this.getTextWidth(text, el);
       el.style.textIndent = `${ ( emptySpace / 2 ) - 10 }px`;
     }
-  },
+  }
 }
 </script>
 

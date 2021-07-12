@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'UdCountdown',
+  name: 'UdQrcode',
   mounted() {
     this.$refs.img.onload = () => {
       this.ready = 1;
@@ -27,7 +27,7 @@ export default {
     QrCodeSrc() {
       return `http://chart.apis.google.com/chart?cht=qr&choe=UTF-8&chs=${this.width}x${this.height}&chl=${this.url}`
     }
-  },
+  }
 }
 </script>
 

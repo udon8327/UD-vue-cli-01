@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'UdSelectLink',
+  name: 'UdSelectTwzip',
   props: {
     value: null, // value值
     placeholder: { // placeholder值 [Array]
@@ -205,7 +205,7 @@ export default {
         this.$parent.$emit('validate'); // 通知FormItem校驗
       })
     })
-  },
+  }
 }
 </script>
 

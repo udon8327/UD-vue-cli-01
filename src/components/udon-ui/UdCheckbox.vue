@@ -54,7 +54,7 @@ export default {
       this.$parent.$emit('validate'); // 通知FormItem校驗
       this.$emit('change', this.$refs.checkbox.value);
     }
-  },
+  }
 }
 </script>
 
@@ -71,7 +71,7 @@ export default {
     display: flex
     align-items: center
     p
-      font-size: 1.4rem
+      font-size: 14px
     input
       position: absolute
       left: -999px
