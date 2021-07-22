@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     modelValue: {
-      get(){ return this.value },
+      get(){ return this.value == null ? "" : this.value },
       set(val){ this.$emit('input', val) }
     },
   },
@@ -41,21 +41,21 @@ export default {
 .ud-input
   input
     appearance: none
-    border-radius: 5px
-    border: 1px solid #cecece
-    font-size: 14px
-    padding: 5px 10px
-    width: 100%
-    min-height: 40px
-    box-sizing: border-box
-    background-color: #fff
-    transition: all 0.2s ease
+    width: $udWidth
+    padding: $udPadding
+    min-height: $udMinHeight
+    font-size: $udFontSize
+    color: $udColor
+    border: $udBorder
+    border-radius: $udBorderRadius
+    background-color: $udBgColor
+    transition: $udTransition
     &::placeholder
-      color: #aaa
+      color: $udPlaceholderColor
     &:focus
       outline: 0
-      border: 1px solid $main
+      border: $udBorderFocus
     &:disabled
-      background-color: #eee
+      background-color: $udBgColorDisabled
       cursor: not-allowed
 </style>

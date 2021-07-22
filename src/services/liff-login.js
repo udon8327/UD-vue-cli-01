@@ -1,53 +1,43 @@
-var lineApp = {
-  localUrl: LOCAL_URL,
-  loginChannelId: LOGIN_CHANNEL_ID, // login ChannelId
-  msgChannelId: MSG_CHANNEL_ID,     // 活動 channelID
-  lineUid: null,                    // 使用者Uid
-  displayName: null,                // 使用者暱稱
-  pictureUrl: null,                 // 使用者頭像
+const liffLogin = {
+  loginChannelId: process.env.VUE_APP_LINE_LOGIN_CHANNEL_ID, // login ChannelId
+  messageChannelId: process.env.VUE_APP_LINE_MESSAGE_CHANNEL_ID, // 活動 channelID
+  lineUid: null, // 使用者Uid
+  displayName: null, // 使用者暱稱
+  pictureUrl: null, // 使用者頭像
+  accessToken: null,
   login: function (liffID) {
-    var _this = this;
-    return new Promise(function (resolve) {
+    return new Promise(resolve => {
       liff.init({
         liffId: liffID
-      }).then(function () {
+      }).then(() => {
         if (!liff.isLoggedIn()) {
-          liff.login({redirectUri: LOCAL_URL});
+          liff.login({redirectUri: location.href});
           return;
         }
-        liff.getFriendship().then(function (data) {
+        liff.getFriendship().then(data => {
           if (data.friendFlag) {
-            liff.getProfile().then(function (profile) {
-              _this.lineUid = profile.userId;
-              _this.displayName = profile.displayName;
-              _this.pictureUrl = profile.pictureUrl;
+            liff.getProfile().then(profile => {
+              this.lineUid = profile.userId;
+              this.displayName = profile.displayName;
+              this.pictureUrl = profile.pictureUrl;
+              this.accessToken = liff.getAccessToken();
               sessionStorage.setItem("lineUid", profile.userId);
+              sessionStorage.setItem("accessToken", this.accessToken);
               resolve();
-            }).catch(function (err) {
-              _this.doLog('getProfile', err);
+            }).catch(err => {
+              // this.doLog('getProfile', err);
             });
+          } else {
+            location.href = process.env.VUE_APP_LINE_ADD_FRIEND_LINK;
           }
-          else {
-            location.href = LINE_LOGIN_URL;
-          }
-        }).catch(function (err) {
-          _this.doLog('getFriendship', err);
+        }).catch(err => {
+          // this.doLog('getFriendship', err);
         });
-      }).catch(function (err) {
-        _this.doLog('login', err);
+      }).catch(err => {
+        // this.doLog('login', err);
       });
     });
   },
-  doLog: function (functionName, err) {
-    let errMsg = err.message;
-    axios.post(HOSTNAME + '/line/web/frontend-error/doLog', {
-      'line_uuid': '',
-      'method': functionName,
-      'error' : errMsg
-    }).then(function (response) {
-      alert({title: "系統錯誤", msg: response.data.data.errorCode});
-    }).catch(function (errData) {
-      alert({title: "系統錯誤", msg: 'LINE授權登入失敗'});
-    });
-  }
 };
+
+export default liffLogin;

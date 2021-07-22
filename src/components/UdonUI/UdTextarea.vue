@@ -5,6 +5,7 @@
       v-model="modelValue"
       v-bind="$attrs"
       @input="onInput"
+      :rows="rows"
     >
     </textarea>
   </div>
@@ -16,6 +17,9 @@ export default {
   inheritAttrs: false,
   props: {
     value: null,
+    rows: {
+      default: 4
+    }
   },
   computed: {
     modelValue: {
@@ -35,20 +39,21 @@ export default {
 .ud-textarea
   textarea
     appearance: none
-    border-radius: 5px
-    border: 1px solid #cecece
-    box-sizing: border-box
-    background-color: #fff
-    font-size: 14px
-    padding: .75em
-    width: 100%
-    transition: border 0.2s ease
+    width: $udWidth
+    padding: $udPadding
+    min-height: $udMinHeight
+    font-size: $udFontSize
+    color: $udColor
+    border: $udBorder
+    border-radius: $udBorderRadius
+    background-color: $udBgColor
+    transition: $udTransition
     &::placeholder
-      color: #aaa
+      color: $udPlaceholderColor
     &:focus
       outline: 0
-      border: 1px solid $main
+      border: $udBorderFocus
     &:disabled
-      background-color: #eee
+      background-color: $udBgColorDisabled
       cursor: not-allowed
 </style>

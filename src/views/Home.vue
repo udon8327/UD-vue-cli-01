@@ -1,28 +1,37 @@
 <template lang="pug">
 .view-home
+  ud-modal(v-model="isModalShow" mask-close btn-close layout)
+    h1(v-for="item in 30") 啊{{ item }}啊
+    ud-button(@click="isModalShow = 0")
   #nav
     router-link(to='/home') Home
     |  | 
     router-link(to='/about') About
-  ud-modal(v-model="isModalShow" mask-close btn-close layout)
-    h1(v-for="item in 30") 啊{{ item }}啊
-    ud-button(@click="isModalShow = 0")
   h1 Home
+  //- ud-flex
+  //-   ud-select(:options="options" v-model="store[0]" :group="store" :index="0" placeholder="1")
+  //-   ud-select(:options="options" v-model="store[1]" :group="store" :index="1" placeholder="2")
+  //-   ud-select(:options="options" v-model="store[2]" :group="store" :index="2" placeholder="3")
   ud-flex
-    ud-select(:options="options" v-model="store1" :group="storeGroup" :index="0")
-    ud-select(:options="options" v-model="store2" :group="storeGroup" :index="1")
-    ud-select(:options="options" v-model="store3" :group="storeGroup" :index="2")
-    ud-select(:options="options" v-model="store4" :group="storeGroup" :index="3")
-  ud-ratio(:src="`${baseUrl}01.jpg`")
+    ud-select(:options="options" v-model="store[2]" :group="store" :index="2" placeholder="3")
+    ud-select(:options="options" v-model="store[1]" :group="store" :index="1" placeholder="2")
+    ud-select(:options="options" v-model="store[0]" :group="store" :index="0" placeholder="1")
+  //- ud-flex
+  //-   ud-select(:options="options" v-model="store[0]" :group="store" :index="0" placeholder="1")
+  //-   ud-select(:options="options" v-model="store[1]" :group="store" :index="1" placeholder="2")
+  //-   ud-select(:options="options" v-model="store[2]" :group="store" :index="2" placeholder="3")
+    //- ud-select(:options="options" v-model="store[3]" :group="store" :index="3" placeholder="4")
+  //- ud-ratio(:src="`${baseUrl}01.jpg`")
   h1 {{ image }}
-  ud-ratio(:src="image" bg-size="contain")
+  //- ud-ratio(:src="image" bg-size="contain")
   img(src='@/assets/img/logo.png' alt='')
-  ud-ratio(:src="require('@/assets/img/11.jpg')" bg-size="cover" radius="50%" style="width: 100px; margin: 15px auto")
-  ud-input(v-model.trim="username" placeholder="username")
+  //- ud-ratio(:src="require('@/assets/img/11.jpg')" bg-size="cover" radius="50%" style="width: 100px; margin: 15px auto")
+  ud-input(v-model.trim="username" placeholder="username" disabled)
   ud-input(v-model.trim="password" placeholder="password")
-  ud-button(@click="login") 登入
+  ud-textarea(v-model.trim="password" placeholder="password")
+  ud-button#login(@click="login" plain) 登入
   .test
-  img(v-for="img in imgList" :src="require(`@/assets/img/0${img}.jpg`)")
+  //- img(v-for="img in imgList" :src="require(`@/assets/img/0${img}.jpg`)")
   p {{ user.name }}
   p {{ user.phone }}
   p {{ user.gender }}
@@ -53,12 +62,14 @@ export default {
       username: "",
       password: "",
       options: [],
-      store: ["", "", "", ""],
+      store: ["", "", ""],
       store1: "",
       store2: "",
       store3: "",
       store4: "",
-      test: ""
+      test: "",
+      value: ["", "", "", ""],
+      birthday: ["", "", ""]
     }
   },
   computed: {
@@ -76,25 +87,19 @@ export default {
     }
   },
   mounted() {
-    this.udAxios.get('/test/select/4')
+    this.udAxios.get('/test/select/3')
       .then(res => this.options = res.options);
-    this.udAxios.get('/test/select/4')
-      .then(res => this.options = res.options);
-    this.udAxios.get('/test/select/4')
-      .then(res => this.options = res.options);
-    this.udAxios.get('/test/select/4')
-      .then(res => this.options = res.options);
-    this.udAlert({msg: '好喔', confirm: true})
-      .then(() => {
-        this.udAxios.get('/test/select/4')
-          .then(res => this.options = res.options);
-      })
-      .catch(() => {
-        this.udLoading.open();
-        setTimeout(() => {
-          this.udLoading.close();
-        }, 1000);
-      })
+    // this.udAlert({msg: '好喔', confirm: true})
+    //   .then(() => {
+    //     this.udAxios.get('/test/select/5')
+    //       .then(res => this.options = res.options);
+    //   })
+    //   .catch(() => {
+    //     this.udLoading.open();
+    //     setTimeout(() => {
+    //       this.udLoading.close();
+    //     }, 1000);
+    //   })
   },
   methods: {
     login() {
@@ -117,6 +122,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+#login
+  background-color: aqua
 .view-home
   h1
     color: $main

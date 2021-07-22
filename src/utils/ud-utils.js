@@ -5,6 +5,7 @@ String
   取得隨機字串 -----> randomString
   金錢加入千分位逗號 -----> formatNumber
   複製文字至剪貼簿 -----> copyTextToClipboard
+  數字補零 -----> numberAddZero
 
 Number
   取得範圍內隨機整數 -----> getRandom
@@ -77,7 +78,7 @@ Device
  * @param  {String} val 傳入值
  * @param  {Boolean} is_xhtml 是否為xhtml
  */
- function nl2br(val, is_xhtml = false) {
+function nl2br(val, is_xhtml = false) {
   if (typeof val === 'undefined' || val === null) {
       return '';
   }
@@ -124,6 +125,22 @@ function copyTextToClipboard(id) {
   sel.addRange(textRange);
   document.execCommand("copy");
   vm.udAlert({msg: '文字已複製到剪貼簿'});
+}
+
+/**
+ * 數字補零
+ * 例：numberAddZero(5) -> '05'
+ * 例：numberAddZero(5, 4) -> '0005'
+ * 例：numberAddZero(5, 4, 2) -> '2225'
+ * @param  {String, Number} num 原數值
+ * @param  {Number} count 要補到幾位
+ * @param  {String} val 要補的值
+ */
+function numberAddZero(num, count = 2, val = '0') {
+  if(!String.prototype.padStart) {
+    return num < 10 ? '0' + num : num.toString();
+  }
+  return num.toString().padStart(count, val);
 }
 
 //-----------------------Number-----------------------
@@ -879,6 +896,7 @@ export {
   randomString,
   formatNumber,
   copyTextToClipboard,
+  numberAddZero,
   getRandom,
   round,
   imageLoaded,

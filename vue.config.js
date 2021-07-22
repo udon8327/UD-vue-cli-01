@@ -1,7 +1,7 @@
 // const path = require('path')
 // const fs = require('fs')
 
-let config = {
+const config = {
   // 公用路徑
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
   // 建置前端靜態檔案時要擺放的目錄
@@ -18,10 +18,12 @@ let config = {
     // 開發 server 的 domain 和 port
     host: process.env.VUE_APP_DEV_HOST,
     port: process.env.VUE_APP_DEV_PORT,
+    disableHostCheck: process.env.NODE_ENV === "development" ? true : false,
   },
   // 打包時不生成.map文件
   productionSourceMap: false,
   css: {
+    extract: false, // 是否使用css分離插件 ExtractTextPlugin
     loaderOptions: {
       sass: { // 給sass-loader傳遞選項
         prependData: `@import "~@/assets/style/_variables.sass"`, // sass-loader v8
@@ -30,9 +32,7 @@ let config = {
     }
   },
   chainWebpack: config => {
-    if (process.env.NODE_ENV === "development") {
-      config.plugins.delete("preload");
-    }
+    if(process.env.NODE_ENV === "development") config.plugins.delete("preload");
     // 將小於10kb的資源內聯
     config.module
       .rule('images')

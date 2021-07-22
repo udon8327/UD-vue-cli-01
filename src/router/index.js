@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
+import liffLogin from '@/services/liff-login'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,21 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   },
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  // liffLogin.login(process.env.VUE_APP_LINE_LIFF_ID)
+  //   .then(res => {
+  //     console.log(liffLogin.lineUid);
+  //     console.log(liffLogin.displayName);
+  //     console.log(liffLogin.pictureUrl);
+  //     next();
+  //   })
+  next();
+})
+
+router.afterEach((to, from) => {
+  document.title = to.meta.title ? to.meta.title : process.env.VUE_APP_COMPANY_NAME;
 })
 
 export default router

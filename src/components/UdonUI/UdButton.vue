@@ -58,20 +58,21 @@ export default {
 <style lang="sass">
 .ud-button
   button
-    background-color: $main
-    border: 1px solid $main
-    color: #fff
-    padding: 10px
-    border-radius: 5px
+    appearance: none
     width: 100%
+    padding: 10px
+    min-height: 40px
+    color: $udBtnColor
+    border: 1px solid $udBtnBgColor
+    border-radius: $udBtnBorderRadius
+    background-color: $udBtnBgColor
+    transition: all 0.2s ease
     min-width: 0px
     max-width: 100%
     cursor: pointer
     box-shadow: none
-    appearance: none
     text-align: center
     outline: none !important
-    transition: all 0.2s ease
     position: relative
     .button-wrapper
       display: inline-flex
@@ -109,12 +110,8 @@ export default {
       opacity: 0.85
     &.is-plain
       background-color: #fff
-      border: 1px solid $main
-      color: $main
-      &:hover,&:focus
-        background-color: $main
-        border: 1px solid $main
-        color: #fff
+      border: 1px solid $udBtnBgColor
+      color: $udBtnBgColor
     &.is-disabled
       background-color: #ddd
       border: 1px solid #ccc

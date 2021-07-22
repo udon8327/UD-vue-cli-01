@@ -35,6 +35,7 @@ export default {
     index: { default: 0 }, // 群組索引
     labelBy: { default: "label" }, // label替代值
     valueBy: { default: "value" }, // value替代值
+    childrenBy: { default: "children" }, // children替代值
   },
   data() {
     return {
@@ -52,11 +53,11 @@ export default {
       if(this.index === 0) return temp;
       if(this.group[this.index - 1]) {
         for(let i = 0; i < this.index; i++) {
-          temp = temp.find(option => option.value === this.group[i]).children;
+          temp = temp.find(option => option.value === this.group[i])[this.childrenBy];
         }
         return temp;
       }
-      return {};
+      return [];
     }
   },
   watch: {
@@ -112,32 +113,33 @@ export default {
     height: 0
     border-color: #cecece transparent transparent
     border-style: solid
-    border-width: .3em .3em 0
+    border-width: 4px 4px 0
     top: 50%
-    margin-top: -.1em
-    right: 1em
+    margin-top: -2px
+    right: 8px
     position: absolute
     z-index: 1
     pointer-events: none
   select
     appearance: none
-    border-radius: 5px
-    border: 1px solid #cecece
-    background-color: #fff
-    font-size: 14px
-    padding: 5px 10px
-    width: 100%
-    margin: 0
-    transition: border 0.2s ease
+    width: $udWidth
+    padding: $udPadding
+    min-height: $udMinHeight
+    font-size: $udFontSize
+    border: $udBorder
+    border-radius: $udBorderRadius
+    background-color: $udBgColor
+    transition: $udTransition
+    transition-property: border
     cursor: pointer
     option
-      color: #333
+      color: $udColor
     &:focus
       outline: 0
-      border: 1px solid $main
+      border: $udBorderFocus
     &[data-placeholder-selected]
-      color: #a8a8a8
+      color: $udPlaceholderColor
     &[multiple]
       option:nth-of-type(1)
-        color: #a8a8a8
+        color: $udPlaceholderColor
 </style>

@@ -7,16 +7,11 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-import UdonUI from './components/udon-ui'
+import UdonUI from './components/UdonUI'
 Vue.use(UdonUI);
 
 import Toast from './components/Toast';
 Vue.use(Toast);
-
-// 路由導航守衛
-router.afterEach((to, from) => {
-  document.title = to.meta.title ? to.meta.title : process.env.VUE_APP_COMPANY_NAME;
-})
 
 Vue.config.productionTip = false
 

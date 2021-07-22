@@ -4,6 +4,10 @@
     img(src="@/assets/img/logo.png")
     h2 這是modal
     ud-button(@click="isModalShow = 0") OK
+  #nav
+    router-link(to='/home') Home
+    |  | 
+    router-link(to='/about') About
   h1 About
   p {{ total }}
   ud-button(name="udon" type="submit") 送出
@@ -71,8 +75,8 @@ export default {
     }),
   }),
   mounted() {
-    console.log(this.formatNumber(this.getRandom(1000, 9999999)));
-    this.udLoading.open({msg: "載入中..."});
+    // console.log(this.formatNumber(this.getRandom(1000, 9999999)));
+    // this.udLoading.open({msg: "載入中..."});
     // this.udAlert({
     //   title: "錯誤!!",
     //   msg: "好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n好喔\n",
@@ -93,7 +97,7 @@ export default {
     //   });
   },
   destroyed() {
-    this.udLoading.close();
+    // this.udLoading.close();
   },
   // computed: {
   //   userId() {
