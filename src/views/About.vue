@@ -1,7 +1,7 @@
 <template lang="pug">
 .view-about
   ud-modal(v-model="isModalShow")
-    img(src="@/assets/img/logo.png")
+    img(src="@/assets/images/logo.png")
     h2 這是modal
     ud-button(@click="isModalShow = 0") OK
   #nav
@@ -14,8 +14,8 @@
   router-view
   ud-input(placeholder="好喔" v-model="value" center)
   router-view(name='b')
-  img(src="@/assets/img/logo.png")
-  img(src="@/assets/img/small.png")
+  img(src="@/assets/images/logo.png")
+  img(src="@/assets/images/small.png")
   ud-button.mb-1(@click="click") 好喔
   ud-button.mb-1(@click="add") 增加
   ud-button.mb-1(@click="test" throttle) 隨機數

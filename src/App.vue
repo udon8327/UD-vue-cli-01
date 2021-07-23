@@ -2,7 +2,7 @@
 #app
   .container
     header
-      img(src="@/assets/img/logo.png")
+      img(src="@/assets/images/logo.png")
     main
       .wrapper
         router-view

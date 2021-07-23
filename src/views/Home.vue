@@ -8,6 +8,13 @@
     |  | 
     router-link(to='/about') About
   h1 Home
+  h2 {{ utilsTest(3) }}
+  h2 {{ utilsTest(13) }}
+  h2 {{ utilsTest(null) }}
+  h2 {{ utilsTest(undefined) }}
+  img(src="@/assets/images/02.jpg")
+  img(src="@/assets/images/03.jpg")
+  ud-button(@click="copyText") 複製文字
   //- ud-flex
   //-   ud-select(:options="options" v-model="store[0]" :group="store" :index="0" placeholder="1")
   //-   ud-select(:options="options" v-model="store[1]" :group="store" :index="1" placeholder="2")
@@ -22,22 +29,21 @@
   //-   ud-select(:options="options" v-model="store[2]" :group="store" :index="2" placeholder="3")
     //- ud-select(:options="options" v-model="store[3]" :group="store" :index="3" placeholder="4")
   //- ud-ratio(:src="`${baseUrl}01.jpg`")
-  h1 {{ image }}
+  h1#copy {{ image }}
   //- ud-ratio(:src="image" bg-size="contain")
-  img(src='@/assets/img/logo.png' alt='')
-  //- ud-ratio(:src="require('@/assets/img/11.jpg')" bg-size="cover" radius="50%" style="width: 100px; margin: 15px auto")
+  //- ud-ratio(:src="require('@/assets/images/11.jpg')" bg-size="cover" radius="50%" style="width: 100px; margin: 15px auto")
   ud-input(v-model.trim="username" placeholder="username" disabled)
   ud-input(v-model.trim="password" placeholder="password")
   ud-textarea(v-model.trim="password" placeholder="password")
   ud-button#login(@click="login" plain) 登入
   .test
-  //- img(v-for="img in imgList" :src="require(`@/assets/img/0${img}.jpg`)")
+  //- img(v-for="img in imgList" :src="require(`@/assets/images/0${img}.jpg`)")
   p {{ user.name }}
   p {{ user.phone }}
   p {{ user.gender }}
   p {{ clicked }}
   ud-button.mb-1(@click="isModalShow = 1" :loading="loading" icon="fas fa-arrow-circle-left") Modal
-  ud-button.mb-1(@click="isModalShow = 1" :loading="loading" round :image="require('@/assets/img/small.png')") Modal
+  ud-button.mb-1(@click="isModalShow = 1" :loading="loading" round :image="require('@/assets/images/small.png')") Modal
   ud-button.mb-1(@click="random($event)" :loading="loading") Modal
   ud-button(@click="onYes") Yes
   ud-button(@click="onNo") No
@@ -45,6 +51,8 @@
 </template>
 
 <script>
+import { copyTextToClipboard } from '@/utils/ud-utils'
+
 export default {
   name: 'Home',
   components: {
@@ -54,7 +62,7 @@ export default {
     return {
       baseUrl: process.env.VUE_APP_PUBLIC_PATH,
       publicUrl: process.env.VUE_APP_PUBLIC_URL,
-      image: require('@/assets/img/sato.jpg'),
+      image: require('@/assets/images/sato.jpg'),
       imgList: [1, 2, 3],
       isModalShow: 0,
       loading: false,
@@ -84,7 +92,7 @@ export default {
     },
     total() {
       return this.$root.$data.total;
-    }
+    },
   },
   mounted() {
     this.udAxios.get('/test/select/3')
@@ -116,6 +124,13 @@ export default {
     },
     random(evt) {
       console.log(typeof evt, evt.target, Math.random());
+    },
+    utilsTest(val) {
+      return this.padStart(val);
+    },
+    copyText() {
+      copyTextToClipboard('copy')
+        .then(res => this.udAlert(`已複製\n${res}`))
     }
   },
 }
@@ -131,7 +146,7 @@ export default {
     width: 30px
   .test
     height: 200px
-    background: url('~@/assets/img/01.jpg') no-repeat top center
+    background: url('~@/assets/images/01.jpg') no-repeat top center
     background-size: cover
     display: flex
     justify-content: center
