@@ -1,73 +1,69 @@
 /*
 ==================== 工具函數目錄 ====================
 String
-  將字串內換行符\n轉為<br> -----> nl2br
-  取得隨機字串 -----> randomString
-  複製文字至剪貼簿 -----> copyTextToClipboard
-  
+  nl2br：將字串內換行符\n轉為<br>
+  getRandomString：取得隨機字串
+  copyTextToClipboard：複製文字至剪貼簿
+
 Number
-  取得範圍內隨機整數 -----> getRandom
-  四捨五入到指定位數 -----> round
-  數字加入千分位逗號 -----> formatNumber
-  數字補零 -----> padStart
+  getRandom：取得範圍內隨機整數
+  roundNumber：四捨五入到指定位數
+  formatNumber：數字加入千分位逗號
+  padStart：數字補零
   
 Image
-  預載單張圖片 -----> imageLoaded
-  預載多張圖片 -----> imageAllLoaded
-  下載Img圖片 -----> imageDownload
-  下載Canvas圖片 -----> canvasImageDownload
+  imageLoaded：單張圖片載入完成
+  imageAllLoaded：多張圖片載入完成
+  imageDownload：下載Img圖片
+  canvasImageDownload：下載Canvas圖片
 
 Array
-  陣列是否有重複值(不分型別) -----> isArrayRepeat
-  移除陣列中的重複元素 -----> removeArrayRepeat
-  二維陣列扁平化(第二參數可指定深度) -----> flatArray
-  返回陣列中某值的所有索引 -----> indexOfAll
-  兩陣列的交集 -----> intersectionArray
-  洗牌陣列 -----> shuffleArray
+  isArrayRepeat：陣列是否有重複值(不分型別)
+  removeArrayRepeat：移除陣列中的重複元素
+  flatArray：二維陣列扁平化
+  indexOfAll：返回陣列中某值的所有索引
+  intersectionArray：兩陣列的交集
+  shuffleArray：洗牌陣列
 
 Object
-  精準型別判斷 -----> typeOf
-  過濾物件鍵值 -----> filterObj
-  刪除物件鍵值 -----> deleteObj
-  深拷貝(簡易版) -----> deepCloneSimple
-  深拷貝(完全版) -----> deepClone
+  typeOf：精準型別判斷
+  filterObj：過濾物件鍵值
+  deleteObj：刪除物件鍵值
+  deepCloneSimple：深拷貝(簡易版)
+  deepClone：深拷貝(完全版)
 
 Time
-  檢查是否為閏年 -----> isLeapYear
-  檢查日期是否存在 -----> isExistDate
-  返回當前24小時制時間的字符串 -----> getColonTimeFromDate
-  返回日期間的天數 -----> getDaysDiffBetweenDates
-  檢查是否在某日期後 -----> isAfterDate
-  檢查是否在某日期前 -----> isBeforeDate
-  返回幾天前後的日期 -----> getDiffDate
-  隨機數時間戳 -----> uniqueId
-  時間格式化 -----> Date.prototype.format
+  isLeapYear：判斷是否為閏年
+  isExistDate：判斷日期是否存在
+  getDiffDate：取得前後幾天的日期
+  formatTime：時間格式化
 
 DOM
-  滾動至指定位置 -----> scrollTo
-  取得頁面當前捲動高度(寬度) -----> getPageScroll
-  取得頁面長寬度 -----> getPageInfo
+  scrollTo：滾動至指定位置
+  getPageScroll：取得頁面當前捲動高度(寬度)
+  getPageInfo：取得頁面長寬度
 
 Verify
-  常用驗證函式 -----> isVerify
-  精準數字驗證 -----> isNumber
-  未填入驗證 -----> isEmpty
+  isVerify：常用驗證函式
+  isNumber：精準數字驗證
+  isEmpty：未填入驗證
 
 Web
-  取得Cookie的值 -----> getCookie
-  函式防抖 -----> debounce
-  函式節流 -----> throttle
-  查詢網址所帶參數 -----> queryString
-  解析網址 -----> parseUrl
-  網址跳轉 -----> toUrl
-  跳頁重整 -----> jumpReload
-  判斷是否移動裝置 -----> isMobile
+  getCookie：取得Cookie的值
+  debounce：函式防抖
+  throttle：函式節流
+  queryString：查詢網址所帶參數
+  parseUrl：解析網址
+  toUrl：網址跳轉
+  jumpReload：跳頁重整
+  isMobile：判斷是否移動裝置
+*/
 
 //-----------------------String-----------------------
 /**
  * 將字串內換行符\n轉為<br>
- * @param  {String} val 傳入值
- * @param  {Boolean} is_xhtml 是否為xhtml
+ * @param {string} val 傳入值
+ * @param {boolean} is_xhtml 是否為xhtml 預設為false
  */
 function nl2br(val = '', is_xhtml = false) {
   if(val == null) return val;
@@ -77,9 +73,9 @@ function nl2br(val = '', is_xhtml = false) {
 
 /**
  * 取得隨機字串
- * @param  {Number} length 指定字串長度
+ * @param {number} length 指定字串長度 預設為10
  */
-function randomString(length = 10) {
+function getRandomString(length = 10) {
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
   let temp = "";
   for (let i = 0; i < length; i++) {
@@ -90,8 +86,8 @@ function randomString(length = 10) {
 
 /**
  * 複製文字至剪貼簿
- * @param  {String} id 要複製文字的元素id
- * 例：copyTextToClipboard('id').then(res => udAlert(`已複製\n${ res }`))
+ * @param {string} id 要複製文字的元素id
+ * @example copyTextToClipboard('id').then(res => udAlert(`已複製\n${ res }`));
  */
 function copyTextToClipboard(id) {
   return new Promise(resolve => {
@@ -108,8 +104,9 @@ function copyTextToClipboard(id) {
 //-----------------------Number-----------------------
 /**
  * 取得範圍內隨機整數
- * @param {Number} min 隨機數最小值 預設為0
- * @param {Number} max 隨機數最小值 預設為100
+ * @param {number} min 隨機數最小值 預設為0
+ * @param {number} max 隨機數最大值 預設為100
+ * @example getRandom(5, 10) -> 7
  */
 function getRandom(min = 0, max = 100) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -117,19 +114,19 @@ function getRandom(min = 0, max = 100) {
 
 /**
  * 四捨五入到指定位數
- * @param  {Number} val 傳入值 預設為0
- * @param  {Number} decimals 指定位數 預設為0
- * 例：round(1.235, 2) -> 1.24
+ * @param {number} val 傳入值
+ * @param {number} decimals 指定位數 預設為0
+ * @example roundNumber(1.235, 2) -> 1.24
  */
-function round(val, decimals = 0) {
+function roundNumber(val, decimals = 0) {
   if(val == null) return val;
   return Number(`${Math.round(`${val}e${decimals}`)}e-${decimals}`);
 }
 
 /**
  * 數字加入千分位逗號
- * 例：formatNumber(99999) -> 99,999
- * @param  {Number} val 傳入值
+ * @param {number} val 傳入值
+ * @example formatNumber(99999) -> 99,999
  */
 function formatNumber(val) {
   if(val == null) return val;
@@ -143,14 +140,14 @@ function formatNumber(val) {
 
 /**
  * 數字補零
- * 例：padStart(5) -> '05'
- * 例：padStart(5, 4) -> '0005'
- * 例：padStart(5, 4, 2) -> '2225'
- * @param  {Number, String} val 原數值
- * @param  {Number} length 要補到幾位
- * @param  {Number, String} string 要補的值
+ * @param {number|string} val 傳入值
+ * @param {number} length 要補到幾位 預設為2
+ * @param {number|string} string 要補的值 預設為0
+ * @example padStart(5) -> '05'
+ * @example padStart(5, 4) -> '0005'
+ * @example padStart(5, 4, 2) -> '2225'
  */
-function padStart(val, length = 2, string = '0') {
+function padStart(val, length = 2, string = 0) {
   if(val == null) return val;
   if(!String.prototype.padStart) {
     String.prototype.padStart = function padStart(targetLength, padString) {
@@ -172,10 +169,9 @@ function padStart(val, length = 2, string = '0') {
 
 //-----------------------Image-----------------------
 /**
- * 預載單張圖片
- * @param  {String} url 圖片路徑
- * imageLoaded('imgUrl').then(...);
- * 圖片讀取完成時返回Image物件
+ * 單張圖片載入完成
+ * @param {string} url 圖片路徑
+ * @example imageLoaded('imgUrl').then(...) -> 圖片讀取完成時返回該Image物件
  */
 function imageLoaded(url) {
   let img = new Image();
@@ -191,10 +187,9 @@ function imageLoaded(url) {
 }
 
 /**
- * 預載多張圖片
- * @param  {Array} arr 多張圖片路徑陣列
- * imageAllLoaded(['imgUrl1','imgUrl2']).then(...);
- * 全部圖片都讀取完成時返回Image物件組成的陣列
+ * 多張圖片載入完成
+ * @param {array} arr 多張圖片路徑陣列
+ * @example imageAllLoaded(['imgUrl1','imgUrl2']).then(...) -> 全部圖片都讀取完成時返回該Image物件組成的陣列
  */
 function imageAllLoaded(arr) {
   let result = [];
@@ -210,9 +205,9 @@ function imageAllLoaded(arr) {
 
 /**
  * 下載Img圖片
- * @param  {String} selector 選擇器，代表img標籤
- * @param  {String} name 圖片名稱，可選 
- * imageDownload('#image', '自訂下載圖片名稱')
+ * @param {string} selector 圖片元素選擇器
+ * @param {string} name 圖片名稱 預設為'下載圖片'
+ * @example imageDownload('#image', '自訂圖片名稱')
  */
 function imageDownload(selector, name = '下載圖片') { 
   let image = new Image();
@@ -225,37 +220,38 @@ function imageDownload(selector, name = '下載圖片') {
     let context = canvas.getContext('2d');
     context.drawImage(image, 0, 0, image.width, image.height);
     let url = canvas.toDataURL('image/jpg');
-    let a = document.createElement('a'); // 生成一個a元素
-    let event = new MouseEvent('click'); // 創建一個單擊事件
-    a.download = name; // 將a的download屬性設置為我們想要下載的圖片名稱，若name不存在則使用『下載圖片』作為默認名稱
-    a.href = url; // 將生成的URL設置為a.href屬性
-    a.dispatchEvent(event); // 觸發a的單擊事件
+    let a = document.createElement('a');
+    let event = new MouseEvent('click');
+    a.download = name;
+    a.href = url;
+    a.dispatchEvent(event);
   }
 }
 
 /**
- * 下載Canvas元素圖片
- * @param  {String} selector 選擇器，代表canvas
- * @param  {String} name 圖片名稱，可選 
- * canvasImageDownload('canvas', '圖片名稱')
+ * 下載Canvas圖片
+ * @param {string} selector canvas元素選擇器
+ * @param {string} name 圖片名稱 預設為'下載圖片'
+ * @example canvasImageDownload('canvas', '自訂圖片名稱')
  */
-function canvasImageDownload(selector, name) {
-  let canvas = document.querySelector(selector); // 通過選擇器獲取canvas元素
-  let url = canvas.toDataURL('image/png'); // 使用toDataURL方法將圖像轉換被base64編碼的URL字符串
-  let a = document.createElement('a'); // 生成一個a元素
-  let event = new MouseEvent('click'); // 創建一個單擊事件
-  a.download = name || '下載圖片名稱'; // 將a的download屬性設置為我們想要下載的圖片名稱，若name不存在則使用『下載圖片名稱』作為默認名稱
-  a.href = url; // 將生成的URL設置為a.href屬性
-  a.dispatchEvent(event); // 觸發a的單擊事件
+function canvasImageDownload(selector, name = '下載圖片') {
+  let canvas = document.querySelector(selector);
+  let url = canvas.toDataURL('image/png');
+  let a = document.createElement('a');
+  let event = new MouseEvent('click');
+  a.download = name; 
+  a.href = url;
+  a.dispatchEvent(event);
 }
 
 //-----------------------Array-----------------------
 /**
  * 陣列是否有重複值(不分型別)
- * @param  {Array} arr 傳入值
- * 例：isArrayRepeat([1, 2, 2, 3]) -> true
+ * @param {array} arr 傳入值
+ * @example isArrayRepeat([1, 2, 2, 3]) -> true
  */
 function isArrayRepeat(arr) {
+  if(arr == null) return arr;
   let obj = {};
   for(let i in arr) {
     if(obj[arr[i]]) return true;
@@ -266,66 +262,71 @@ function isArrayRepeat(arr) {
 
 /**
  * 移除陣列中的重複元素
- * @param  {Array} arr 傳入值
- * 例：removeArrayRepeat([1, 2, 2, 3]) -> [1, 2, 3]
+ * @param {array} arr 傳入值
+ * @example removeArrayRepeat([1, 2, 2, 3]) -> [1, 2, 3]
  */
 function removeArrayRepeat(arr) {
+  if(arr == null) return arr;
   let newArr = arr.filter((el, i, arr) => arr.indexOf(el) === i);
   return newArr;
 }
 
 /**
- * 二維陣列扁平化(第二參數可指定深度)
- * @param  {Array} arr 傳入值
- * @param  {Number} depth 指定深度
- * flatArray([1, [2], 3, 4]); -> [1, 2, 3, 4]
- * flatArray([1, [2, [3, [4, 5], 6], 7], 8], 2); -> [1, 2, 3, [4, 5], 6, 7, 8]
+ * 二維陣列扁平化
+ * @param {array} arr 傳入值
+ * @param {number} depth 指定深度
+ * @example flatArray([1, [2], 3, 4]); -> [1, 2, 3, 4]
+ * @example flatArray([1, [2, [3, [4, 5], 6], 7], 8], 2); -> [1, 2, 3, [4, 5], 6, 7, 8]
  */
 function flatArray(arr, depth = 1) {
+  if(arr == null) return arr;
   return arr.reduce((a, v) => a.concat(depth > 1 && Array.isArray(v) ? flatArray(v, depth - 1) : v), []);
 }
 
 /**
  * 返回陣列中某值的所有索引
- * @param  {Array} arr 傳入值
- * @param  {Number} val 指定值
- * indexOfAll([1, 2, 3, 1, 2, 3], 1); -> [0,3]
- * indexOfAll([1, 2, 3], 4); -> []
+ * @param {array} arr 傳入值
+ * @param {number} val 指定值
+ * @example indexOfAll([1, 2, 3, 1, 2, 3], 1); -> [0,3]
+ * @example indexOfAll([1, 2, 3], 4); -> []
  */
 function indexOfAll(arr, val) {
+  if(arr == null) return arr;
   return arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
 }
 
 /**
  * 兩陣列的交集
- * @param  {Array} a 陣列A
- * @param  {Array} b 陣列B
- * intersectionArray([1, 2, 3], [4, 3, 2]); -> [2, 3]
+ * @param {array} arrA 陣列A
+ * @param {array} arrB 陣列B
+ * @example intersectionArray([1, 2, 3], [4, 3, 2]); -> [2, 3]
  */
-function intersectionArray(a, b) {
-  const s = new Set(b);
-  return a.filter(x => s.has(x));
+function intersectionArray(arrA, arrB) {
+  if(arrA == null || arrB == null) return null;
+  const s = new Set(arrB);
+  return arrA.filter(x => s.has(x));
 };
 
 /**
  * 洗牌陣列
- * @param  {Array} a 陣列A
- * @param  {Array} b 陣列B
- * shuffleArray([1, 2, 3]); -> [2, 3, 1];
+ * @param {array} arr 傳入值
+ * @example shuffleArray([1, 2, 3]); -> [2, 3, 1];
  */
-function shuffleArray([...arr]) {
-  let m = arr.length;
+function shuffleArray(arr) {
+  if(arr == null) return arr;
+  let arrCopy = [...arr];
+  let m = arrCopy.length;
   while (m) {
     const i = Math.floor(Math.random() * m--);
-    [arr[m], arr[i]] = [arr[i], arr[m]];
+    [arrCopy[m], arrCopy[i]] = [arrCopy[i], arrCopy[m]];
   }
-  return arr;
+  return arrCopy;
 };
 
 //-----------------------Object-----------------------
 /**
  * 精準型別判斷
- * @param  {Any} val 傳入值
+ * @param {any} val 傳入值
  */
 function typeOf(val) {
   return val === undefined ? 'undefined' : val === null ? 'null' : val.constructor.name.toLowerCase();
@@ -333,12 +334,11 @@ function typeOf(val) {
 
 /**
  * 過濾物件鍵值
- * @param  {Object} val 傳入值
- * @param  {Array} arr 過濾值的陣列
- * filterObj(obj, ["name", "gender"]);
+ * @param {object} val 傳入值
+ * @param {array} arr 過濾值的陣列
+ * @example filterObj(obj, ["keyA", "keyB"]);
  */
 function filterObj(val, arr) {
-  if(val == null) return val;
   let tempObj = JSON.parse(JSON.stringify(val));
   for(let i in tempObj){
     if(arr.indexOf(i) === -1) delete tempObj[i];
@@ -348,9 +348,9 @@ function filterObj(val, arr) {
 
 /**
  * 刪除物件鍵值
- * @param  {Object} obj 傳入值
- * @param  {Array} arr 刪除值的陣列
- * deleteObj(test,["name","gender"]);
+ * @param {object} obj 傳入值
+ * @param {array} arr 刪除值的陣列
+ * @example deleteObj(obj, ["keyA", "keyB"]);
  */
 function deleteObj(obj, arr) {
   let tempObj = JSON.parse(JSON.stringify(obj));
@@ -362,153 +362,96 @@ function deleteObj(obj, arr) {
 
 /**
  * 深拷貝(簡易版)
- * @param  {Object} obj 傳入值
- * 無法拷貝特殊類型值與funciton
+ * @param {object} obj 傳入值
  */
 function deepCloneSimple(obj) {
+  if(obj == null) return obj;
   return JSON.parse(JSON.stringify(obj));
 }
 
 /**
  * 深拷貝(完全版)
- * @param  {Object} obj 傳入值
+ * @param {object} obj 傳入值
  */
 function deepClone(obj, hash = new WeakMap()) {
-  if(obj == null){
-    return obj;
-  }
-  if (obj instanceof RegExp) {
-    return new RegExp(obj);
-  }
-  if (obj instanceof Date) {
-    return new Date(obj);
-  }
-  if(obj instanceof Error) {
-    return new Error(obj);
-  }
-  if(typeof obj !== 'object'){
-    return obj;
-  }
-  if(hash.get(obj)) return hash.get(obj); 
+  if(obj == null) return obj;
+  if(obj instanceof RegExp) return new RegExp(obj);
+  if(obj instanceof Date) return new Date(obj);
+  if(obj instanceof Error) return new Error(obj);
+  if(typeof obj !== 'object') return obj;
+  if(hash.get(obj)) return hash.get(obj);
   let cloneObj = new obj.constructor;
   hash.set(obj, cloneObj);
   for(let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      cloneObj[key] = deepClone(obj[key], hash);
-    }
+    if (obj.hasOwnProperty(key)) cloneObj[key] = deepClone(obj[key], hash);
   }
   return cloneObj;
 }
 
 //-----------------------Time-----------------------
 /**
- * 檢查是否為閏年
- * @param  {Number} year 年份
+ * 判斷是否為閏年
+ * @param {number} year 年份
  */
 function isLeapYear(year) {
+  if(year == null) return year;
   return new Date(year, 1, 29).getDate() === 29;
 }
 
 /**
- * 檢查日期是否存在
- * @param  {String} dateStr 日期字串
- * @param  {String} split 分割符 預設為"-"
- * isExistDate("2020-02-29"); -> true
- * isExistDate("2019/02/29","/"); -> false
+ *  判斷日期是否存在
+ * @param {string} date 日期字串
+ * @param {string} split 分割符 預設為"-"
+ * @example isExistDate("2020-02-29"); -> true
+ * @example isExistDate("2019/02/29", "/"); -> false
  */
-function isExistDate(dateStr, split = "-") {
-  let dateArr = dateStr.split(split);
+function isExistDate(date, split = "-") {
+  if(date == null) return date;
+  let dateArr = date.split(split);
   let limitInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   let theYear = parseInt(dateArr[0]);
   let theMonth = parseInt(dateArr[1]);
   let theDay = parseInt(dateArr[2]);
-  let isLeap = new Date(theYear, 1, 29).getDate() === 29; 
-  if (isLeap) limitInMonth[1] = 29;
+  let isLeap = new Date(theYear, 1, 29).getDate() === 29;
+  if(isLeap) limitInMonth[1] = 29;
   return theDay > 0 && theDay <= limitInMonth[theMonth - 1];
 }
 
 /**
- * 返回當前24小時制時間的字符串
- * @param  {Any} date 時間物件
- * getColonTimeFromDate(new Date()); -> "08:38:00"
+ * 取得前後幾天的日期
+ * @param {number} days 指定天數 可為負值
+ * @example getDiffDate(1); -> "2020-07-01"
+ * @example getDiffDate(0); -> "2020-06-30"
+ * @example getDiffDate(-2); -> "2020-06-28"
  */
-function getColonTimeFromDate(date) {
-  return date.toTimeString().slice(0, 8);
-}
-
-/**
- * 返回日期間的天數
- * @param  {Any} dateInitial 開始時間物件
- * @param  {Any} dateFinal 結束時間物件
- * getDaysDiffBetweenDates(new Date('2019-01-01'), new Date('2019-10-14')); -> 286
- */
-function getDaysDiffBetweenDates(dateInitial, dateFinal) {
-  return (dateFinal - dateInitial) / (1000 * 3600 * 24);
-}
-
-/**
- * 檢查是否在某日期後
- * @param  {Any} dateA 時間物件A
- * @param  {Any} dateB 時間物件B
- * isAfterDate(new Date(2010, 10, 21), new Date(2010, 10, 20)); -> true
- */
-function isAfterDate(dateA, dateB) {
-  return dateA > dateB;
-}
-
-/**
- * 檢查是否在某日期前
- * @param  {Any} dateA 時間物件A
- * @param  {Any} dateB 時間物件B
- * isBeforeDate(new Date(2010, 10, 20), new Date(2010, 10, 21)); -> true
- */
-function isBeforeDate(dateA, dateB) {
-  return dateA < dateB;
-}
-
-/**
- * 返回幾天前後的日期
- * @param  {Number} days 指定天數 可為負值
- * getDiffDate(1); -> "2020-07-01"
- * getDiffDate(0); -> "2020-06-30"
- * getDiffDate(-2); -> "2020-06-28"
- */
-function getDiffDate(days) {
+function getDiffDate(days = 0) {
   let t = new Date();
   t.setDate(t.getDate() + days);
   return t.toISOString().split('T')[0];
 };
 
 /**
- * 隨機數時間戳
- */
-function uniqueId() {
-  return (
-    Number(new Date()).toString() + parseInt(10 * Math.random()) + parseInt(10 * Math.random()) + parseInt(10 * Math.random())
-  );
-}
-
-/**
  * 時間格式化
- * @param  {Any} format 轉換格式
- * new Date().format('yyyyMMdd') -> "20200921"
- * new Date().format('yyyy-MM-dd') -> "2020-09-21"
- * new Date().format('yyyy-MM-dd hh:mm:ss') -> "2020-09-21 16:07:59"
+ * @param {any} date 傳入值(Date物件、timestamp或任何合法時間格式)
+ * @param {string} format 轉換格式 預設值為'yyyy-MM-dd hh:mm:ss'
+ * @example formatTime(new Date(), 'yyyyMMdd') -> "20210726"
+ * @example formatTime(new Date(), 'yyyy-MM-dd') -> "2021-07-26"
+ * @example formatTime(new Date(), 'yyyy-MM-dd hh:mm:ss') -> "2021-07-26 14:08:00"
+ * @example formatTime(new Date(1627280134101), 'yyyy-MM-dd hh:mm:ss') -> "2021-07-26 14:15:34"
  */
-// function parseTime(date = new Date(), format = "yyyy-MM-dd hh:mm:ss"){
-Date.prototype.format = function(format = "yyyy-MM-dd hh:mm:ss") {
+function formatTime(date = new Date(), format = "yyyy-MM-dd hh:mm:ss"){
   let o = {
-    "M+": this.getMonth() + 1, // 月份
-    "d+": this.getDate(), // 日
-    "H+": this.getHours(), // 小時
-    "h+": this.getHours(), // 小時
-    "m+": this.getMinutes(), // 分
-    "s+": this.getSeconds(), // 秒
-    "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
-    "S": this.getMilliseconds() // 毫秒
+    "M+": date.getMonth() + 1, // 月份
+    "d+": date.getDate(), // 日
+    "H+": date.getHours(), // 小時
+    "h+": date.getHours(), // 小時
+    "m+": date.getMinutes(), // 分
+    "s+": date.getSeconds(), // 秒
+    "q+": Math.floor((date.getMonth() + 3) / 3), // 季度
+    "S": date.getMilliseconds() // 毫秒
   };
   if(/(y+)/.test(format)) {
-    format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
   }
   for (var k in o) {
     if(new RegExp("(" + k + ")").test(format)) {
@@ -521,13 +464,13 @@ Date.prototype.format = function(format = "yyyy-MM-dd hh:mm:ss") {
 //-----------------------DOM-----------------------
 /**
  * 滾動至指定位置
- * @param  {String, Number} el 滾動位置('top': 頂部, 'bottom': 底部, '.foobar': 元素, 300: 像素)
- * @param  {Number} speed 滾動時間(瞬移為1,請勿設為0)
- * @param  {Number} offset 自定偏移(可接受正負數字)
- * @param  {Function} callback 回調函式
- * scrollTo();
- * scrollTo('top', 1);
- * scrollTo('.foobar', 10, -30, () => {console.log('滾動完成')});
+ * @param {string|number} el 滾動位置('top': 頂部, 'bottom': 底部, '.foobar': 元素, 300: 像素)
+ * @param {number} speed 滾動時間(瞬移為1,請勿設為0)
+ * @param {number} offset 自定偏移(可接受正負數字)
+ * @param {function} callback 回調函式
+ * @example scrollTo(); -> 滾動回項部
+ * @example scrollTo('top', 1); -> 瞬間回項部
+ * @example scrollTo('.foobar', 10, -30, () => {console.log('滾動完成')});
  */
 function scrollTo(el = "top", speed = 5, offset = 0, callback = () => {}) {
   let scrollTop = document.scrollingElement.scrollTop;
@@ -558,7 +501,7 @@ function scrollTo(el = "top", speed = 5, offset = 0, callback = () => {}) {
 
 /**
  * 取得頁面當前捲動長寬度
- * @param  {String} type 類型(width: 寬度, height: 高度)
+ * @param {string} type 類型(width: 寬度, height: 高度)
  */
 function getPageScroll(type = 'height') {
   if(type === 'width') {
@@ -579,8 +522,8 @@ function getPageScroll(type = 'height') {
 
 /**
  * 取得頁面長寬度
- * @param  {String} type 類型(width: 寬度, height: 高度)
- * @param  {String} scope 範圍(view: 可視頁面, all: 完整頁面)
+ * @param {string} type 類型(width: 寬度, height: 高度)
+ * @param {string} scope 範圍(view: 可視頁面, all: 完整頁面)
  */
 function getPageInfo(type = 'width', scope = 'view') {
   let el = document.compatMode == "BackCompat" ? document.body : document.documentElement;
@@ -597,10 +540,10 @@ function getPageInfo(type = 'width', scope = 'view') {
 //-----------------------Verify-----------------------
 /**
  * 常用驗證函式
- * @param  {Any} val 傳入值
- * @param  {String, Regex} type 驗證類型(可接受正則表達式)
- * 例：isVerify('1988-05-27', 'date') -> true
- * 例：isVerify('ABC', /[A-Z]/) -> true
+ * @param {any} val 傳入值
+ * @param {string|regex} type 驗證類型(可接受正則表達式)
+ * @example isVerify('1988-05-27', 'date') -> true
+ * @example isVerify('ABC', /[A-Z]/) -> true
  */
 function isVerify(val, type) {
   if(val == null) return val;
@@ -673,7 +616,7 @@ function isVerify(val, type) {
 
 /**
  * 精準數字驗證
- * @param  {Any} val 傳入值
+ * @param {any} val 傳入值
  */
 function isNumber(val) {
   return typeOf(val) !== "number" ? false : !isNaN(val);
@@ -681,7 +624,7 @@ function isNumber(val) {
 
 /**
  * 未填入驗證
- * @param  {Any} val 傳入值
+ * @param {any} val 傳入值
  */
 function isEmpty(val) {
   switch(typeOf(val)) {
@@ -708,7 +651,7 @@ function isEmpty(val) {
 //-----------------------Web-----------------------
 /**
  * 取得Cookie的值
- * @param  {String} key 傳入值
+ * @param {string} key 傳入值
  */
 function getCookie(key) {
   let arr = document.cookie.match(new RegExp("(^| )" + key + "=([^;]*)(;|$)"));
@@ -719,9 +662,9 @@ function getCookie(key) {
 /**
  * 函式防抖
  * @description 將幾次操作合併為一次操作進行
- * @param  {Function} fn 處理函式
- * @param  {Number} wait 停止後等待時間 預設為200ms
- * 例：window.addEventListener('scroll', debounce(() => console.log(getRandom), 500));
+ * @param {function} fn 處理函式
+ * @param {number} wait 停止後等待時間 預設為200ms
+ * @example window.addEventListener('scroll', debounce(() => console.log(getRandom), 500));
  */
 function debounce(fn, wait = 200) {
   let timeout = null;
@@ -735,9 +678,9 @@ function debounce(fn, wait = 200) {
 /**
  * 函式節流
  * @description 一定時間內只觸發一次函式
- * @param  {Function} fn 處理函式
- * @param  {Number} delay 處理間隔時間 預設為1000ms
- * 例：window.addEventListener('scroll', throttle(() => console.log(getRandom), 2000));
+ * @param {function} fn 處理函式
+ * @param {number} delay 處理間隔時間 預設為1000ms
+ * @example window.addEventListener('scroll', throttle(() => console.log(getRandom), 2000));
  */
 function throttle(fn, delay = 1000) {
   let prev = Date.now();
@@ -754,9 +697,9 @@ function throttle(fn, delay = 1000) {
 
 /**
  * 查詢網址所帶參數
- * @param  {String} key 鍵值
- * @param  {String} url 網址
- * 例：queryString('id', https://foo?id=123) -> "123"
+ * @param {string} key 鍵值
+ * @param {string} url 網址
+ * @example queryString('id', https://foo?id=123) -> "123"
  */
 function queryString(key = "", url = location.href) {
   let parseUrl = new URL(url);
@@ -765,7 +708,7 @@ function queryString(key = "", url = location.href) {
 
 /**
  * 解析網址
- * @param  {String} url 網址
+ * @param {string} url 網址
  */
 function parseUrl(url = location.href) {
   if(url == null) return url;
@@ -775,7 +718,7 @@ function parseUrl(url = location.href) {
 
 /**
  * 網址跳轉
- * @param  {String} url 欲跳轉的網址
+ * @param {string} url 欲跳轉的網址
  */
 function toUrl(url) {
   if(url == null) return url;
@@ -793,10 +736,10 @@ function jumpReload() {
 
 /**
  * 判斷是否移動裝置
- * @param  {String} os 作業系統('': 所有機型, apple: 蘋果, android: 安卓)
+ * @param {string} os 作業系統('': 所有機型, apple: 蘋果, android: 安卓)
  */
 function isMobile(os = '') {
-  switch (os) {
+  switch(os) {
     case 'apple':
       return /iphone|ipod|ipad|Macintosh/i.test(navigator.userAgent.toLowerCase());
     case 'android':
@@ -808,10 +751,10 @@ function isMobile(os = '') {
 
 export {
   nl2br,
-  randomString,
+  getRandomString,
   copyTextToClipboard,
   getRandom,
-  round,
+  roundNumber,
   formatNumber,
   padStart,
   imageLoaded,
@@ -831,12 +774,8 @@ export {
   deepClone,
   isLeapYear,
   isExistDate,
-  getColonTimeFromDate,
-  getDaysDiffBetweenDates,
-  isAfterDate,
-  isBeforeDate,
   getDiffDate,
-  uniqueId,
+  formatTime,
   scrollTo,
   getPageScroll,
   getPageInfo,
