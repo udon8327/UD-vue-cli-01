@@ -1,40 +1,40 @@
 /*
 ==================== Vue組件庫(Basic)目錄 ====================
 Form
-  Button 按鈕 -----> ud-button
-  Input 輸入框 -----> ud-input
-  Textarea 多行輸入框 -----> ud-textarea
-  Radio 單選框 -----> ud-radio
-  Checkbox 多選框 -----> ud-checkbox
-  Select 下拉框 -----> ud-select
-  SelectMultiple 下拉多選框 -----> ud-select-multiple
-  SelectLink 連動下拉框 -----> ud-select-link
-  SelectDate 日期連動下拉框 -----> ud-select-date
-  SelectTwzip 台灣行政區連動下拉框 -----> ud-select-twzip
-  Switch 開關 -----> ud-switch
-  DatePicker 日期選擇器 -----> ud-date-picker
-  Captcha 圖形驗證碼 -----> ud-captcha
-  FormItem 表單驗證容器 -----> ud-form-item
-  Form 表單驗證 -----> ud-form
+  ud-button：按鈕
+  ud-input：輸入框
+  ud-textarea：多行輸入框
+  ud-radio：單選框
+  ud-checkbox：多選框
+  ud-select：下拉框
+  ud-select-multiple：下拉多選框
+  ud-select-link：連動下拉框
+  ud-select-date：日期連動下拉框
+  ud-select-twzip：台灣行政區連動下拉框
+  ud-switch：開關
+  ud-date-picker：日期選擇器
+  ud-captcha：圖形驗證碼
+  ud-form-item：表單驗證容器
+  ud-form：表單驗證
 
 Layout
-  Flex 通用排版容器 -----> ud-flex
-  Arrow CSS箭頭 -----> ud-arrow
-  Collapse 摺疊容器 -----> ud-collapse
-  Ratio 等比例自適應容器 -----> ud-ratio
+  ud-flex：通用排版容器
+  ud-arrow：CSS箭頭
+  ud-collapse：摺疊容器
+  ud-ratio：等比例自適應容器
 
 Notice
-  Alert 警告彈窗 -----> ud-alert
-  Modal 通用彈窗 -----> ud-modal
-  Loading 載入中 -----> ud-loading
+  ud-alert：警告彈窗
+  ud-modal：通用彈窗
+  ud-loading：載入中
 
 Tools
-  Html 用戶自定義訊息 -----> ud-html
-  Backtop 回到頂部 -----> ud-backtop
-  Ellipsis 文字省略 -----> ud-ellipsis
-  Phone 撥打電話 -----> ud-phone
-  Countdown 倒數計時 -----> ud-countdown
-  QrCode 取得QRcode圖片 -----> ud-qrcode
+  ud-html：用戶自定義訊息
+  ud-backtop：回到頂部
+  ud-ellipsis：文字省略
+  ud-phone：撥打電話
+  ud-countdown：倒數計時
+  ud-qrcode：取得QRcode圖片
 */
 
 import Vue from 'vue'

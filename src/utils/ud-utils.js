@@ -41,7 +41,7 @@ Time
 DOM
   scrollTo：滾動至指定位置
   getPageScroll：取得頁面當前捲動高度(寬度)
-  getPageInfo：取得頁面長寬度
+  getPageSize：取得頁面尺寸
 
 Verify
   isVerify：常用驗證函式
@@ -521,19 +521,19 @@ function getPageScroll(type = 'height') {
 }
 
 /**
- * 取得頁面長寬度
- * @param {string} type 類型(width: 寬度, height: 高度)
- * @param {string} scope 範圍(view: 可視頁面, all: 完整頁面)
+ * 取得頁面尺寸
+ * @param {string} scope 範圍(view: 可視頁面, full: 完整頁面)
  */
-function getPageInfo(type = 'width', scope = 'view') {
+function getPageSize(scope = 'view') {
   let el = document.compatMode == "BackCompat" ? document.body : document.documentElement;
   if(scope === 'view') {
-    if(type === 'width') return el.clientWidth;
-    if(type === 'height') return el.clientHeight;
+    return [el.clientWidth, el.clientHeight];
   }
-  if(scope === 'all') {
-    if(type === 'width') return Math.max(document.documentElement.scrollWidth, document.body.scrollWidth, el.clientWidth);
-    if(type === 'height') return Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, el.clientHeight);
+  if(scope === 'full') {
+    return [
+      Math.max(document.documentElement.scrollWidth, document.body.scrollWidth,el.clientWidth),
+      Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, el.clientHeight)
+    ];
   }
 }
 
@@ -778,7 +778,7 @@ export {
   formatTime,
   scrollTo,
   getPageScroll,
-  getPageInfo,
+  getPageSize,
   isVerify,
   isNumber,
   isEmpty,
