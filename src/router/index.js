@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
+import Input from '@/views/Input.vue'
 import liffLogin from '@/services/liff-login'
 
 Vue.use(VueRouter)
@@ -28,6 +29,15 @@ const routes = [
     component: About,
     meta: {
       title: "關於我",
+      requiresAuth: true
+    },
+  },
+  {
+    path: '/input',
+    name: 'Input',
+    component: Input,
+    meta: {
+      title: "打字練習",
       requiresAuth: true
     },
   },

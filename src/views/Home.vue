@@ -7,6 +7,8 @@
     router-link(to='/home') Home
     |  | 
     router-link(to='/about') About
+    |  | 
+    router-link(to='/input') Input
   h1 Home
   h2 {{ utilsTest(3) }}
   h2 {{ utilsTest(13) }}

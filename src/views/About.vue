@@ -8,6 +8,8 @@
     router-link(to='/home') Home
     |  | 
     router-link(to='/about') About
+    |  | 
+    router-link(to='/input') Input
   h1 About
   p {{ total }}
   ud-button(name="udon" type="submit") 送出
