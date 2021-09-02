@@ -1,8 +1,8 @@
 /**
  * udAxios 額外config值
- * @param {Boolean} noAlert 關閉alert效果
+ * @param {Boolean} noAlert 關閉自動alert 改為手動處理
  * @param {Boolean} noLoading 關閉loading效果
- * @param {Boolean} fullRes 成功時回傳完整res
+ * @param {Boolean} fullRes 成功時回傳完整response
  * @param {Object} alert 客製化alert效果
  * @param {Object} loading 客製化loading效果
  */
@@ -12,7 +12,7 @@ import { udAlert, udLoading } from '@/components/UdonUI'
 
 // 自定義axios實例預設值
 const udAxios = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL,
+  baseURL: "https://udon8327.synology.me:8000",
   timeout: 30000, // 請求超時時間
   // headers: {
   //   authorization: 'Bearer token',
@@ -28,7 +28,7 @@ let ajaxCount = 0;
 // 請求攔截器
 udAxios.interceptors.request.use(
   config => {
-    if(udLoading && !config.noLoading){
+    if(!config.noLoading){
       if(ajaxCount === 0) udLoading.open(config.loading);
       ajaxCount++;
     }
@@ -36,7 +36,7 @@ udAxios.interceptors.request.use(
     return config;
   },
   error => {
-    udAlert ? udAlert({title: error.message, msg: "請求發送失敗"}) : alert("請求發送失敗");
+    udAlert({ title: error.message, msg: "請求發送失敗" });
   }
 )
 
@@ -44,15 +44,36 @@ udAxios.interceptors.request.use(
 udAxios.interceptors.response.use(
   // 狀態碼 2xx: 回應成功
   response => {
-    if(udLoading && !response.config.noLoading){
+    if(!response.config.noLoading){
       ajaxCount--;
       if(ajaxCount === 0) udLoading.close();
     }
-    return Promise.resolve(response.config.fullRes ? response : response.data);
+
+    return new Promise((resolve, reject) => {
+      let resData = response.config.fullRes ? response : response.data;
+
+      if(response.config.noAlert) {
+        resolve(resData);
+        return;
+      }
+
+      if(response.data.status === false) {
+        let alertConfig = {
+          msg: response.data.message,
+          onConfirm: () => reject(resData)
+        }
+        Object.assign(alertConfig, response.config.alert);
+        udAlert(alertConfig);
+        return;
+      }
+
+      resolve(resData);
+    })
+
   },
   // 狀態碼 3xx: 重新導向, 4xx: 用戶端錯誤, 5xx: 伺服器錯誤
   error => {
-    if(udLoading && !error.config.noLoading) {
+    if(!error.config.noLoading) {
       ajaxCount--;
       if(ajaxCount === 0) udLoading.close();
     }
@@ -60,15 +81,19 @@ udAxios.interceptors.response.use(
     // 定義錯誤訊息
     let errorMsg = "";
     let errorUrl = "";
+
     // 請求已發出，有收到錯誤回應
     if(error.response) {
       errorMsg = statusMsg[error.response.status] ? statusMsg[error.response.status] : "發生未知的錯誤";
       // error帶入message可自定義錯誤訊息
       if(error.response.data && error.response.data.message) errorMsg = error.response.data.message;
+      // error帶入url可自定義轉導網址
       if(error.response.data && error.response.data.url) errorUrl = error.response.data.url;
+
     // 請求已發出，但没有收到回應
     }else if(error.request) {
       errorMsg = "伺服器沒有回應";
+
     // 請求被取消或發送請求時異常
     }else {
       errorMsg = "請求被取消或發送請求時異常";
@@ -79,29 +104,25 @@ udAxios.interceptors.response.use(
         reject(error);
         return;
       }
-      if(udAlert) {
-        let alertConfig = {
-          // title: `${error.response.status} ${error.response.statusText}`,
-          msg: errorMsg,
-          onConfirm: () => reject(error)
-        }
-        if(errorUrl) alertConfig.onConfirm = () => location.href = errorUrl;
 
-        // 客製化錯誤處理
-        // if(error.response.status === 401) {
-        //   location.href = '';
-        //   return;
-        // }
-        // if (error.response.status === 400) {
-        //     alertConfig.onConfirm = () => location.href = '';
-        // }
-
-        Object.assign(alertConfig, error.config.alert);
-        udAlert(alertConfig);
-      }else {
-        alert(errorMsg);
-        reject(error);
+      let alertConfig = {
+        // title: `${error.response.status} ${error.response.statusText}`,
+        msg: errorMsg,
+        onConfirm: () => reject(error)
       }
+      if(errorUrl) alertConfig.onConfirm = () => location.href = errorUrl;
+
+      // 客製化錯誤處理
+      // if(error.response.status === 400) {
+      //   location.href = '';
+      //   return;
+      // }
+      // if(error.response.status === 401) {
+      //   alertConfig.onConfirm = () => location.href = '';
+      // }
+
+      Object.assign(alertConfig, error.config.alert);
+      udAlert(alertConfig);
     })
 
   }

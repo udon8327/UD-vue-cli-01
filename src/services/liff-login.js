@@ -1,40 +1,47 @@
+import { udAlert } from '@/components/UdonUI'
+
 const liffLogin = {
-  loginChannelId: process.env.VUE_APP_LINE_LOGIN_CHANNEL_ID, // login ChannelId
-  messageChannelId: process.env.VUE_APP_LINE_MESSAGE_CHANNEL_ID, // 活動 channelID
-  lineUid: null, // 使用者Uid
+  userId: null, // 使用者Uid
   displayName: null, // 使用者暱稱
   pictureUrl: null, // 使用者頭像
+  email: null, // 使用者email
   accessToken: null,
-  login: function (liffID) {
-    return new Promise(resolve => {
+  login: function() {
+    return new Promise((resolve, reject) => {
       liff.init({
-        liffId: liffID
+        liffId: process.env.VUE_APP_LINE_LIFF_ID
       }).then(() => {
-        if (!liff.isLoggedIn()) {
-          liff.login({redirectUri: location.href});
+        if(!liff.isLoggedIn()) {
+          liff.login({
+            redirectUri: location.href
+          });
           return;
         }
         liff.getFriendship().then(data => {
-          if (data.friendFlag) {
+          if(data.friendFlag) {
             liff.getProfile().then(profile => {
-              this.lineUid = profile.userId;
+              this.userId = profile.userId;
               this.displayName = profile.displayName;
               this.pictureUrl = profile.pictureUrl;
+              this.email = liff.getDecodedIDToken().email;
               this.accessToken = liff.getAccessToken();
               sessionStorage.setItem("lineUid", profile.userId);
               sessionStorage.setItem("accessToken", this.accessToken);
-              resolve();
+              resolve(profile);
             }).catch(err => {
-              // this.doLog('getProfile', err);
+              udAlert('取得資料失敗，請稍候再試').then(() => liff.closeWindow());
+              reject(err);
             });
-          } else {
+          }else {
             location.href = process.env.VUE_APP_LINE_ADD_FRIEND_LINK;
           }
         }).catch(err => {
-          // this.doLog('getFriendship', err);
+          udAlert('取得好友狀態失敗，請稍候再試').then(() => liff.closeWindow());
+          reject(err);
         });
       }).catch(err => {
-        // this.doLog('login', err);
+        udAlert('應用程式初始化失敗，請稍候再試').then(() => liff.closeWindow());
+        reject(err);
       });
     });
   },

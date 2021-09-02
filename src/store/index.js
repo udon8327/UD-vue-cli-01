@@ -3,17 +3,21 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     user: {
       name: "UDON",
       phone: '0929864747'
-    }
+    },
+    profile: {}
   },
   mutations: {
     addData(state) {
       state.user.gender = 'male';
       Vue.set(state, 'clicked', false);
+    },
+    setProfile(state, data) {
+      state.profile = data;
     }
   },
   actions: {
@@ -21,3 +25,5 @@ export default new Vuex.Store({
   modules: {
   }
 })
+
+export default store

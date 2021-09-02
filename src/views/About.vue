@@ -1,55 +1,56 @@
 <template lang="pug">
-.view-about
-  ud-modal(v-model="isModalShow")
+  #about
+    ud-modal(v-model="isModalShow")
+      img(src="@/assets/images/logo.png")
+      h2 這是modal
+      ud-button(@click="isModalShow = 0") OK
+    #nav
+      router-link(to='/home') Home
+      |  | 
+      router-link(to='/about') About
+    h1 About
+    ud-button(@click="$router.go(-1)") 上一頁
+    p {{ total }}
+    ud-button(name="udon" type="submit") 送出
+    router-view
+    ud-input(placeholder="好喔" v-model="value" center)
+    router-view(name='b')
     img(src="@/assets/images/logo.png")
-    h2 這是modal
-    ud-button(@click="isModalShow = 0") OK
-  #nav
-    router-link(to='/home') Home
-    |  | 
-    router-link(to='/about') About
-  h1 About
-  p {{ total }}
-  ud-button(name="udon" type="submit") 送出
-  router-view
-  ud-input(placeholder="好喔" v-model="value" center)
-  router-view(name='b')
-  img(src="@/assets/images/logo.png")
-  img(src="@/assets/images/small.png")
-  ud-button.mb-1(@click="click") 好喔
-  ud-button.mb-1(@click="add") 增加
-  ud-button.mb-1(@click="test" throttle) 隨機數
-  ud-button.mb-1(@click="toHome") 去首頁
-  h2 {{ $route.params.id }}, {{ $route.query.name }}
-  p {{ user.name }}
-  p {{ user.phone }}
-  p {{ user.gender }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
-  p {{ isModal }}
+    img(src="@/assets/images/small.png")
+    ud-button.mb-1(@click="click") 好喔
+    ud-button.mb-1(@click="add") 增加
+    ud-button.mb-1(@click="test" throttle) 隨機數
+    ud-button.mb-1(@click="toHome") 去首頁
+    h2 {{ $route.params.id }}, {{ $route.query.name }}
+    p {{ user.name }}
+    p {{ user.phone }}
+    p {{ user.gender }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
+    p {{ isModal }}
 </template>
 
 <script>
@@ -63,7 +64,7 @@ export default {
       value: "",
     }
   },
-  computed: mapState({
+  computed: {
     isModal() {
       return this.isModalShow + 2
     },
@@ -71,10 +72,12 @@ export default {
       return this.$root.$data.total;
     },
     ...mapState({
-      user: state => state.user
+      user: 'user'
     }),
-  }),
+  },
   mounted() {
+    // console.log(this.$route.query.id);
+    // console.log(this.$route.params.id);
     // console.log(this.formatNumber(this.getRandom(1000, 9999999)));
     // this.udLoading.open({msg: "載入中..."});
     // this.udAlert({
