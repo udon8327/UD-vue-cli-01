@@ -1,6 +1,9 @@
 <template>
   <div class="ud-form" :class="{'is-no-error-msg': noErrorMsg}">
-    <form v-bind="$attrs">
+    <form 
+      v-bind="$attrs"
+      v-on="$listeners"
+    >
       <slot></slot>
     </form>
   </div>

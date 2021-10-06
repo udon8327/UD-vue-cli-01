@@ -4,6 +4,7 @@
       type="text"
       v-model="modelValue"
       v-bind="$attrs"
+      v-on="$listeners"
       @input="onInput"
       :rows="rows"
     >

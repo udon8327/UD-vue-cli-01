@@ -4,6 +4,7 @@
       v-model="modelValue" 
       :data-placeholder-selected="modelValue.length === 0"
       v-bind="$attrs"
+      v-on="$listeners"
       @change="onChange"
       ref="select"
     >

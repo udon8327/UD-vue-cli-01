@@ -5,6 +5,7 @@
         type="checkbox"
         v-model="modelValue"
         v-bind="$attrs"
+        v-on="$listeners"
       >
       <div class="switch-decorator">
         <div class="circle"></div>

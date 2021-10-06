@@ -7,6 +7,7 @@
         v-model="modelValue"
         :value="option"
         v-bind="$attrs"
+        v-on="$listeners"
         @change="onChange"
         ref="radio"
       >
@@ -22,6 +23,7 @@
         v-model="modelValue"
         :value="option.value"
         v-bind="$attrs"
+        v-on="$listeners"
         @change="onChange"
         ref="radio"
       >

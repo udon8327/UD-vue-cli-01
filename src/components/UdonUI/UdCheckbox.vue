@@ -7,6 +7,7 @@
           v-model="modelValue"
           :value="option"
           v-bind="$attrs"
+          v-on="$listeners"
           @change="onChange"
           ref="checkbox"
         >
@@ -21,6 +22,7 @@
           :value="option.value"
           v-model="modelValue"
           v-bind="$attrs"
+          v-on="$listeners"
           @change="onChange"
           ref="checkbox"
         >

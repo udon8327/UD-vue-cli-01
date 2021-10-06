@@ -3,6 +3,7 @@
     <button
       @click="clickHandler"
       v-bind="$attrs"
+      v-on="$listeners"
       :disabled="disabled || loading"
       :class="{
         'is-disabled': disabled || loading,

@@ -33,7 +33,7 @@ export default {
       confirm: false, // 是否有確認+取消鈕
       maskClose: false, // 點擊遮罩關閉
       btnClose: false, // 右上關閉按鈕
-      scrollLock: true, // 是否鎖定背景頁面捲動
+      scrollLock: false, // 是否鎖定背景頁面捲動
       title: '', // 標題文字
       msg: "網路通信錯誤，請稍候再試", // 訊息文字
       cancelText: "取消", // 取消鈕文字

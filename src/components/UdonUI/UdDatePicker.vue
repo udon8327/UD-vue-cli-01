@@ -4,6 +4,7 @@
       class="ud-select"
       v-model="modelValue"
       v-bind="$attrs"
+      v-on="$listeners"
       type="date"
       :value-format="valueFormat"
       :align="align"

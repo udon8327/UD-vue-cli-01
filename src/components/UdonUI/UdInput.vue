@@ -3,6 +3,7 @@
     <input
       v-model="modelValue"
       v-bind="$attrs"
+      v-on="$listeners"
       @input="onInput"
       ref="input"
     >
